@@ -1,3 +1,5 @@
+/* Animations are AI generated */
+
 :host ::ng-deep .p-card {
     transition: all 0.3s ease;
     cursor: pointer;

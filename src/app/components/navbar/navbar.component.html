@@ -8,7 +8,7 @@
                 <i class="pi pi-home"></i>
                 <span>Home</span>
             </a>
-            <a routerLink="/contact" routerLinkActive="active" class="menu-item">
+            <a (click)="scrollToContact()" class="menu-item" style="cursor: pointer;">
                 <i class="pi pi-envelope"></i>
                 <span>Contact</span>
             </a>
@@ -43,7 +43,7 @@
                 <i class="pi pi-home"></i>
                 <span>Home</span>
             </a>
-            <a routerLink="/contact" routerLinkActive="active" class="mobile-menu-item" (click)="closeMobileMenu()">
+            <a (click)="scrollToContactAndCloseMobile()" class="mobile-menu-item" style="cursor: pointer;">
                 <i class="pi pi-envelope"></i>
                 <span>Contact</span>
             </a>

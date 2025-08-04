@@ -1,0 +1,52 @@
+{
+  "title": "Privacy Policy",
+  "lastUpdated": "January 1, 2025",
+  "sections": [
+    {
+      "title": "Information We Collect",
+      "items": [
+        "Personal information you provide when creating an account",
+        "Transaction details when you make a purchase",
+        "Communication data when you contact us for support",
+        "Usage information about how you interact with our services"
+      ]
+    },
+    {
+      "title": "How We Use Your Information",
+      "items": [
+        "Provide, maintain, and improve our services",
+        "Process transactions and send related information",
+        "Communicate with you about updates and support",
+        "Analyze usage patterns to enhance user experience",
+        "Comply with legal obligations and protect our rights"
+      ]
+    },
+    {
+      "title": "Information Sharing",
+      "items": [
+        "We do not sell your personal information to third parties",
+        "We may share data with service providers who assist our operations",
+        "We may disclose information when required by law",
+        "We may share data in connection with business transfers"
+      ]
+    },
+    {
+      "title": "Data Security",
+      "items": [
+        "We implement industry-standard encryption protocols",
+        "Regular security audits and vulnerability assessments",
+        "Access controls and authentication measures",
+        "Secure data storage and transmission practices",
+        "Employee training on data protection procedures"
+      ]
+    },
+    {
+      "title": "Contact Us",
+      "items": [
+        "Email us at privacy@launchpad.com for privacy-related questions",
+        "Contact our support team for general inquiries",
+        "Submit requests for data access or deletion"
+      ]
+    }
+  ]
+}

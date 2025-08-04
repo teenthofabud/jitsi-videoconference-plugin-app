@@ -67,6 +67,19 @@ body {
     font-size: 36px;
 }
 
+.text-blue {
+    color: rgb(89, 89, 213);
+}
+
+.text-grey {
+    color: grey;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+
 @media (max-width: 768px) {
     .font-60 {
         font-size: 36px;
@@ -134,7 +147,7 @@ body {
     font-weight: 400;
 }
 
-.content-list li::marker {
+/* .content-list li::marker {
     color: var(--p-primary-color);
     font-size: 1.2em;
-}
+} */

@@ -18,4 +18,19 @@ export class NavbarComponent {
   closeMobileMenu() {
     this.mobileMenuOpen = false;
   }
+
+  scrollToContact() {
+    const contactSection = document.getElementById('contact-section');
+    if (contactSection) {
+      contactSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+    }
+  }
+
+  scrollToContactAndCloseMobile() {
+    this.scrollToContact();
+    this.closeMobileMenu();
+  }
 }

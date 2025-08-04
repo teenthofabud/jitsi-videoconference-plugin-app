@@ -1,11 +1,24 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import termsData from '../../../assets/data/terms.json';
+
+interface TermsSection {
+  title: string;
+  items: string[];
+}
+
+interface TermsData {
+  title: string;
+  lastUpdated: string;
+  sections: TermsSection[];
+}
 
 @Component({
   selector: 'app-terms',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './terms.component.html',
   styleUrl: './terms.component.css'
 })
 export class TermsComponent {
-  lastUpdated = 'January 1, 2025';
+  termsData: TermsData = termsData;
 }

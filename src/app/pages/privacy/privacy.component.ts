@@ -1,11 +1,24 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import privacyData from '../../../assets/data/privacy.json';
+
+interface PrivacySection {
+  title: string;
+  items: string[];
+}
+
+interface PrivacyData {
+  title: string;
+  lastUpdated: string;
+  sections: PrivacySection[];
+}
 
 @Component({
   selector: 'app-privacy',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './privacy.component.html',
   styleUrl: './privacy.component.css'
 })
 export class PrivacyComponent {
-  lastUpdated = 'January 1, 2025';
+  privacyData: PrivacyData = privacyData;
 }
