@@ -1,24 +1,13 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import termsData from '../../../assets/data/terms.json';
-
-interface TermsSection {
-  title: string;
-  items: string[];
-}
-
-interface TermsData {
-  title: string;
-  lastUpdated: string;
-  sections: TermsSection[];
-}
+import { CardModule } from 'primeng/card';
+import { DividerModule } from 'primeng/divider';
 
 @Component({
   selector: 'app-terms',
-  imports: [CommonModule],
+  imports: [CommonModule, CardModule, DividerModule],
   templateUrl: './terms.component.html',
   styleUrl: './terms.component.css'
 })
 export class TermsComponent {
-  termsData: TermsData = termsData;
 }

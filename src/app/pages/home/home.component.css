@@ -10,7 +10,7 @@
 :host ::ng-deep .p-card:hover {
     transform: translateY(-8px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-    border-color: var(--p-primary-200);
+    /* border-color: var(--p-primary-200); */
 }
 
 :host ::ng-deep .p-card:hover .pi {
@@ -27,7 +27,7 @@
     color: var(--p-text-color);
 }
 
-:host ::ng-deep .p-card:hover .p-card-body {
+/* :host ::ng-deep .p-card:hover .p-card-body {
     background: linear-gradient(135deg, var(--p-surface-0) 0%, var(--p-primary-50) 100%);
     transition: background 0.3s ease;
-}
+} */

@@ -1,0 +1,21 @@
+/* Simple Table of Contents */
+.toc-links {
+    margin: 1rem 0;
+}
+
+.toc-link {
+    display: block;
+    padding: 0.5rem 0;
+    color: var(--p-primary-500);
+    text-decoration: none;
+    border-bottom: 1px solid var(--p-surface-200);
+}
+
+.toc-link:hover {
+    color: var(--p-primary-700);
+    text-decoration: underline;
+}
+
+.toc-link:last-child {
+    border-bottom: none;
+}
