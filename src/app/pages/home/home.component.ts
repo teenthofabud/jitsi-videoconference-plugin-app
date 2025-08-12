@@ -3,26 +3,28 @@ import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 import { DatePickerModule } from 'primeng/datepicker';
-import { InputTextModule } from 'primeng/inputtext';
+import { InputText, InputTextModule } from 'primeng/inputtext';
 import { CardModule } from 'primeng/card';
-
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { inject } from '@angular/core/primitives/di';
 @Component({
   selector: 'app-home',
-  imports: [FormsModule, ButtonModule, TableModule, DatePickerModule, InputTextModule, CardModule],
+  imports: [FormsModule, ButtonModule, TableModule, DatePickerModule, InputTextModule, CardModule, MessageModule, ToastModule],
   templateUrl: './home.component.html',
+  providers: [MessageService],
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  date: Date | null = null;
-  value: string = ''; // Added the missing value property
-
-  // Sample data for PrimeNG table
-  customers = [
-    { id: 1, name: 'John Doe', email: 'john@example.com', country: 'USA' },
-    { id: 2, name: 'Jane Smith', email: 'jane@example.com', country: 'UK' },
-    { id: 3, name: 'Bob Johnson', email: 'bob@example.com', country: 'Canada' },
-    { id: 4, name: 'Alice Brown', email: 'alice@example.com', country: 'Australia' },
-    { id: 5, name: 'Charlie Wilson', email: 'charlie@example.com', country: 'Germany' },
-    { id: 6, name: 'Diana Davis', email: 'diana@example.com', country: 'France' }
-  ];
+  // messageService = inject(MessageService);
+  constructor(private messageService: MessageService) { }
+  email: any;
+  onSubmit(form: any) {
+    if (form.valid) {
+      console.log(form)
+      this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form is submitted', life: 3000 });
+      form.resetForm();
+    }
+  }
 }
