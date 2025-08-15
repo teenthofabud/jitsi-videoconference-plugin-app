@@ -13,22 +13,23 @@
 
         <div class="row justify-content-center">
             <div class="col-12 col-md-8 col-lg-6">
-                <div class="d-flex flex-column flex-md-row gap-3 align-items-center">
-                    <form #subForm="ngForm" (ngSubmit)="onSubmit(subForm)">
-                        <p-toast />
-                        <div class="flex-grow-1 w-100">
+                <form #subForm="ngForm" (ngSubmit)="onSubmit(subForm)" class="d-flex flex-column flex-md-row gap-3">
+                    <p-toast />
+                    <div class="flex-grow-1 w-100">
 
-                            <input class="w-100" type="email" placeholder="Enter your email address" pInputText
-                                name="email" [(ngModel)]="email" #emailModel="ngModel" required />
-                            @if ( emailModel.invalid && (emailModel.touched || subForm.submitted)) {
-                            <p-message severity="error" size="small">Mail is req.</p-message>
-                            }
-                        </div>
-                        <div class="flex-shrink-0">
-                            <button pButton type="submit"><span pButtonLabel>Submit</span></button>
-                        </div>
-                    </form>
-                    <!-- <div class="flex-grow-1 w-100">
+                        <input class="w-100" type="email" placeholder="Enter your email address" pInputText name="email"
+                            [(ngModel)]="email" #emailModel="ngModel" required email="true" />
+                        @if ( emailModel.invalid && (emailModel.touched || subForm.submitted)) {
+                        <p-message severity="error" size="small">Mail is req.</p-message>
+                        }
+                    </div>
+                    <div class="flex-shrink-0">
+                        <button pButton type="submit"><span pButtonLabel>Submit</span></button>
+                    </div>
+                </form>
+                <!-- <div class=""> -->
+
+                <!-- <div class="flex-grow-1 w-100">
                         <input class="w-100" type="email" placeholder="Enter your email address" pInputText />
                     </div>
                     <div class="flex-shrink-0">
@@ -36,7 +37,7 @@
                             <span pButtonLabel>Join Waitlist</span>
                         </button>
                     </div> -->
-                </div>
+                <!-- </div> -->
             </div>
         </div>
         <div class="welcome-text mt-3 text-grey">
