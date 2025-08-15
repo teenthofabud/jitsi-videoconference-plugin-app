@@ -20,11 +20,11 @@
                         <input class="w-100" type="email" placeholder="Enter your email address" pInputText name="email"
                             [(ngModel)]="email" #emailModel="ngModel" required email="true" />
                         @if ( emailModel.invalid && (emailModel.touched || subForm.submitted)) {
-                        <p-message severity="error" size="small">Mail is req.</p-message>
+                        <p-message severity="error" size="small">Valid email is required.</p-message>
                         }
                     </div>
                     <div class="flex-shrink-0">
-                        <button pButton type="submit"><span pButtonLabel>Submit</span></button>
+                        <button pButton type="submit"><span pButtonLabel>Join Waitlist</span></button>
                     </div>
                 </form>
                 <!-- <div class=""> -->
