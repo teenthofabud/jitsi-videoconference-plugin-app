@@ -12,15 +12,15 @@ import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { TermsComponent } from './pages/terms/terms.component';
 import { ContactComponent } from './pages/contact/contact.component';
 
+
 // PrimeNG Modules
 import { ButtonModule } from 'primeng/button';
-import { TableModule } from 'primeng/table';
+// import { TableModule } from 'primeng/table';
 import { MenubarModule } from 'primeng/menubar';
 import { providePrimeNG } from 'primeng/config';
 import { definePreset } from '@primeuix/themes';
 import Aura from '@primeuix/themes/aura';
-import { DatePickerModule } from 'primeng/datepicker';
-import { CardModule } from 'primeng/card';
+import { HttpClientModule } from '@angular/common/http';
 
 // custom blue theme preset
 const BluePreset = definePreset(Aura, {
@@ -51,15 +51,14 @@ const BluePreset = definePreset(Aura, {
     FormsModule,
     AppRoutingModule,
     ButtonModule,
-    TableModule,
     MenubarModule,
-    DatePickerModule,
     NavbarComponent,
     FooterComponent,
     HomeComponent,
     PrivacyComponent,
     TermsComponent,
-    ContactComponent
+    ContactComponent,
+    HttpClientModule
   ],
   providers: [
     providePrimeNG({
