@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="section-1 row justify-content-center align-items-center  bg-off-white text-center p-5">
         <div class="welcome-text text-center">
-            <p class="font-60 fw-bold mb-4">Enterprise Solutions <br> Simplified
+            <p class="font-60 fw-bold mb-4">Plugin for Self Hosted <br> Jitsi
             </p>
             <p class="font-18 text-grey mb-4">
                 Join the waitlist for the next generation of enterprise software. <br> Experience streamlined workflows
@@ -19,7 +19,7 @@
 
                         <input class="w-100" type="email" placeholder="Enter your email address" pInputText name="email"
                             [(ngModel)]="email" #emailModel="ngModel" required email="true" />
-                        @if ( emailModel.invalid && (emailModel.touched || subForm.submitted)) {
+                        @if ( emailModel.invalid && subForm.submitted) {
                         <p-message severity="error" size="small">Valid email is required.</p-message>
                         }
                     </div>
