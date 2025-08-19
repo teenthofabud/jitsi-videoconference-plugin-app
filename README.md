@@ -1,6 +1,6 @@
 # AI GENERATED 
 
-# LaunchPad
+# jitsi-videoconference-plugin
 
 A modern Angular application built with PrimeNG components, featuring a clean design and responsive layout.
 
