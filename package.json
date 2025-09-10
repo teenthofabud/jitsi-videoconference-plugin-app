@@ -7,7 +7,10 @@
     "build": "ng build --configuration production",
     "build:vercel": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "deploy:minio": "deploy.bat",
+    "build-and-deploy": "npm run build && npm run deploy:minio",
+    "setup-minio": "setup-bucket.bat"
   },
   "private": true,
   "dependencies": {
