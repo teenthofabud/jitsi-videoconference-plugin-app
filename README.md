@@ -20,7 +20,6 @@ A modern Angular application built with PrimeNG components, featuring a clean de
 - **Styling**: CSS3 with PrimeNG theming
 - **Icons**: PrimeIcons
 - **Fonts**: Inter (headings) + Georgia (content)
-- **Deployment**: Vercel
 
 ## 📦 Installation
 
@@ -44,36 +43,74 @@ Navigate to `http://localhost:4200/` to view the application.
 
 ## 🏗️ Build
 
-### Development Build
 ```bash
 npm run build
 ```
 
-### Production Build
+Build artifacts are stored in the `dist/launch-pad/` directory.
+
+## 🚀 Deployment
+
+### Automated Deployment
+
+#### Node.js Deployment Script
 ```bash
-npm run build:vercel
+# Deploy with default settings (MinIO localhost)
+npm run deploy
+
+# Deploy to AWS S3
+npm run deploy:aws
+
+# Build and deploy in one command
+npm run build-and-deploy
+
+# Deploy to custom bucket/endpoint
+node deploy.js --bucket my-bucket --endpoint https://s3.amazonaws.com
+
+# Deploy without deleting remote files
+node deploy.js --no-delete
+
+# Show help
+node deploy.js --help
 ```
 
-The build artifacts will be stored in the `dist/launch-pad/` directory.
+The deployment script supports:
+- Custom S3 endpoints (MinIO, DigitalOcean Spaces, etc.)
+- Automatic content-type detection
+- Sync with delete (removes files not present locally)
+- Default MinIO credentials for local development
 
-## 🚀 Deployment to Vercel
+### Manual S3/MinIO Bucket Setup
 
-This project is configured for seamless deployment to Vercel:
+For environments using S3 or MinIO for static hosting, you'll need to configure bucket policies and website hosting. The exact steps vary by environment:
 
-### Option 1: Vercel CLI
-1. Install Vercel CLI: `npm i -g vercel`
-2. Run: `vercel`
-3. Follow the prompts
+#### MinIO Local Development
+1. Set up AWS CLI with MinIO credentials:
+   ```bash
+   export AWS_ACCESS_KEY_ID=minioadmin
+   export AWS_SECRET_ACCESS_KEY=minioadmin
+   export AWS_DEFAULT_REGION=us-east-1
+   ```
 
-### Option 2: GitHub Integration
-1. Push your code to GitHub
-2. Connect your repository to Vercel
-3. Vercel will automatically deploy on every push
+2. Configure bucket policy for public access:
+   ```bash
+   aws s3api put-bucket-policy --bucket test --policy '{"Version":"2012-10-17","Statement":[{"Effect":"Allow","Principal":"*","Action":"s3:GetObject","Resource":"arn:aws:s3:::test/*"}]}' --endpoint-url http://localhost:9000
+   ```
 
-### Configuration Files
-- `vercel.json`: Vercel deployment configuration
-- `.vercelignore`: Files to exclude from deployment
-- Updated `angular.json`: Optimized production build settings
+3. Set up static website hosting manually in MinIO Console at http://localhost:9001
+
+4. Your app will be accessible at: http://localhost:9000/test/index.html
+
+#### AWS S3 Production
+- Configure bucket policy for public read access
+- Enable static website hosting
+- Set index.html as the index document
+- Configure CloudFront distribution (recommended)
+
+#### Other S3-Compatible Services
+- Adapt the above commands for your specific endpoint and credentials
+- Consult your provider's documentation for static website hosting setup
+
 
 ## 🧪 Testing
 
@@ -82,43 +119,12 @@ Run unit tests:
 npm test
 ```
 
-## 📁 Project Structure
-
-```
-src/
-├── app/
-│   ├── components/
-│   │   ├── navbar/          # PrimeNG MenuBar navigation
-│   │   └── footer/          # Footer component
-│   ├── pages/
-│   │   ├── home/            # Landing page
-│   │   ├── contact/         # Contact form
-│   │   ├── privacy/         # Privacy policy (bulleted)
-│   │   └── terms/           # Terms of service (bulleted)
-│   └── app.module.ts        # Main app module
-├── assets/                  # Static assets
-└── styles.css              # Global styles
-```
-
-## 🎨 Design Features
-
-- **Typography**: Inter for headings, Georgia for content
-- **Color Scheme**: Blue primary theme with PrimeNG
-- **Layout**: Centered content with max-width containers
-- **Navigation**: Right-aligned menu items with icons
-- **Content**: Bulleted lists for better readability
-
 ## 🔧 Development
 
-### Adding New Components
+### Adding Components
 ```bash
 ng generate component component-name
 ```
-
-### Adding PrimeNG Components
-1. Import the module in `app.module.ts`
-2. Add to the imports array
-3. Use in templates
 
 ### Customizing Themes
 Modify the theme configuration in `app.module.ts`:
@@ -134,15 +140,4 @@ const BluePreset = definePreset(Aura, {
 
 ## 📝 License
 
-This project is licensed under the MIT License.
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
-
-## 📞 Support
-
-For support and questions, please contact us at info@launchpad.com
+MIT License
