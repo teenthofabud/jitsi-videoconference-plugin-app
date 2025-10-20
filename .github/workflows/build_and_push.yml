@@ -39,6 +39,7 @@ jobs:
         with:
           name: dist
           path: dist/
+          retention-days: 2
 
   deploy:
     needs: build
