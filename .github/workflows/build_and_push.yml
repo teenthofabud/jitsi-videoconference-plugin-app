@@ -6,12 +6,12 @@ on:
       - feature/*
       - develop
       - master
-    workflow_dispatch:
-      inputs:
-        branch:
-          description: 'Branch to build'
-          required: false
-          default: 'master'
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to build'
+        required: false
+        default: 'master'
 
 jobs:
   build:
