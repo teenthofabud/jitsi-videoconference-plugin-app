@@ -1,25 +1,14 @@
-# AI GENERATED 
+## Floci.io local testing
+Since the base href property set by Angular by default will be having the value '/', 
+that is to resolve any paths based on the root domain, js, css files etc will not be loaded
+properly when locally testing using floci.io, But this will be needed when hosted on real
+aws s3
 
-# jitsi-videoconference-plugin
+So for local testing, follow below steps :
 
-A modern Angular application built with PrimeNG components, featuring a clean design and responsive layout.
+1. export ```BASE_REF``` env varaible with the s3 static website's bucket name as value
+2. run the ```npm run local-build``` for build
 
-## 🚀 Features
-
-- **Modern Angular 20**: Built with the latest Angular framework
-- **PrimeNG Components**: Professional UI components with consistent theming
-- **Responsive Design**: Mobile-first approach with responsive layouts
-- **Clean Navigation**: Pure PrimeNG MenuBar implementation
-- **Legal Pages**: Privacy Policy and Terms of Service with bulleted content
-- **Professional Styling**: Typography hierarchy with serif and sans-serif fonts
-
-## 🛠️ Tech Stack
-
-- **Frontend**: Angular 20
-- **UI Library**: PrimeNG 20
-- **Styling**: CSS3 with PrimeNG theming
-- **Icons**: PrimeIcons
-- **Fonts**: Inter (headings) + Georgia (content)
 
 ## 📦 Installation
 
