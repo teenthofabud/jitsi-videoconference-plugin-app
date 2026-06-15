@@ -22,8 +22,9 @@ jobs:
       contents: read
 
     env:
+      TF_LOG: ${{ vars.TF_LOG_LEVEL }}
       TF_ENV: ${{ inputs.environment }}
-      S3_BUCKET_NAME: ${{ var.AWS_JITSI_S3_BUCKET_NAME_PREFIX }}-${{ inputs.environment }}-${{ secrets.AWS_ACCOUNT_ID}}-${{ vars.AWS_REGION }}-an
+      S3_BUCKET_NAME: ${{ vars.AWS_JITSI_S3_BUCKET_NAME_PREFIX }}-${{ inputs.environment }}-${{ secrets.AWS_ACCOUNT_ID}}-${{ vars.AWS_REGION }}-an
 
     steps:
       - name: Checkout repository
