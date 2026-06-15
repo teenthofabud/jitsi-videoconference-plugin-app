@@ -23,8 +23,7 @@ jobs:
 
     env:
       TF_ENV: ${{ inputs.environment }}
-      AWS_REGION: eu-central-1
-      S3_BUCKET_NAME: ${{ secrets.AWS_JITSI_S3_BUCKET_NAME }}
+      S3_BUCKET_NAME: ${{ var.AWS_JITSI_S3_BUCKET_NAME_PREFIX }}-${{ inputs.environment }}-${{ secrets.AWS_ACCOUNT_ID}}-${{ vars.AWS_REGION }}-an
 
     steps:
       - name: Checkout repository
@@ -45,7 +44,7 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v6.1.0
         with:
-          aws-region: ${{ env.AWS_REGION }}
+          aws-region: ${{ vars.AWS_REGION }}
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ secrets.AWS_JITSI_S3_DEPLOY_ROLE_NAME }}
 
       - name: Deploy website to S3
