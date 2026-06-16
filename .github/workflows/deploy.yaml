@@ -40,10 +40,17 @@ jobs:
       - name: Build website
         run: npm run build
 
-      - name: Debug role ARN
+      - name: Debug GitHub OIDC claims
         run: |
-          echo "Role ARN: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ secrets.AWS_JITSI_S3_DEPLOY_ROLE_NAME }}-${{ inputs.environment }}"
+          OIDC_TOKEN=$(curl -sSL \
+            -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
+            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=sts.amazonaws.com" \
+            | jq -r '.value')
 
+          echo "$OIDC_TOKEN" \
+            | cut -d '.' -f2 \
+            | base64 -d 2>/dev/null \
+            | jq '{aud, sub, repository, ref, workflow, environment}'
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v6.1.0
