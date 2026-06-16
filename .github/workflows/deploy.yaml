@@ -1,0 +1,53 @@
+name: Deploy Jitsi website to AWS S3
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Environment to deploy the website to"
+        required: true
+        type: choice
+        options:
+          - dev
+          - qa
+          - prod
+        default: dev
+
+jobs:
+  deploy-website-to-s3:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    env:
+      TF_LOG: ${{ vars.TF_LOG_LEVEL }}
+      TF_ENV: ${{ inputs.environment }}
+      S3_BUCKET_NAME: ${{ vars.AWS_JITSI_S3_BUCKET_NAME_PREFIX }}-${{ inputs.environment }}-${{ secrets.AWS_ACCOUNT_ID}}-${{ vars.AWS_REGION }}-an
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build website
+        run: npm run build
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v6.1.0
+        with:
+          aws-region: ${{ vars.AWS_REGION }}
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ secrets.AWS_JITSI_S3_DEPLOY_ROLE_NAME }}
+
+      - name: Deploy website to S3
+        run: |
+          aws s3 sync dist/ "s3://${S3_BUCKET_NAME}/" --delete
