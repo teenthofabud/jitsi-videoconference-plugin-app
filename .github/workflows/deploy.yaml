@@ -22,8 +22,6 @@ jobs:
       contents: read
 
     env:
-      TF_LOG: ${{ vars.TF_LOG_LEVEL }}
-      TF_ENV: ${{ inputs.environment }}
       S3_BUCKET_NAME: ${{ vars.AWS_JITSI_S3_BUCKET_NAME_PREFIX }}-${{ inputs.environment }}-${{ secrets.AWS_ACCOUNT_ID}}-${{ vars.AWS_REGION }}-an
 
     steps:
@@ -46,7 +44,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v6.1.0
         with:
           aws-region: ${{ vars.AWS_REGION }}
-          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ secrets.AWS_JITSI_S3_DEPLOY_ROLE_NAME }}-${{ env.TF_ENV }}
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ secrets.AWS_JITSI_S3_DEPLOY_ROLE_NAME }}-${{ inputs.environment }}
 
       - name: Deploy website to S3
         run: |
