@@ -40,18 +40,6 @@ jobs:
       - name: Build website
         run: npm run build
 
-      - name: Debug GitHub OIDC claims
-        run: |
-          OIDC_TOKEN=$(curl -sSL \
-            -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
-            "${ACTIONS_ID_TOKEN_REQUEST_URL}&audience=sts.amazonaws.com" \
-            | jq -r '.value')
-
-          echo "$OIDC_TOKEN" \
-            | cut -d '.' -f2 \
-            | base64 -d 2>/dev/null \
-            | jq '{aud, sub, repository, ref, workflow, environment}'
-
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v6.1.0
         with:
@@ -60,4 +48,4 @@ jobs:
 
       - name: Deploy website to S3
         run: |
-          aws s3 sync dist/ "s3://${S3_BUCKET_NAME}/" --delete
+          aws s3 sync dist/launch-pad/browser/ "s3://${S3_BUCKET_NAME}/" --delete
