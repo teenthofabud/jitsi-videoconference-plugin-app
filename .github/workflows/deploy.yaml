@@ -40,6 +40,11 @@ jobs:
       - name: Build website
         run: npm run build
 
+      - name: Debug role ARN
+        run: |
+          echo "Role ARN: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ secrets.AWS_JITSI_S3_DEPLOY_ROLE_NAME }}-${{ inputs.environment }}"
+
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v6.1.0
         with:
