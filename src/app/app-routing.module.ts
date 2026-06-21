@@ -10,7 +10,13 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'privacy', component: PrivacyComponent },
   { path: 'terms', component: TermsComponent },
-  { path: 'contact', component: ContactComponent },
+  {
+    path: 'contact',
+    component: HomeComponent,
+    data: {
+      scrollTo: 'contact',
+    },
+  },
   { path: '**', redirectTo: '' }, // Wildcard route for 404 page
 ];
 
