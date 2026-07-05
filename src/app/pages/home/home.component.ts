@@ -30,7 +30,7 @@ export class HomeComponent {
       this.newsletterService.saveEmail(payload).subscribe({
         next: (response) => {
           this.data = response;
-          console.log(this.data);
+          // console.log(this.data);
           form.resetForm();
           this.messageService.add({
             severity: 'success',
