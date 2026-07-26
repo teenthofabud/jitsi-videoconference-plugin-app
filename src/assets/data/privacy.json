@@ -1,51 +1,98 @@
 {
   "title": "Privacy Policy",
-  "lastUpdated": "January 1, 2025",
+  "lastUpdated": "August 02, 2025",
   "sections": [
     {
-      "title": "Information We Collect",
+      "title": "1. Information We Collect",
       "items": [
-        "Personal information you provide when creating an account",
-        "Transaction details when you make a purchase",
-        "Communication data when you contact us for support",
-        "Usage information about how you interact with our services"
+        "We collect information that you provide directly to us when using our Services.",
+        "We may collect your name, email address, account information, and configuration details required to operate the Google Calendar Plugin for Jitsi.",
+        "When you sign in with Google, we may collect your Google account email address to identify your account and provide access to the Services.",
+        "We may collect Jitsi server URLs, conference room names, and related configuration data that you provide through the admin dashboard.",
+        "We may collect usage data, diagnostic data, error logs, and communication data when you contact us for support."
       ]
     },
     {
-      "title": "How We Use Your Information",
+      "title": "2. Google Calendar and Google Account Data",
       "items": [
-        "Provide, maintain, and improve our services",
-        "Process transactions and send related information",
-        "Communicate with you about updates and support",
-        "Analyze usage patterns to enhance user experience",
-        "Comply with legal obligations and protect our rights"
+        "Our Google Calendar Plugin for Jitsi uses Google OAuth permissions to provide calendar add-on functionality and to create, read, update, or manage calendar events as required by the Services.",
+        "The Services may request access to Google Calendar add-on execution, Google Calendar data, Google Calendar events, current calendar event read/write access, Google user email information, external request execution, and Google Apps Script execution as required for the plugin to function.",
+        "We use Google Calendar permissions only to provide the requested plugin functionality, including configuring Jitsi meeting links, managing conference room names, and interacting with calendar events.",
+        "We do not sell Google user data or use Google Calendar data for advertising purposes.",
+        "We do not access Google Calendar data beyond what is necessary to provide and maintain the Services."
       ]
     },
     {
-      "title": "Information Sharing",
+      "title": "3. How We Use Your Information",
       "items": [
-        "We do not sell your personal information to third parties",
-        "We may share data with service providers who assist our operations",
-        "We may disclose information when required by law",
-        "We may share data in connection with business transfers"
+        "To provide, operate, maintain, and improve our Services.",
+        "To authenticate users and associate plugin configuration with the correct Google account.",
+        "To configure self-hosted Jitsi server URLs and manage conference room names.",
+        "To support Google Calendar add-on functionality and related calendar event actions.",
+        "To provide customer support and respond to inquiries.",
+        "To detect, prevent, and address technical issues, misuse, or unauthorized access.",
+        "To comply with legal obligations and protect our rights."
       ]
     },
     {
-      "title": "Data Security",
+      "title": "4. Data Security",
       "items": [
-        "We implement industry-standard encryption protocols",
-        "Regular security audits and vulnerability assessments",
-        "Access controls and authentication measures",
-        "Secure data storage and transmission practices",
-        "Employee training on data protection procedures"
+        "We implement appropriate technical and organizational security measures to protect personal information and configuration data.",
+        "Access to user data is restricted to authorized personnel and systems that require access to operate or support the Services.",
+        "We use reasonable safeguards to protect data against unauthorized access, alteration, disclosure, or destruction.",
+        "However, no method of transmission over the Internet or electronic storage is 100% secure."
       ]
     },
     {
-      "title": "Contact Us",
+      "title": "5. Cookies and Tracking",
       "items": [
-        "Email us at privacy@launchpad.com for privacy-related questions",
-        "Contact our support team for general inquiries",
-        "Submit requests for data access or deletion"
+        "We may use cookies or similar technologies to maintain sessions, improve user experience, and understand usage of the Services.",
+        "You can instruct your browser to refuse cookies or notify you when cookies are being sent.",
+        "Some parts of the Services may not function properly if cookies are disabled."
+      ]
+    },
+    {
+      "title": "6. Third-Party Services",
+      "items": [
+        "Our Services integrate with Google services, including Google Calendar and Google account authentication.",
+        "Your use of Google services is also subject to Google's own terms and privacy policies.",
+        "The Services may contain links to third-party websites or services that are not operated by us.",
+        "We are not responsible for the content, privacy policies, or practices of third-party websites or services."
+      ]
+    },
+    {
+      "title": "7. Data Retention",
+      "items": [
+        "We retain personal information, Google account email information, and configuration data only for as long as necessary to provide the Services.",
+        "We may retain certain data as required to comply with legal obligations, resolve disputes, prevent misuse, and enforce our agreements.",
+        "You may request deletion of your data by contacting us using the contact details below."
+      ]
+    },
+    {
+      "title": "8. Your Rights",
+      "items": [
+        "You may request access to the personal data we hold about you.",
+        "You may request correction of inaccurate or incomplete information.",
+        "You may request deletion of your personal data, subject to legal or operational requirements.",
+        "You may object to certain processing activities where applicable.",
+        "You may request information about how your Google data is used by the Services."
+      ]
+    },
+    {
+      "title": "9. Changes to This Policy",
+      "items": [
+        "We may update this Privacy Policy from time to time.",
+        "We will notify users of material changes by updating this page or through the Services where appropriate.",
+        "Your continued use of the Services after changes are posted means that you accept the updated Privacy Policy."
+      ]
+    },
+    {
+      "title": "10. Contact Us",
+      "items": [
+        "If you have any questions about this Privacy Policy, please contact us.",
+        "Email: anirban.das@t-online.de",
+        "Phone: +919804441870",
+        "Address: 200/2B, Block B, Bangur Avenue, KOLKATA, West Bengal 700055, India"
       ]
     }
   ]
