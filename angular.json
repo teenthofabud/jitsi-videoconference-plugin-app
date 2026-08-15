@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "launch-pad": {
+    "toab-jitsi-website": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -14,7 +14,7 @@
           "builder": "@angular/build:application",
           "options": {
             "outputPath": {
-              "base": "dist/launch-pad"
+              "base": "dist/toab-jitsi-website"
             },
             "index": "src/index.html",
             "polyfills": [
@@ -37,7 +37,7 @@
             "browser": "src/main.ts"
           },
           "configurations": {
-            "production": {
+            "prod": {
               "budgets": [
                 {
                   "type": "initial",
@@ -62,31 +62,37 @@
                 }
               ]
             },
-            "development": {
+            "dev": {
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true,
-              "namedChunks": true
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.dev.ts"
+                }
+              ]
             }
           },
-          "defaultConfiguration": "production"
+          "defaultConfiguration": "prod"
         },
         "serve": {
           "builder": "@angular/build:dev-server",
           "configurations": {
-            "production": {
-              "buildTarget": "launch-pad:build:production"
+            "prod": {
+              "buildTarget": "toab-jitsi-website:build:prod"
             },
-            "development": {
-              "buildTarget": "launch-pad:build:development"
+            "dev": {
+              "buildTarget": "toab-jitsi-website:build:dev"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "dev"
         },
         "extract-i18n": {
           "builder": "@angular/build:extract-i18n",
           "options": {
-            "buildTarget": "launch-pad:build"
+            "buildTarget": "toab-jitsi-website:build"
           }
         },
         "test": {

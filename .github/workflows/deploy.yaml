@@ -46,6 +46,14 @@ jobs:
           aws-region: ${{ vars.AWS_REGION }}
           role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ secrets.AWS_JITSI_S3_DEPLOY_ROLE_NAME }}-${{ inputs.environment }}
 
+      - name: Dynamically build the environment file
+        run: |
+          cat <<EOF > "src/environments/environment.${{ inputs.environment }}.ts"
+          export const environment = {
+            production: true,
+            apiUrl: "${{ vars.TOAB_JITSI_MODERATOR_API_URL }}"
+          };
+          EOF
       - name: Deploy website to S3
         run: |
-          aws s3 sync dist/launch-pad/browser/ "s3://${S3_BUCKET_NAME}/" --delete
+          aws s3 sync dist/toab-jitsi-website/browser/ "s3://${S3_BUCKET_NAME}/" --delete
