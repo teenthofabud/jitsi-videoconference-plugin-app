@@ -15,7 +15,7 @@ export interface AccessListResponse {
   providedIn: 'root'
 })
 export class NewsletterService {
-  private apiUrl = `${environment.apiUrl}/access-list`;
+  private apiUrl = `${environment.apiUrl}/api/user/preview`;
 
   constructor(private http: HttpClient) { }
 
