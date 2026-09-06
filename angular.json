@@ -37,7 +37,7 @@
             "browser": "src/main.ts"
           },
           "configurations": {
-            "prod": {
+            "live": {
               "budgets": [
                 {
                   "type": "initial",
@@ -58,7 +58,7 @@
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "with": "src/environments/environment.live.ts"
                 }
               ]
             },
@@ -75,13 +75,13 @@
               ]
             }
           },
-          "defaultConfiguration": "prod"
+          "defaultConfiguration": "live"
         },
         "serve": {
           "builder": "@angular/build:dev-server",
           "configurations": {
-            "prod": {
-              "buildTarget": "toab-jitsi-website:build:prod"
+            "live": {
+              "buildTarget": "toab-jitsi-website:build:live"
             },
             "dev": {
               "buildTarget": "toab-jitsi-website:build:dev"
