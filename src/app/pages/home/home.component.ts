@@ -40,8 +40,8 @@ export class HomeComponent {
           });
         },
         error: (error) => {
-          console.error('Subscription error:', error);
-          const errorMessage = error.error?.message || error.message || 'An error occurred';
+          // console.error('Subscription error:', error);
+          const errorMessage = error?.message || 'An error occurred';
           this.messageService.add({
             severity: 'info',
             summary: 'Error',
