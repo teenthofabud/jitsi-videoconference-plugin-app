@@ -92,6 +92,23 @@ body {
     }
 }
 
+/* Target mobile screens */
+@media screen and (max-width: 768px) {
+  /* PrimeNG dynamically injects the toast at the end of the DOM, so global styles work best */
+  .p-toast {
+    width: 90vw !important;
+    left: 5vw !important;
+    right: auto !important;
+  }
+
+  /* Make sure the inner message box also fills the new wider toast */
+  .p-toast-message {
+    width: 100% !important;
+  }
+}
+
+
+
 /* Common page styles for legal pages (Terms, Privacy) */
 .page-container {
     max-width: 800px;
