@@ -40,10 +40,17 @@ export class HomeComponent {
           });
         },
         error: (error) => {
-          // console.error('Subscription error:', error);
-          const errorMessage = error?.message || 'An error occurred';
-          this.messageService.add({
+          const errorMessage = error.error?.message || 'Something unexpected happened';
+          if(error.status == 409)
+            this.messageService.add({
             severity: 'info',
+            summary: 'Notice',
+            detail: errorMessage,
+            life: 3000
+          });
+          else
+            this.messageService.add({
+            severity: 'warn',
             summary: 'Error',
             detail: errorMessage,
             life: 3000
