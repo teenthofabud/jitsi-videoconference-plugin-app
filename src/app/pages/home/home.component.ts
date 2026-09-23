@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -7,6 +7,7 @@ import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { NewsletterService } from 'src/app/newsletter.service';
+import { DefaultServer } from 'src/app/types/common';
 @Component({
   selector: 'app-home',
   imports: [FormsModule, ButtonModule, InputTextModule, CardModule, MessageModule, ToastModule],
@@ -14,11 +15,39 @@ import { NewsletterService } from 'src/app/newsletter.service';
   providers: [MessageService],
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   data: any;
-  // messageService = inject(MessageService);
-  constructor(private messageService: MessageService, private newsletterService: NewsletterService) { }
+  servers: DefaultServer[] = [];
+  isLoadingServers = true;
   email: any;
+
+  private fallbackServers: DefaultServer[] = [
+    { name: '8x8 Jitsi Meet', serverUrl: 'https://meet.jit.si' },
+    { name: 'Brave Talk', serverUrl: 'https://talk.brave.com' },
+    { name: 'IONOS Video Chat', serverUrl: 'https://meet.videochat.ionos.com' },
+    { name: 'openSUSE Meet', serverUrl: 'https://meet.opensuse.org' }
+  ];
+
+  constructor(private messageService: MessageService, private newsletterService: NewsletterService) { }
+
+  ngOnInit(): void {
+    this.loadServers();
+  }
+
+  loadServers() {
+    this.newsletterService.fetchDefaultServers().subscribe({
+      next: (response) => {
+        this.servers = response;
+        this.isLoadingServers = false;
+      },
+      error: (error) => {
+        // console.error('Failed to load servers from API, silently using fallbacks', error);
+        // Silently apply fallbacks
+        this.servers = this.fallbackServers;
+        this.isLoadingServers = false;
+      }
+    });
+  }
 
   onSubmit(form: any) {
     if (form.valid) {
@@ -59,4 +88,6 @@ export class HomeComponent {
       });
     }
   }
+
+
 }
