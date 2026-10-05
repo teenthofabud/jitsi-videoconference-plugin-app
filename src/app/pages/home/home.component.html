@@ -1,12 +1,12 @@
 <div class="w-full">
   <!-- Hero Section -->
-  <section class="bg-slate-50 py-20 px-4 md:px-0">
+  <section class="bg-neutral-50 py-20 px-4 md:px-0">
     <div class="max-w-7xl mx-auto">
       <div class="text-center mb-12">
-        <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+        <h1 class="text-5xl md:text-6xl font-bold text-neutral-900 mb-6">
           Calendar plugin for <br class="hidden md:inline" />Jitsi
         </h1>
-        <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-8">
+        <p class="text-lg md:text-xl text-neutral-600 max-w-2xl mx-auto mb-8">
           Join the preview access list of the new Jitsi plugin for your calendar software. Use your own self-hosted Jitsi or select a well-known public Jitsi server.
         </p>
       </div>
@@ -22,32 +22,32 @@
               [(ngModel)]="email"
               #emailModel="ngModel"
               required
-              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              class="input"
             />
             @if (emailModel.invalid && subForm.submitted) {
-              <p class="text-red-600 text-sm mt-2">Valid email is required.</p>
+              <p class="text-error-500 text-sm mt-2">Valid email is required.</p>
             }
           </div>
           <button
             type="submit"
-            class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200 flex-shrink-0 whitespace-nowrap"
+            class="btn btn-primary flex-shrink-0 whitespace-nowrap"
           >
             Request Preview
           </button>
         </form>
 
         <!-- Features List -->
-        <div class="bg-white rounded-lg p-6 border border-gray-200">
-          <p class="text-gray-700 font-medium mb-4">Join the access list to get a sneak peek. No spam, revoke anytime.</p>
+        <div class="card">
+          <p class="text-neutral-700 font-medium mb-4">Join the access list to get a sneak peek. No spam, revoke anytime.</p>
           <ul class="space-y-2">
-            <li class="flex items-center gap-2 text-gray-600">
-              <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <li class="flex items-center gap-2 text-neutral-600">
+              <svg class="w-5 h-5 text-success-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
               </svg>
               No commitment required
             </li>
-            <li class="flex items-center gap-2 text-gray-600">
-              <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+            <li class="flex items-center gap-2 text-neutral-600">
+              <svg class="w-5 h-5 text-success-500 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
               </svg>
               Provide feedback on how you want to shape it
@@ -80,12 +80,12 @@
         <!-- Servers Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           @for (server of servers; track server.serverUrl) {
-            <div class="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow duration-200">
+            <div class="card">
               <div class="flex justify-center mb-4">
                 <img src="assets/jitsi-icon.png" alt="Jitsi" class="w-8 h-8" />
               </div>
-              <h3 class="font-semibold text-gray-900 text-center mb-2">{{ server.name }}</h3>
-              <p class="text-sm text-gray-600 text-center break-all">{{ server.serverUrl }}</p>
+              <h3 class="font-semibold text-neutral-900 text-center mb-2">{{ server.name }}</h3>
+              <p class="text-sm text-neutral-600 text-center break-all">{{ server.serverUrl }}</p>
             </div>
           }
         </div>
@@ -106,44 +106,44 @@
       <!-- Benefits Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <!-- Card 1: BYOJ -->
-        <div class="bg-white rounded-lg border border-gray-200 p-8 hover:shadow-lg transition-shadow duration-200 relative">
-          <div class="absolute top-4 right-4 bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-xs font-semibold">
+        <div class="card relative">
+          <div class="absolute top-4 right-4 bg-warning-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
             Coming Soon
           </div>
           <div class="flex justify-center mb-4 pt-2">
             <img src="assets/jitsi-icon.png" alt="Jitsi" class="w-8 h-8" />
           </div>
-          <h3 class="text-lg font-semibold text-gray-900 text-center mb-2">BYOJ</h3>
-          <p class="text-gray-600 text-center">Bring your own Jitsi Server</p>
+          <h3 class="text-lg font-semibold text-neutral-900 text-center mb-2">BYOJ</h3>
+          <p class="text-neutral-600 text-center">Bring your own Jitsi Server</p>
         </div>
 
         <!-- Card 2: Room Names -->
-        <div class="bg-white rounded-lg border border-gray-200 p-8 hover:shadow-lg transition-shadow duration-200 relative">
-          <div class="absolute top-4 right-4 bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-xs font-semibold">
+        <div class="card relative">
+          <div class="absolute top-4 right-4 bg-warning-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
             Coming Soon
           </div>
           <div class="flex justify-center mb-4 pt-2">
-            <div class="flex items-center justify-center w-8 h-8 bg-blue-100 rounded">
-              <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="flex items-center justify-center w-8 h-8 bg-primary-100 rounded">
+              <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
               </svg>
             </div>
           </div>
-          <h3 class="text-lg font-semibold text-gray-900 text-center mb-2">Room Names</h3>
-          <p class="text-gray-600 text-center">Default or custom room names</p>
+          <h3 class="text-lg font-semibold text-neutral-900 text-center mb-2">Room Names</h3>
+          <p class="text-neutral-600 text-center">Default or custom room names</p>
         </div>
 
         <!-- Card 3: Secure & Private -->
-        <div class="bg-white rounded-lg border border-gray-200 p-8 hover:shadow-lg transition-shadow duration-200">
+        <div class="card">
           <div class="flex justify-center mb-4">
-            <div class="flex items-center justify-center w-8 h-8 bg-green-100 rounded">
-              <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+            <div class="flex items-center justify-center w-8 h-8 bg-success-100 rounded">
+              <svg class="w-5 h-5 text-success-500" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
               </svg>
             </div>
           </div>
-          <h3 class="text-lg font-semibold text-gray-900 text-center mb-2">Secure & Private</h3>
-          <p class="text-gray-600 text-center">Your data is protected with enterprise-grade security</p>
+          <h3 class="text-lg font-semibold text-neutral-900 text-center mb-2">Secure & Private</h3>
+          <p class="text-neutral-600 text-center">Your data is protected with enterprise-grade security</p>
         </div>
       </div>
     </div>
@@ -162,27 +162,27 @@
       <!-- Calendars Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <!-- Google Calendar -->
-        <div class="bg-white rounded-lg border border-gray-200 p-8 text-center hover:shadow-lg transition-shadow duration-200">
+        <div class="card text-center">
           <div class="flex justify-center mb-4">
             <img src="assets/gcalendar.png" alt="Google Calendar" class="w-8 h-8" />
           </div>
-          <h3 class="text-lg font-semibold text-gray-900">Google Calendar</h3>
+          <h3 class="text-lg font-semibold text-neutral-900">Google Calendar</h3>
         </div>
 
         <!-- Outlook -->
-        <div class="bg-white rounded-lg border border-gray-200 p-8 text-center hover:shadow-lg transition-shadow duration-200">
+        <div class="card text-center">
           <div class="flex justify-center mb-4">
             <img src="assets/outlook.png" alt="Outlook" class="w-8 h-8" />
           </div>
-          <h3 class="text-lg font-semibold text-gray-900">Outlook</h3>
+          <h3 class="text-lg font-semibold text-neutral-900">Outlook</h3>
         </div>
 
         <!-- Cal.com -->
-        <div class="bg-white rounded-lg border border-gray-200 p-8 text-center hover:shadow-lg transition-shadow duration-200">
+        <div class="card text-center">
           <div class="flex justify-center mb-4">
             <img src="assets/calcom.svg" alt="Cal.com" class="w-8 h-8" />
           </div>
-          <h3 class="text-lg font-semibold text-gray-900">Cal.com</h3>
+          <h3 class="text-lg font-semibold text-neutral-900">Cal.com</h3>
         </div>
       </div>
     </div>

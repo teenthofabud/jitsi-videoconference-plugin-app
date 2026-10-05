@@ -1,8 +1,8 @@
-<nav class="bg-white border-b border-gray-200 sticky top-0 z-50">
+<nav class="bg-white border-b border-neutral-200 sticky top-0 z-50">
     <div class="max-w-7xl mx-auto px-4 md:px-6">
         <div class="flex justify-between items-center h-16">
             <!-- Logo -->
-            <a routerLink="/" class="text-xl font-bold text-blue-600 hover:text-blue-700 transition-colors">
+            <a routerLink="/" class="text-xl font-bold text-primary-600 hover:text-primary-700 transition-colors">
                 TOAB Jitsi Plugin
             </a>
 
@@ -10,18 +10,18 @@
             <div class="hidden lg:flex items-center gap-8">
                 <a routerLink="/home" routerLinkActive="active"
                    [routerLinkActiveOptions]="{exact: true}"
-                   class="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+                   class="text-neutral-700 hover:text-primary-600 transition-colors font-medium">
                     Home
                 </a>
-                <a (click)="scrollToContact()" class="text-gray-700 hover:text-blue-600 transition-colors font-medium cursor-pointer">
+                <a (click)="scrollToContact()" class="text-neutral-700 hover:text-primary-600 transition-colors font-medium cursor-pointer">
                     Contact
                 </a>
                 <a routerLink="/privacy" routerLinkActive="active"
-                   class="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+                   class="text-neutral-700 hover:text-primary-600 transition-colors font-medium">
                     Privacy
                 </a>
                 <a routerLink="/terms" routerLinkActive="active"
-                   class="text-gray-700 hover:text-blue-600 transition-colors font-medium">
+                   class="text-neutral-700 hover:text-primary-600 transition-colors font-medium">
                     Terms
                 </a>
             </div>
@@ -29,38 +29,38 @@
             <!-- Mobile Menu Button -->
             <button
                 (click)="toggleMobileMenu()"
-                class="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
+                class="lg:hidden p-2 rounded-lg hover:bg-neutral-100 transition-colors"
                 [attr.aria-label]="mobileMenuOpen ? 'Close menu' : 'Open menu'"
             >
-                <svg class="w-6 h-6 text-gray-700" [class.hidden]="mobileMenuOpen" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-6 h-6 text-neutral-700" [class.hidden]="mobileMenuOpen" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
-                <svg class="w-6 h-6 text-gray-700" [class.hidden]="!mobileMenuOpen" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-6 h-6 text-neutral-700" [class.hidden]="!mobileMenuOpen" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
         </div>
 
         <!-- Mobile Menu -->
-        <div [class.hidden]="!mobileMenuOpen" class="lg:hidden border-t border-gray-200">
+        <div [class.hidden]="!mobileMenuOpen" class="lg:hidden border-t border-neutral-200">
             <a routerLink="/home" routerLinkActive="active"
                [routerLinkActiveOptions]="{exact: true}"
                (click)="closeMobileMenu()"
-               class="block px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors font-medium">
+               class="block px-4 py-3 text-neutral-700 hover:bg-neutral-50 hover:text-primary-600 transition-colors font-medium">
                 Home
             </a>
             <a (click)="scrollToContactAndCloseMobile()"
-               class="block px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors font-medium cursor-pointer">
+               class="block px-4 py-3 text-neutral-700 hover:bg-neutral-50 hover:text-primary-600 transition-colors font-medium cursor-pointer">
                 Contact
             </a>
             <a routerLink="/privacy" routerLinkActive="active"
                (click)="closeMobileMenu()"
-               class="block px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors font-medium">
+               class="block px-4 py-3 text-neutral-700 hover:bg-neutral-50 hover:text-primary-600 transition-colors font-medium">
                 Privacy
             </a>
             <a routerLink="/terms" routerLinkActive="active"
                (click)="closeMobileMenu()"
-               class="block px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-blue-600 transition-colors font-medium">
+               class="block px-4 py-3 text-neutral-700 hover:bg-neutral-50 hover:text-primary-600 transition-colors font-medium">
                 Terms
             </a>
         </div>
