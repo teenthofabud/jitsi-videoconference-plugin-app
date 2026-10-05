@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { BrnButton } from '@spartan-ng/brain/button';
+import { BrnInput } from '@spartan-ng/brain/input';
 import { NewsletterService } from 'src/app/newsletter.service';
 import { NotificationService } from 'src/app/services/notification.service';
 import { DefaultServer } from 'src/app/types/common';
 
 @Component({
   selector: 'app-home',
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule, BrnButton, BrnInput],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
