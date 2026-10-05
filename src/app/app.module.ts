@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { BrnButton } from '@spartan-ng/brain/button';
+import { BrnInput } from '@spartan-ng/brain/input';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,8 +15,6 @@ import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { TermsComponent } from './pages/terms/terms.component';
 import { ContactComponent } from './pages/contact/contact.component';
 
-import { HttpClientModule } from '@angular/common/http';
-
 @NgModule({
   declarations: [
     AppComponent
@@ -23,13 +24,15 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserAnimationsModule,
     FormsModule,
     AppRoutingModule,
+    HttpClientModule,
     NavbarComponent,
     FooterComponent,
     HomeComponent,
     PrivacyComponent,
     TermsComponent,
     ContactComponent,
-    HttpClientModule
+    BrnButton,
+    BrnInput
   ],
   providers: [],
   bootstrap: [AppComponent]

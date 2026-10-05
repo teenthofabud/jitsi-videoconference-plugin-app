@@ -1,11 +1,14 @@
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { BrnButton } from '@spartan-ng/brain/button';
 
 @Component({
   selector: 'app-footer',
-  imports: [RouterModule, CommonModule, BrnButton],
+  imports: [
+    RouterModule,
+    CommonModule,
+    // Spartan NG button used via [brn-button] attribute
+  ],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.css'
 })
