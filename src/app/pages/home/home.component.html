@@ -1,181 +1,190 @@
-<div class="container-fluid">
-  <div class="section-1 row justify-content-center align-items-center  bg-off-white text-center p-5">
-    <div class="welcome-text text-center">
-      <p class="font-60 fw-bold mb-4">Calendar plugin for <br> Jitsi
-      </p>
-      <p class="font-18 text-grey mb-4">
-        Join the preview access list of the new Jitsi plugin for your calendar software. <br> Use your own self
-        hosted Jitsi
-        or select a well known public Jitsi server.
-      </p>
-    </div>
-
-
-    <div class="row justify-content-center">
-      <div class="col-12 col-md-8 col-lg-6">
-        <form #subForm="ngForm" (ngSubmit)="onSubmit(subForm)" class="d-flex flex-column flex-md-row gap-3">
-          <p-toast />
-          <div class="flex-grow-1 w-100">
-
-            <input class="w-100" type="email" placeholder="Enter your email address" pInputText name="email"
-              [(ngModel)]="email" #emailModel="ngModel" required email="true" />
-            @if ( emailModel.invalid && subForm.submitted) {
-            <p-message severity="error" size="small">Valid email is required.</p-message>
-            }
-          </div>
-          <div class="flex-shrink-0">
-            <button pButton type="submit"><span pButtonLabel>Request Preview</span></button>
-          </div>
-        </form>
-        <!-- <div class=""> -->
-
-        <!-- <div class="flex-grow-1 w-100">
-                        <input class="w-100" type="email" placeholder="Enter your email address" pInputText />
-                    </div>
-                    <div class="flex-shrink-0">
-                        <button pButton class="w-100 w-md-auto">
-                            <span pButtonLabel>Join Waitlist</span>
-                        </button>
-                    </div> -->
-        <!-- </div> -->
-      </div>
-    </div>
-    <div class="welcome-text mt-3 text-grey">
-      <p>Join the access list to get a sneak peek. No spam, revoke anytime.</p>
-      <div class="">
-        <p>
-          <i class="pi pi-check-circle" style="color: var(--p-primary-500); margin-right: 5px;"></i>
-          No commitment required
-          <span style="margin: 0 4px 8px 8px; vertical-align: middle;"><i class="pi pi-check-circle"
-              style="color: var(--p-primary-500); margin-right: 1px;"></i></span>
-          Provide feedback on how you want to shape it
+<div class="w-full">
+  <!-- Hero Section -->
+  <section class="bg-slate-50 py-20 px-4 md:px-0">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12">
+        <h1 class="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
+          Calendar plugin for <br class="hidden md:inline" />Jitsi
+        </h1>
+        <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-8">
+          Join the preview access list of the new Jitsi plugin for your calendar software. Use your own self-hosted Jitsi or select a well-known public Jitsi server.
         </p>
       </div>
 
-    </div>
-  </div>
-
-  <div class="section-2 p-5 mt-5 mb-5">
-    <div class="text-center">
-      <p class="font-36 ">Curated Jitsi Servers</p>
-      <p class="font-18 text-grey mb-5">Select from our list of curated public Jitsi servers popular amongst Jitsi users
-        in our calendar plugins.</p>
-    </div>
-
-    <!-- Loading State -->
-    @if (isLoadingServers) {
-    <div class="text-center text-grey">
-      <i class="pi pi-spin pi-spinner mb-3" style="font-size: 2rem"></i>
-      <p>Loading servers...</p>
-    </div>
-    }
-    <!-- Data Grid (Shows either API data or silent fallbacks) -->
-    @else {
-    <div class="row g-4">
-      @for (server of servers; track server.serverUrl) {
-      <div class="col-12 col-md-6 col-lg-3 d-flex text-center">
-        <p-card [header]="server.name" class="w-100 h-100">
-          <div class="text-center mb-3">
-            <img src="assets/jitsi-icon.png" alt="Jitsi" style="width: 2rem; height: 2rem;">
+      <!-- Email Signup Form -->
+      <div class="max-w-2xl mx-auto mb-12">
+        <form #subForm="ngForm" (ngSubmit)="onSubmit(subForm)" class="flex flex-col md:flex-row gap-3 mb-6">
+          <div class="flex-1">
+            <input
+              type="email"
+              placeholder="Enter your email address"
+              name="email"
+              [(ngModel)]="email"
+              #emailModel="ngModel"
+              required
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            />
+            @if (emailModel.invalid && subForm.submitted) {
+              <p class="text-red-600 text-sm mt-2">Valid email is required.</p>
+            }
           </div>
-          <p class="m-0 text-grey">{{ server.serverUrl }}</p>
-        </p-card>
+          <button
+            type="submit"
+            class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition-colors duration-200 flex-shrink-0 whitespace-nowrap"
+          >
+            Request Preview
+          </button>
+        </form>
+
+        <!-- Features List -->
+        <div class="bg-white rounded-lg p-6 border border-gray-200">
+          <p class="text-gray-700 font-medium mb-4">Join the access list to get a sneak peek. No spam, revoke anytime.</p>
+          <ul class="space-y-2">
+            <li class="flex items-center gap-2 text-gray-600">
+              <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+              No commitment required
+            </li>
+            <li class="flex items-center gap-2 text-gray-600">
+              <svg class="w-5 h-5 text-green-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+              Provide feedback on how you want to shape it
+            </li>
+          </ul>
+        </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Curated Jitsi Servers Section -->
+  <section class="py-20 px-4 md:px-0">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold text-gray-900 mb-4">Curated Jitsi Servers</h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          Select from our list of curated public Jitsi servers popular amongst Jitsi users in our calendar plugins.
+        </p>
+      </div>
+
+      <!-- Loading State -->
+      @if (isLoadingServers) {
+        <div class="text-center py-12">
+          <div class="inline-block">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+          </div>
+          <p class="text-gray-600 mt-4">Loading servers...</p>
+        </div>
+      } @else {
+        <!-- Servers Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          @for (server of servers; track server.serverUrl) {
+            <div class="bg-white rounded-lg border border-gray-200 p-6 hover:shadow-lg transition-shadow duration-200">
+              <div class="flex justify-center mb-4">
+                <img src="assets/jitsi-icon.png" alt="Jitsi" class="w-8 h-8" />
+              </div>
+              <h3 class="font-semibold text-gray-900 text-center mb-2">{{ server.name }}</h3>
+              <p class="text-sm text-gray-600 text-center break-all">{{ server.serverUrl }}</p>
+            </div>
+          }
+        </div>
       }
     </div>
-    }
-  </div>
+  </section>
 
-  <div class="section-2 p-5 mt-5 mb-5">
-    <div class="text-center">
-      <p class="font-36 ">Key Benefits</p>
-      <p class="font-18 text-grey mb-5">Now you can use your self hosted Jitsi with popular Calendars.</p>
-    </div>
-    <div class="row g-4">
-
-      <!-- Card 1 -->
-      <div class="col-12 col-md-6 col-lg-4 d-flex text-center">
-        <!-- Added styleClass="h-100" to ensure inner PrimeNG container stretches -->
-        <p-card header="BYOJ" class="w-100 h-100" styleClass="h-100">
-          <div class="slanted-badge">Coming Soon</div>
-          <div class="text-center mb-3">
-            <img src="assets/jitsi-icon.png" alt="Jitsi" style="width: 2rem; height: 2rem;">
-          </div>
-          <p class="m-0 text-grey">
-            Bring your own Jitsi Server
-          </p>
-        </p-card>
+  <!-- Key Benefits Section -->
+  <section class="py-20 px-4 md:px-0 bg-gray-50">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold text-gray-900 mb-4">Key Benefits</h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          Now you can use your self-hosted Jitsi with popular Calendars.
+        </p>
       </div>
 
-      <!-- Card 2 -->
-      <div class="col-12 col-md-6 col-lg-4 d-flex text-center">
-        <p-card header="Room Names" class="w-100 h-100" styleClass="h-100">
-          <div class="slanted-badge">Coming Soon</div>
-          <div class="text-center mb-3">
-            <div
-              style="display: inline-flex; align-items: center; justify-content: center; width: 2rem; height: 2rem; background-color: var(--p-primary-100); border-radius: 0.5rem; margin-bottom: 0.5rem;">
-              <i class="pi pi-video" style="color: var(--p-primary-600); font-size: 1.25rem;"></i>
+      <!-- Benefits Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Card 1: BYOJ -->
+        <div class="bg-white rounded-lg border border-gray-200 p-8 hover:shadow-lg transition-shadow duration-200 relative">
+          <div class="absolute top-4 right-4 bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-xs font-semibold">
+            Coming Soon
+          </div>
+          <div class="flex justify-center mb-4 pt-2">
+            <img src="assets/jitsi-icon.png" alt="Jitsi" class="w-8 h-8" />
+          </div>
+          <h3 class="text-lg font-semibold text-gray-900 text-center mb-2">BYOJ</h3>
+          <p class="text-gray-600 text-center">Bring your own Jitsi Server</p>
+        </div>
+
+        <!-- Card 2: Room Names -->
+        <div class="bg-white rounded-lg border border-gray-200 p-8 hover:shadow-lg transition-shadow duration-200 relative">
+          <div class="absolute top-4 right-4 bg-amber-100 text-amber-800 px-3 py-1 rounded-full text-xs font-semibold">
+            Coming Soon
+          </div>
+          <div class="flex justify-center mb-4 pt-2">
+            <div class="flex items-center justify-center w-8 h-8 bg-blue-100 rounded">
+              <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
             </div>
           </div>
-          <p class="m-0 text-grey">
-            Default or custom room names
-          </p>
-        </p-card>
-      </div>
+          <h3 class="text-lg font-semibold text-gray-900 text-center mb-2">Room Names</h3>
+          <p class="text-gray-600 text-center">Default or custom room names</p>
+        </div>
 
-      <!-- Card 3 -->
-      <div class="col-12 col-md-6 col-lg-4 d-flex text-center">
-        <p-card header="Secure & Private" class="w-100 h-100" styleClass="h-100">
-          <div class="text-center mb-3">
-            <div
-              style="display: inline-flex; align-items: center; justify-content: center; width: 2rem; height: 2rem; background-color: var(--p-green-100); border-radius: 0.5rem; margin-bottom: 0.5rem;">
-              <i class="pi pi-shield" style="font-size: 1.25rem; color: var(--p-green-600);"></i>
+        <!-- Card 3: Secure & Private -->
+        <div class="bg-white rounded-lg border border-gray-200 p-8 hover:shadow-lg transition-shadow duration-200">
+          <div class="flex justify-center mb-4">
+            <div class="flex items-center justify-center w-8 h-8 bg-green-100 rounded">
+              <svg class="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+              </svg>
             </div>
           </div>
-          <p class="m-0 text-grey">
-            Your data is protected with enterprise-grade security
-          </p>
-        </p-card>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="section-2 p-5 pt-0 mb-5">
-    <div class="text-center">
-      <p class="font-36 ">Supported Calendars</p>
-      <p class="font-18 text-grey mb-5">The plugin lets you use your own Jitsi server to create meetings
-        for the following supported calendar solutions. You can even provide your conference room name.
-      </p>
-    </div>
-    <div class="row g-4">
-      <div class="col-12 col-md-6 col-lg-4 d-flex text-center">
-        <p-card header="Google Calendar" class="w-100 h-100">
-          <div class="text-center mb-3">
-            <img src="assets/gcalendar.png" alt="Google Calendar" style="width: 2rem; height: 2rem;">
-          </div>
-          <!-- <p class="m-0 text-grey">
-                        Bring your own Jitsi Server </p> -->
-        </p-card>
-      </div>
-      <div class="col-12 col-md-6 col-lg-4 d-flex text-center">
-        <p-card header="Outlook" class="w-100 h-100">
-          <div class="text-center mb-3">
-            <img src="assets/outlook.png" alt="Outlook" style="width: 2rem; height: 2rem;">
-          </div>
-          <!-- <p class="m-0 text-grey">
-                        Bring your own Jitsi Server </p> -->
-        </p-card>
-      </div>
-      <div class="col-12 col-md-6 col-lg-4 d-flex text-center">
-        <p-card header="Cal.com" class="w-100 h-100">
-          <div class="text-center mb-3">
-            <img src="assets/calcom.svg" alt="Cal.com" style="width: 2rem; height: 2rem;">
-          </div>
-          <!-- <p class="m-0 text-grey">
-                        Bring your own Jitsi Server </p> -->
-        </p-card>
+          <h3 class="text-lg font-semibold text-gray-900 text-center mb-2">Secure & Private</h3>
+          <p class="text-gray-600 text-center">Your data is protected with enterprise-grade security</p>
+        </div>
       </div>
     </div>
+  </section>
 
-  </div>
+  <!-- Supported Calendars Section -->
+  <section class="py-20 px-4 md:px-0">
+    <div class="max-w-7xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold text-gray-900 mb-4">Supported Calendars</h2>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+          The plugin lets you use your own Jitsi server to create meetings for the following supported calendar solutions. You can even provide your conference room name.
+        </p>
+      </div>
+
+      <!-- Calendars Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Google Calendar -->
+        <div class="bg-white rounded-lg border border-gray-200 p-8 text-center hover:shadow-lg transition-shadow duration-200">
+          <div class="flex justify-center mb-4">
+            <img src="assets/gcalendar.png" alt="Google Calendar" class="w-8 h-8" />
+          </div>
+          <h3 class="text-lg font-semibold text-gray-900">Google Calendar</h3>
+        </div>
+
+        <!-- Outlook -->
+        <div class="bg-white rounded-lg border border-gray-200 p-8 text-center hover:shadow-lg transition-shadow duration-200">
+          <div class="flex justify-center mb-4">
+            <img src="assets/outlook.png" alt="Outlook" class="w-8 h-8" />
+          </div>
+          <h3 class="text-lg font-semibold text-gray-900">Outlook</h3>
+        </div>
+
+        <!-- Cal.com -->
+        <div class="bg-white rounded-lg border border-gray-200 p-8 text-center hover:shadow-lg transition-shadow duration-200">
+          <div class="flex justify-center mb-4">
+            <img src="assets/calcom.svg" alt="Cal.com" class="w-8 h-8" />
+          </div>
+          <h3 class="text-lg font-semibold text-gray-900">Cal.com</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
