@@ -23,7 +23,17 @@
       ]
     },
     {
-      "title": "3. How We Use Your Information",
+      "title": "3. Cal.com and Cal.com Account Data",
+      "items": [
+        "Our Cal.com app for Jitsi uses Cal.com OAuth permissions to provide calendar add-on functionality and to create, read, update, or manage calendar events as required by the Services.",
+        "The Services may request access to Cal.com add-on execution, Cal.com data, Cal.com events, current calendar event read/write access, Cal.com user email information, external request execution, and Cal.com Apps Script execution as required for the plugin to function.",
+        "We use Cal.com permissions only to provide the requested plugin functionality, including configuring Jitsi meeting links, managing conference room names, and interacting with calendar events.",
+        "We do not sell Cal.com user data or use Cal.com data for advertising purposes.",
+        "We do not access Cal.com data beyond what is necessary to provide and maintain the Services."
+      ]
+    },
+    {
+      "title": "4. How We Use Your Information",
       "items": [
         "To provide, operate, maintain, and improve our Services.",
         "To authenticate users and associate plugin configuration with the correct Google account.",
@@ -35,7 +45,7 @@
       ]
     },
     {
-      "title": "4. Data Security",
+      "title": "5. Data Security",
       "items": [
         "We implement appropriate technical and organizational security measures to protect personal information and configuration data.",
         "Access to user data is restricted to authorized personnel and systems that require access to operate or support the Services.",
@@ -44,7 +54,7 @@
       ]
     },
     {
-      "title": "5. Cookies and Tracking",
+      "title": "6. Cookies and Tracking",
       "items": [
         "We may use cookies or similar technologies to maintain sessions, improve user experience, and understand usage of the Services.",
         "You can instruct your browser to refuse cookies or notify you when cookies are being sent.",
@@ -52,7 +62,7 @@
       ]
     },
     {
-      "title": "6. Third-Party Services",
+      "title": "7. Third-Party Services",
       "items": [
         "Our Services integrate with Google services, including Google Calendar and Google account authentication.",
         "Your use of Google services is also subject to Google's own terms and privacy policies.",
@@ -61,7 +71,7 @@
       ]
     },
     {
-      "title": "7. Data Retention",
+      "title": "8. Data Retention",
       "items": [
         "We retain personal information, Google account email information, and configuration data only for as long as necessary to provide the Services.",
         "We may retain certain data as required to comply with legal obligations, resolve disputes, prevent misuse, and enforce our agreements.",
@@ -69,7 +79,7 @@
       ]
     },
     {
-      "title": "8. Your Rights",
+      "title": "9. Your Rights",
       "items": [
         "You may request access to the personal data we hold about you.",
         "You may request correction of inaccurate or incomplete information.",
@@ -79,7 +89,7 @@
       ]
     },
     {
-      "title": "9. Changes to This Policy",
+      "title": "10. Changes to This Policy",
       "items": [
         "We may update this Privacy Policy from time to time.",
         "We will notify users of material changes by updating this page or through the Services where appropriate.",
@@ -87,7 +97,7 @@
       ]
     },
     {
-      "title": "10. Contact Us",
+      "title": "11. Contact Us",
       "items": [
         "If you have any questions about this Privacy Policy, please contact us.",
         "Email: anirban.das@t-online.de",

@@ -5,11 +5,15 @@
     </div>
 
     <div class="page-content">
-        <section class="content-section" *ngFor="let section of privacyData.sections">
-            <h2>{{ section.title }}</h2>
-            <ul class="content-list">
-                <li *ngFor="let item of section.items">{{ item }}</li>
-            </ul>
-        </section>
+        @for (section of privacyData.sections; track section.title) {
+            <section class="content-section">
+                <h2>{{ section.title }}</h2>
+                <ul class="content-list">
+                    @for (item of section.items; track item) {
+                        <li>{{ item }}</li>
+                    }
+                </ul>
+            </section>
+        }
     </div>
 </div>

@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { CardModule } from 'primeng/card';
-import { MessageModule } from 'primeng/message';
-import { ToastModule } from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { CommonModule } from '@angular/common';
 import { NewsletterService } from 'src/app/newsletter.service';
+import { NotificationService } from 'src/app/services/notification.service';
 import { DefaultServer } from 'src/app/types/common';
+
 @Component({
   selector: 'app-home',
-  imports: [FormsModule, ButtonModule, InputTextModule, CardModule, MessageModule, ToastModule],
+  imports: [
+    FormsModule,
+    CommonModule,
+    // Spartan NG directives used via [brn-button] and [brn-input] attributes
+  ],
   templateUrl: './home.component.html',
-  providers: [MessageService],
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
@@ -28,7 +28,10 @@ export class HomeComponent implements OnInit {
     { name: 'openSUSE Meet', serverUrl: 'https://meet.opensuse.org' }
   ];
 
-  constructor(private messageService: MessageService, private newsletterService: NewsletterService) { }
+  constructor(
+    private notificationService: NotificationService,
+    private newsletterService: NewsletterService
+  ) { }
 
   ngOnInit(): void {
     this.loadServers();
@@ -41,8 +44,6 @@ export class HomeComponent implements OnInit {
         this.isLoadingServers = false;
       },
       error: (error) => {
-        // console.error('Failed to load servers from API, silently using fallbacks', error);
-        // Silently apply fallbacks
         this.servers = this.fallbackServers;
         this.isLoadingServers = false;
       }
@@ -52,42 +53,23 @@ export class HomeComponent implements OnInit {
   onSubmit(form: any) {
     if (form.valid) {
       const email = form.value.email;
-      const payload = {
-        email: email
-      }
+      const payload = { email };
 
       this.newsletterService.saveEmail(payload).subscribe({
         next: (response) => {
           this.data = response;
-          // console.log(this.data);
           form.resetForm();
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: response.message || 'Email successfully subscribed!',
-            life: 3000
-          });
+          this.notificationService.success('Success', response.message || 'Email successfully subscribed!');
         },
         error: (error) => {
           const errorMessage = error.error?.message || 'Something unexpected happened';
-          if(error.status == 409)
-            this.messageService.add({
-            severity: 'info',
-            summary: 'Notice',
-            detail: errorMessage,
-            life: 3000
-          });
-          else
-            this.messageService.add({
-            severity: 'warn',
-            summary: 'Error',
-            detail: errorMessage,
-            life: 3000
-          });
+          if (error.status === 409) {
+            this.notificationService.info('Notice', errorMessage);
+          } else {
+            this.notificationService.warning('Error', errorMessage);
+          }
         }
       });
     }
   }
-
-
 }

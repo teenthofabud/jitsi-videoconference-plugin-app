@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { DatePicker } from 'primeng/datepicker';
-import { NgModel } from '@angular/forms';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,16 +7,5 @@ import { NgModel } from '@angular/forms';
   standalone: false
 })
 export class AppComponent {
-  title = 'launch-pad';
-  date: Date | null = null;
-
-  // Sample data for PrimeNG table (if needed)
-  customers = [
-    { id: 1, name: 'John Doe', email: 'john@example.com', country: 'USA' },
-    { id: 2, name: 'Jane Smith', email: 'jane@example.com', country: 'UK' },
-    { id: 3, name: 'Bob Johnson', email: 'bob@example.com', country: 'Canada' },
-    { id: 4, name: 'Alice Brown', email: 'alice@example.com', country: 'Australia' },
-    { id: 5, name: 'Charlie Wilson', email: 'charlie@example.com', country: 'Germany' },
-    { id: 6, name: 'Diana Davis', email: 'diana@example.com', country: 'France' }
-  ];
+  title = 'TOAB Jitsi Plugin';
 }

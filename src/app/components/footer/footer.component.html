@@ -1,24 +1,46 @@
-<footer id="contact-section" class="footer text-center bg-grey p-5">
-    <div class="d-flex align-items-center justify-content-center flex-column footer-container">
-        <div class="">
-            <p class="font-36">Contact Us</p>
-            <p class="text-grey">Have questions or need assistance? Our team is ready to help.</p>
+<footer id="contact-section" class="bg-neutral-100 py-16 px-4 md:px-0">
+    <div class="max-w-3xl mx-auto">
+        <!-- Contact Section Header -->
+        <div class="text-center mb-12">
+            <h2 class="text-4xl font-bold text-neutral-900 mb-4">Contact Us</h2>
+            <p class="text-lg text-neutral-600">Have questions or need assistance? Our team is ready to help.</p>
         </div>
-        <div class="bg-white w-lg-50  p-3 rounded-1">
-            <p class="cursor-pointer">Email: <a href="mailto:hello@abc.com" class="text-blue font-18">
-                    anirban.das@t-online.de
-                </a> </p>
-            <p class="text-grey">We respond within 24 hours. For revoking your participation, please include "Revoke participation" in
-                your subject line.
+
+        <!-- Contact Card -->
+        <div class="card mb-8">
+            <div class="mb-6">
+                <p class="text-neutral-700">
+                    <span class="font-semibold">Email:</span>
+                    <a href="mailto:anirban.das@t-online.de" class="text-primary-600 hover:text-primary-700 transition-colors font-medium">
+                        anirban.das@t-online.de
+                    </a>
+                </p>
+            </div>
+            <p class="text-neutral-600 mb-6">
+                We respond within 24 hours. For revoking your participation, please include "Revoke participation" in your subject line.
+            </p>
+            <a href="mailto:anirban.das@t-online.de" brn-button class="inline-block">
+                Send Email
+            </a>
+        </div>
+
+        <!-- Terms and Privacy -->
+        <div class="text-center text-sm text-neutral-600">
+            <p>
+                By contacting us, you agree to our
+                <a routerLink="/privacy" class="text-primary-600 hover:text-primary-700 transition-colors font-medium">
+                    Privacy Policy
+                </a>
+                and
+                <a routerLink="/terms" class="text-primary-600 hover:text-primary-700 transition-colors font-medium">
+                    Terms of Service
+                </a>.
             </p>
         </div>
-        <div class="footer-bottom mt-3">
-            <p class="font-14 cursor-pointer text-grey">By contacting us, you agree to our <span class="text-blue"
-                    routerLink="/privacy">Privacy
-                    Policy</span> and
-                <span class="text-blue cursor-pointer" routerLink="/terms">Terms of
-                    Service</span>.
-            </p>
+
+        <!-- Footer Bottom -->
+        <div class="mt-12 pt-8 border-t border-neutral-300 text-center">
+            <p class="text-sm text-neutral-500">&copy; {{ currentYear }} TOAB Jitsi Plugin. All rights reserved.</p>
         </div>
     </div>
 </footer>

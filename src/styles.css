@@ -1,6 +1,5 @@
-/* You can add global styles to this file, and also import other style files */
-@import 'bootstrap/dist/css/bootstrap.min.css';
-@import 'primeicons/primeicons.css';
+/* Import Spartan NG Theme */
+@import './styles/theme.css';
 
 /* Global font styling */
 * {
@@ -11,103 +10,10 @@ body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
     font-weight: 400;
     line-height: 1.5;
-    color: #374151;
-    background-color: #ffffff;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    line-height: 1.2;
-    color: #1f2937;
-}
-
-/* Improve button and input font rendering */
-.p-button,
-.p-inputtext,
-.p-dropdown,
-.p-calendar {
-    font-family: 'Inter', sans-serif !important;
-}
-
-/* Better text rendering */
-body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
 }
-
-.bg-grey {
-    background-color: #ecedee;
-}
-
-.bg-off-white {
-    background-color: #f7f7f7;
-}
-
-.font-18 {
-    font-size: 18px;
-}
-
-.font-14 {
-    font-size: 14px;
-}
-
-.font-60 {
-    font-size: 60px;
-    line-height: 1;
-}
-
-.font-36 {
-    font-size: 36px;
-}
-
-.text-blue {
-    color: rgb(89, 89, 213);
-}
-
-.text-grey {
-    color: grey;
-}
-
-.cursor-pointer {
-    cursor: pointer;
-}
-
-
-@media (max-width: 768px) {
-    .font-60 {
-        font-size: 36px;
-    }
-}
-
-@media (max-width: 768px) {
-    .font-18 {
-        font-size: 16px;
-    }
-}
-
-/* Target mobile screens */
-@media screen and (max-width: 768px) {
-  /* PrimeNG dynamically injects the toast at the end of the DOM, so global styles work best */
-  .p-toast {
-    width: 90vw !important;
-    left: 5vw !important;
-    right: auto !important;
-  }
-
-  /* Make sure the inner message box also fills the new wider toast */
-  .p-toast-message {
-    width: 100% !important;
-  }
-}
-
-
 
 /* Common page styles for legal pages (Terms, Privacy) */
 .page-container {
@@ -125,14 +31,14 @@ body {
     font-family: 'Inter', sans-serif;
     font-weight: 700;
     font-size: 2.5rem;
-    color: var(--p-primary-color);
+    color: var(--primary-600);
     margin-bottom: 0.5rem;
 }
 
 .page-subtitle {
     font-family: 'Inter', sans-serif;
     font-weight: 400;
-    color: #6b7280;
+    color: var(--neutral-600);
     font-size: 1rem;
 }
 
@@ -144,9 +50,9 @@ body {
     font-family: 'Inter', sans-serif;
     font-weight: 600;
     font-size: 1.5rem;
-    color: #1f2937;
+    color: var(--neutral-900);
     margin-bottom: 1rem;
-    border-bottom: 2px solid var(--p-primary-color);
+    border-bottom: 2px solid var(--primary-600);
     padding-bottom: 0.5rem;
 }
 
@@ -154,7 +60,7 @@ body {
     font-family: 'Georgia', 'Times New Roman', serif;
     font-size: 1rem;
     line-height: 1.7;
-    color: #374151;
+    color: var(--neutral-700);
     margin: 0;
     padding-left: 1.5rem;
 }
@@ -163,8 +69,3 @@ body {
     margin-bottom: 0.75rem;
     font-weight: 400;
 }
-
-/* .content-list li::marker {
-    color: var(--p-primary-color);
-    font-size: 1.2em;
-} */
