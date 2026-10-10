@@ -4,12 +4,13 @@ import { NavigationEnd, Router } from '@angular/router';
 import { filter, map } from 'rxjs';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCardImports } from '@spartan-ng/helm/card';
+import { HlmSeparatorImports } from '@spartan-ng/helm/separator';
 import { ContactConsentComponent } from '../contact-consent/contact-consent.component';
 import { SITE } from '../../config/site';
 
 @Component({
   selector: 'app-footer',
-  imports: [ContactConsentComponent, HlmButtonImports, HlmCardImports],
+  imports: [ContactConsentComponent, HlmButtonImports, HlmCardImports, HlmSeparatorImports],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.css'
 })

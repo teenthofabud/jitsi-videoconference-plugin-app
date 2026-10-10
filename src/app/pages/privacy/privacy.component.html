@@ -1,19 +1,15 @@
-<div class="page-container">
-    <div class="page-header">
-        <h1>{{ privacyData.title }}</h1>
-        <p class="page-subtitle">Last updated: {{ privacyData.lastUpdated }}</p>
-    </div>
-
-    <div class="page-content">
-        @for (section of privacyData.sections; track section.title) {
-            <section class="content-section">
-                <h2>{{ section.title }}</h2>
-                <ul class="content-list">
-                    @for (item of section.items; track item) {
-                        <li>{{ item }}</li>
-                    }
-                </ul>
-            </section>
+<app-legal-page [title]="privacyData.title" [lastUpdated]="privacyData.lastUpdated">
+    @for (section of privacyData.sections; track section.title; let first = $first) {
+        @if (!first) {
+            <hlm-separator class="my-8" />
         }
-    </div>
-</div>
+        <section>
+            <h2 class="text-2xl font-semibold text-neutral-900 mb-4">{{ section.title }}</h2>
+            <ul class="list-disc ps-5 space-y-3">
+                @for (item of section.items; track item) {
+                    <li>{{ item }}</li>
+                }
+            </ul>
+        </section>
+    }
+</app-legal-page>

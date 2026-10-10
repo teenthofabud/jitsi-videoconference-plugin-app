@@ -33,7 +33,8 @@
         </div>
 
         <!-- Mobile Menu -->
-        <div [class.hidden]="!mobileMenuOpen" class="lg:hidden border-t border-neutral-200">
+        <div [class.hidden]="!mobileMenuOpen" class="lg:hidden">
+            <hlm-separator />
             <ng-container *ngTemplateOutlet="menuLinks; context: { $implicit: 'flex items-center gap-3 px-4 py-3 text-neutral-700 hover:bg-neutral-50 hover:text-primary-600 transition-colors font-medium' }" />
         </div>
     </div>
