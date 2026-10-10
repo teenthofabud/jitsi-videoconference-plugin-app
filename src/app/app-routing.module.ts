@@ -7,7 +7,7 @@ import { ContactComponent } from './pages/contact/contact.component';
 import { InstallComponent } from './pages/install/install.component';
 import { SeoData } from './services/seo.service';
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: '',
     component: HomeComponent,

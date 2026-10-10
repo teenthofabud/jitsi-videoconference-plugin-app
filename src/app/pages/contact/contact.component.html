@@ -22,8 +22,8 @@
                 <p class="text-neutral-700 mb-2">
                     <span class="font-semibold">Email:</span>
                 </p>
-                <a href="mailto:anirban.das@t-online.de" class="text-primary-600 hover:text-primary-700 transition-colors font-medium text-lg">
-                    anirban.das@t-online.de
+                <a [href]="mailto" class="text-primary-600 hover:text-primary-700 transition-colors font-medium text-lg">
+                    {{ contactEmail }}
                 </a>
                 <p class="text-neutral-600 text-sm mt-2">
                     We respond within 24 hours.
@@ -51,7 +51,7 @@
 
             <!-- CTA Button -->
             <div hlmCardFooter>
-                <a href="mailto:anirban.das@t-online.de" hlmBtn size="lg" class="px-4">
+                <a [href]="mailto" hlmBtn size="lg" class="px-4">
                     Send Email Now
                 </a>
             </div>
@@ -59,16 +59,7 @@
 
         <!-- Privacy Notice -->
         <div class="text-center text-sm text-neutral-600 px-4">
-            <p>
-                By contacting us, you agree to our
-                <a routerLink="/privacy" class="text-primary-600 hover:text-primary-700 transition-colors font-medium">
-                    Privacy Policy
-                </a>
-                and
-                <a routerLink="/terms" class="text-primary-600 hover:text-primary-700 transition-colors font-medium">
-                    Terms of Service
-                </a>.
-            </p>
+            <p appContactConsent></p>
         </div>
     </div>
 </div>

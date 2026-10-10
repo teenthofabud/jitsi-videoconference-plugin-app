@@ -86,34 +86,15 @@
       </div>
 
       <ol class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <li hlmCard>
-          <div hlmCardHeader>
-            <div class="flex items-center justify-center w-10 h-10 mb-2 rounded-full bg-primary-100 text-primary-600 font-bold">1</div>
-            <h3 hlmCardTitle class="text-lg font-semibold">Install the add-on</h3>
-          </div>
-          <p hlmCardContent class="text-base text-neutral-600">Add TOAB Jitsi Plugin to your calendar and sign in with your calendar account.</p>
-        </li>
-        <li hlmCard>
-          <div hlmCardHeader>
-            <div class="flex items-center justify-center w-10 h-10 mb-2 rounded-full bg-primary-100 text-primary-600 font-bold">2</div>
-            <h3 hlmCardTitle class="text-lg font-semibold">Choose your Jitsi server</h3>
-          </div>
-          <p hlmCardContent class="text-base text-neutral-600">Pick one of the curated public Jitsi servers. Support for your own self-hosted Jitsi server is coming soon.</p>
-        </li>
-        <li hlmCard>
-          <div hlmCardHeader>
-            <div class="flex items-center justify-center w-10 h-10 mb-2 rounded-full bg-primary-100 text-primary-600 font-bold">3</div>
-            <h3 hlmCardTitle class="text-lg font-semibold">Create an event</h3>
-          </div>
-          <p hlmCardContent class="text-base text-neutral-600">When you create or edit a calendar event, select TOAB Jitsi as the conferencing option. A unique room name is generated for you.</p>
-        </li>
-        <li hlmCard>
-          <div hlmCardHeader>
-            <div class="flex items-center justify-center w-10 h-10 mb-2 rounded-full bg-primary-100 text-primary-600 font-bold">4</div>
-            <h3 hlmCardTitle class="text-lg font-semibold">Join the meeting</h3>
-          </div>
-          <p hlmCardContent class="text-base text-neutral-600">The plugin adds the Jitsi meeting link to the event, so you and your guests can join with one click.</p>
-        </li>
+        @for (step of steps; track step.title; let number = $index) {
+          <li hlmCard>
+            <div hlmCardHeader>
+              <div class="flex items-center justify-center w-10 h-10 mb-2 rounded-full bg-primary-100 text-primary-600 font-bold">{{ number + 1 }}</div>
+              <h3 hlmCardTitle class="text-lg font-semibold">{{ step.title }}</h3>
+            </div>
+            <p hlmCardContent class="text-base text-neutral-600">{{ step.description }}</p>
+          </li>
+        }
       </ol>
     </div>
   </section>
@@ -220,26 +201,18 @@
         </p>
       </div>
 
-      <!-- Loading State -->
-      @if (isLoadingServers) {
-        <div class="text-center py-12">
-          <hlm-spinner class="text-5xl text-primary-600" aria-label="Loading servers" />
-          <p class="text-neutral-600 mt-4">Loading servers...</p>
-        </div>
-      } @else {
-        <!-- Servers Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          @for (server of servers; track server.serverUrl) {
-            <div hlmCard>
-              <div hlmCardHeader class="justify-items-center text-center">
-                <img src="assets/jitsi-icon.png" alt="Jitsi" class="w-8 h-8 mb-2" />
-                <h3 hlmCardTitle class="font-semibold">{{ server.name }}</h3>
-                <p hlmCardDescription class="break-all">{{ server.serverUrl }}</p>
-              </div>
+      <!-- Servers Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        @for (server of servers; track server.serverUrl) {
+          <div hlmCard>
+            <div hlmCardHeader class="justify-items-center text-center">
+              <img src="assets/jitsi-icon.png" alt="Jitsi" class="w-8 h-8 mb-2" />
+              <h3 hlmCardTitle class="font-semibold">{{ server.name }}</h3>
+              <p hlmCardDescription class="break-all">{{ server.serverUrl }}</p>
             </div>
-          }
-        </div>
-      }
+          </div>
+        }
+      </div>
     </div>
   </section>
 
@@ -264,55 +237,15 @@
               </tr>
             </thead>
             <tbody hlmTBody>
-              <tr hlmTr>
-                <td hlmTd class="px-4 py-3 align-top whitespace-normal">
-                  <span class="block font-medium text-neutral-800">Run as a Google Calendar add-on</span>
-                  <code class="text-xs text-neutral-500 break-all">calendar.addons.execute</code>
-                </td>
-                <td hlmTd class="px-4 py-3 align-top whitespace-normal text-neutral-600">To show TOAB Jitsi as a conferencing option and display its panel in your events.</td>
-              </tr>
-              <tr hlmTr>
-                <td hlmTd class="px-4 py-3 align-top whitespace-normal">
-                  <span class="block font-medium text-neutral-800">Read the event you have open</span>
-                  <code class="text-xs text-neutral-500 break-all">calendar.addons.current.event.read</code>
-                </td>
-                <td hlmTd class="px-4 py-3 align-top whitespace-normal text-neutral-600">To check that TOAB Jitsi is the selected conferencing option and get the event's ID.</td>
-              </tr>
-              <tr hlmTr>
-                <td hlmTd class="px-4 py-3 align-top whitespace-normal">
-                  <span class="block font-medium text-neutral-800">Update the event you have open</span>
-                  <code class="text-xs text-neutral-500 break-all">calendar.addons.current.event.write</code>
-                </td>
-                <td hlmTd class="px-4 py-3 align-top whitespace-normal text-neutral-600">To add the Jitsi meeting link to the event, and replace it when you choose a different server.</td>
-              </tr>
-              <tr hlmTr>
-                <td hlmTd class="px-4 py-3 align-top whitespace-normal">
-                  <span class="block font-medium text-neutral-800">View your calendar events</span>
-                  <code class="text-xs text-neutral-500 break-all">calendar.events.readonly</code>
-                </td>
-                <td hlmTd class="px-4 py-3 align-top whitespace-normal text-neutral-600">To notice when you save or cancel an event with a TOAB Jitsi meeting, so we can mark the meeting active or cancelled. Only event IDs and their status are sent to our servers.</td>
-              </tr>
-              <tr hlmTr>
-                <td hlmTd class="px-4 py-3 align-top whitespace-normal">
-                  <span class="block font-medium text-neutral-800">See your email address</span>
-                  <code class="text-xs text-neutral-500 break-all">userinfo.email</code>
-                </td>
-                <td hlmTd class="px-4 py-3 align-top whitespace-normal text-neutral-600">To find your TOAB Jitsi Plugin account and keep your settings linked to you.</td>
-              </tr>
-              <tr hlmTr>
-                <td hlmTd class="px-4 py-3 align-top whitespace-normal">
-                  <span class="block font-medium text-neutral-800">Connect to external services</span>
-                  <code class="text-xs text-neutral-500 break-all">script.external_request</code>
-                </td>
-                <td hlmTd class="px-4 py-3 align-top whitespace-normal text-neutral-600">To reach our backend service, which creates meetings and lists the Jitsi servers you can choose from.</td>
-              </tr>
-              <tr hlmTr>
-                <td hlmTd class="px-4 py-3 align-top whitespace-normal">
-                  <span class="block font-medium text-neutral-800">Manage triggers</span>
-                  <code class="text-xs text-neutral-500 break-all">script.scriptapp</code>
-                </td>
-                <td hlmTd class="px-4 py-3 align-top whitespace-normal text-neutral-600">To run the event check above in the background whenever your calendar events change.</td>
-              </tr>
+              @for (permission of permissions; track permission.scope) {
+                <tr hlmTr>
+                  <td hlmTd class="px-4 py-3 align-top whitespace-normal">
+                    <span class="block font-medium text-neutral-800">{{ permission.label }}</span>
+                    <code class="text-xs text-neutral-500 break-all">{{ permission.scope }}</code>
+                  </td>
+                  <td hlmTd class="px-4 py-3 align-top whitespace-normal text-neutral-600">{{ permission.reason }}</td>
+                </tr>
+              }
             </tbody>
           </table>
         </div>

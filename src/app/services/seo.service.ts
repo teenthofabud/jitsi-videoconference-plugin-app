@@ -1,15 +1,12 @@
-import { DOCUMENT, Inject, Injectable } from '@angular/core';
+import { DOCUMENT, inject, Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { SITE } from '../config/site';
 
-const SITE_URL = environment.siteUrl.replace(/\/$/, '');
-const SITE_NAME = 'TOAB Jitsi Plugin';
-const CDN_URL = environment.cdnUrl.replace(/\/$/, '');
-const API_ORIGIN = new URL(environment.apiUrl).origin;
-const DEFAULT_IMAGE = `${CDN_URL}/toab-jitsi-logo-cropped.jpg`;
-const FAVICON = `${CDN_URL}/toab-jitsi-logo-favicon-320x120.jpg`;
+const DEFAULT_IMAGE = SITE.cdnAsset('toab-jitsi-logo-cropped.jpg');
+const FAVICON = SITE.cdnAsset('toab-jitsi-logo-favicon-320x120.jpg');
 
 export interface SeoData {
   title?: string;
@@ -29,13 +26,11 @@ export interface SeoData {
  */
 @Injectable({ providedIn: 'root' })
 export class SeoService {
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private title: Title,
-    private meta: Meta,
-    @Inject(DOCUMENT) private document: Document
-  ) { }
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+  private title = inject(Title);
+  private meta = inject(Meta);
+  private document = inject(DOCUMENT);
 
   init() {
     this.setFavicon();
@@ -57,8 +52,7 @@ export class SeoService {
   }
 
   private apply(seo: SeoData, url: string) {
-    const path = url.split(/[?#]/)[0];
-    const canonical = SITE_URL + (path === '/' ? '/' : path.replace(/\/$/, ''));
+    const canonical = canonicalUrl(url);
 
     if (seo.title) {
       this.title.setTitle(seo.title);
@@ -71,29 +65,23 @@ export class SeoService {
       this.meta.updateTag({ name: 'twitter:description', content: seo.description });
     }
 
-    const robots = !environment.indexable
-      ? 'noindex, nofollow'
-      : seo.noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large';
+    const robots = robotsDirective(seo);
     this.meta.updateTag({ name: 'robots', content: robots });
     this.meta.updateTag({ name: 'bingbot', content: robots });
 
     this.meta.updateTag({ property: 'og:url', content: canonical });
     this.meta.updateTag({ property: 'og:type', content: 'website' });
-    this.meta.updateTag({ property: 'og:site_name', content: SITE_NAME });
+    this.meta.updateTag({ property: 'og:site_name', content: SITE.name });
     this.meta.updateTag({ property: 'og:image', content: DEFAULT_IMAGE });
     this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
     this.meta.updateTag({ name: 'twitter:image', content: DEFAULT_IMAGE });
 
-    this.setCanonical(canonical);
+    this.headElement('link[rel="canonical"]', 'link', (link) => link.setAttribute('rel', 'canonical'))
+      .setAttribute('href', canonical);
   }
 
   private setFavicon() {
-    let link = this.document.head.querySelector<HTMLLinkElement>('link[rel="icon"]');
-    if (!link) {
-      link = this.document.createElement('link');
-      link.setAttribute('rel', 'icon');
-      this.document.head.appendChild(link);
-    }
+    const link = this.headElement('link[rel="icon"]', 'link', (link) => link.setAttribute('rel', 'icon'));
     link.setAttribute('type', 'image/jpeg');
     link.setAttribute('href', FAVICON);
   }
@@ -103,70 +91,85 @@ export class SeoService {
   // browser can't reuse the connection. scripts/csp-sources.mjs also reads this
   // link back from the pre-rendered page to allow the API in nginx's CSP.
   private setApiPreconnect() {
-    let link = this.document.head.querySelector<HTMLLinkElement>('link#api-preconnect');
-    if (!link) {
-      link = this.document.createElement('link');
+    this.headElement('link#api-preconnect', 'link', (link) => {
       link.id = 'api-preconnect';
       link.setAttribute('rel', 'preconnect');
       link.setAttribute('crossorigin', '');
-      this.document.head.appendChild(link);
-    }
-    link.setAttribute('href', API_ORIGIN);
-  }
-
-  private setCanonical(href: string) {
-    let link = this.document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
-    if (!link) {
-      link = this.document.createElement('link');
-      link.setAttribute('rel', 'canonical');
-      this.document.head.appendChild(link);
-    }
-    link.setAttribute('href', href);
+    }).setAttribute('href', new URL(SITE.apiUrl).origin);
   }
 
   private setStructuredData() {
-    const organizationId = `${SITE_URL}/#organization`;
-    const data = {
-      '@context': 'https://schema.org',
-      '@graph': [
-        {
-          '@type': 'Organization',
-          '@id': organizationId,
-          name: 'TOAB',
-          legalName: 'Das Software',
-          url: `${SITE_URL}/`,
-          logo: DEFAULT_IMAGE,
-          email: 'anirban.das@t-online.de',
-        },
-        {
-          '@type': 'WebSite',
-          '@id': `${SITE_URL}/#website`,
-          name: SITE_NAME,
-          url: `${SITE_URL}/`,
-          inLanguage: 'en',
-          publisher: { '@id': organizationId },
-        },
-        {
-          '@type': 'SoftwareApplication',
-          name: SITE_NAME,
-          applicationCategory: 'BusinessApplication',
-          applicationSubCategory: 'Video conferencing',
-          operatingSystem: 'Web',
-          url: `${SITE_URL}/`,
-          description: 'Calendar plugin that adds Jitsi Meet video conferencing to Google Calendar and Cal.com, using curated public Jitsi servers.',
-          publisher: { '@id': organizationId },
-        },
-      ],
-    };
-
-    // Reuse the pre-rendered element on hydration instead of adding a second one
-    let script = this.document.head.querySelector<HTMLScriptElement>('script#structured-data');
-    if (!script) {
-      script = this.document.createElement('script');
+    this.headElement('script#structured-data', 'script', (script) => {
       script.id = 'structured-data';
       script.type = 'application/ld+json';
-      this.document.head.appendChild(script);
-    }
-    script.textContent = JSON.stringify(data);
+    }).textContent = JSON.stringify(structuredData());
   }
+
+  /**
+   * Returns the head element matching the selector, creating it with `init`
+   * when missing. Reusing the element keeps hydration and repeated calls from
+   * adding duplicates of what pre-rendering already put in the page.
+   */
+  private headElement<K extends keyof HTMLElementTagNameMap>(
+    selector: string,
+    tag: K,
+    init: (element: HTMLElementTagNameMap[K]) => void
+  ): HTMLElementTagNameMap[K] {
+    const existing = this.document.head.querySelector<HTMLElementTagNameMap[K]>(selector);
+    if (existing) {
+      return existing;
+    }
+    const element = this.document.createElement(tag);
+    init(element);
+    this.document.head.appendChild(element);
+    return element;
+  }
+}
+
+function canonicalUrl(url: string): string {
+  const path = url.split(/[?#]/)[0];
+  return SITE.url + (path === '/' ? '/' : path.replace(/\/$/, ''));
+}
+
+function robotsDirective(seo: SeoData): string {
+  if (!environment.indexable) {
+    return 'noindex, nofollow';
+  }
+  return seo.noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large';
+}
+
+function structuredData() {
+  const organizationId = `${SITE.url}/#organization`;
+  return {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Organization',
+        '@id': organizationId,
+        name: 'TOAB',
+        legalName: 'Das Software',
+        url: `${SITE.url}/`,
+        logo: DEFAULT_IMAGE,
+        email: SITE.contactEmail,
+      },
+      {
+        '@type': 'WebSite',
+        '@id': `${SITE.url}/#website`,
+        name: SITE.name,
+        url: `${SITE.url}/`,
+        inLanguage: 'en',
+        publisher: { '@id': organizationId },
+      },
+      {
+        '@type': 'SoftwareApplication',
+        name: SITE.name,
+        applicationCategory: 'BusinessApplication',
+        applicationSubCategory: 'Video conferencing',
+        operatingSystem: 'Web',
+        url: `${SITE.url}/`,
+        description: 'Calendar plugin that adds Jitsi Meet video conferencing to Google Calendar and Cal.com, using curated public Jitsi servers.',
+        publisher: { '@id': organizationId },
+      },
+    ],
+  };
 }

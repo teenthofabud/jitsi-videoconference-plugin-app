@@ -1,6 +1,4 @@
 export const environment = {
-  appName: 'Jitsi plugin website',
-  version: '1.0.0',
   apiUrl: 'https://api.jitsi.dpdns.org',
   siteUrl: 'https://jitsi.dpdns.org',
   cdnUrl: 'https://toab-jitsi-cdn-dev-414772275073-eu-central-1-an.s3.eu-central-1.amazonaws.com',

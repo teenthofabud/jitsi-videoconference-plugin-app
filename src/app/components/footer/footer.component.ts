@@ -1,18 +1,23 @@
 import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { filter, map } from 'rxjs';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCardImports } from '@spartan-ng/helm/card';
+import { ContactConsentComponent } from '../contact-consent/contact-consent.component';
+import { SITE } from '../../config/site';
 
 @Component({
   selector: 'app-footer',
-  imports: [RouterModule, HlmButtonImports, HlmCardImports],
+  imports: [ContactConsentComponent, HlmButtonImports, HlmCardImports],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.css'
 })
 export class FooterComponent {
-  currentYear = new Date().getFullYear();
+  readonly currentYear = new Date().getFullYear();
+  readonly siteName = SITE.name;
+  readonly contactEmail = SITE.contactEmail;
+  readonly mailto = `mailto:${SITE.contactEmail}`;
 
   private router = inject(Router);
 

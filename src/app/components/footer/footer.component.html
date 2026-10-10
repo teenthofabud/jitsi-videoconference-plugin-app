@@ -13,15 +13,15 @@
                     <div>
                         <p class="text-neutral-700">
                             <span class="font-semibold">Email:</span>
-                            <a href="mailto:anirban.das@t-online.de" class="text-primary-600 hover:text-primary-700 transition-colors font-medium">
-                                anirban.das@t-online.de
+                            <a [href]="mailto" class="text-primary-600 hover:text-primary-700 transition-colors font-medium">
+                                {{ contactEmail }}
                             </a>
                         </p>
                     </div>
                     <p class="text-neutral-600">
                         We respond within 24 hours. For revoking your participation, please include "Revoke participation" in your subject line.
                     </p>
-                    <a href="mailto:anirban.das@t-online.de" hlmBtn size="lg" class="px-4">
+                    <a [href]="mailto" hlmBtn size="lg" class="px-4">
                         Send Email
                     </a>
                 </div>
@@ -29,22 +29,13 @@
 
             <!-- Terms and Privacy -->
             <div class="text-center text-sm text-neutral-600">
-                <p>
-                    By contacting us, you agree to our
-                    <a routerLink="/privacy" class="text-primary-600 hover:text-primary-700 transition-colors font-medium">
-                        Privacy Policy
-                    </a>
-                    and
-                    <a routerLink="/terms" class="text-primary-600 hover:text-primary-700 transition-colors font-medium">
-                        Terms of Service
-                    </a>.
-                </p>
+                <p appContactConsent></p>
             </div>
         }
 
         <!-- Footer Bottom -->
         <div class="text-center" [class]="isContactPage() ? '' : 'mt-12 pt-8 border-t border-neutral-300'">
-            <p class="text-sm text-neutral-500">&copy; {{ currentYear }} TOAB Jitsi Plugin. All rights reserved.</p>
+            <p class="text-sm text-neutral-500">&copy; {{ currentYear }} {{ siteName }}. All rights reserved.</p>
         </div>
     </div>
 </footer>
