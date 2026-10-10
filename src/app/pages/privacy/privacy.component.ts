@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { HlmSeparatorImports } from '@spartan-ng/helm/separator';
+import { LegalPageComponent } from '../../components/legal-page/legal-page.component';
 import privacyData from '../../../assets/data/privacy.json';
 
 interface PrivacySection {
@@ -14,9 +16,8 @@ interface PrivacyData {
 
 @Component({
   selector: 'app-privacy',
-  imports: [],
-  templateUrl: './privacy.component.html',
-  styleUrl: './privacy.component.css'
+  imports: [LegalPageComponent, HlmSeparatorImports],
+  templateUrl: './privacy.component.html'
 })
 export class PrivacyComponent {
   privacyData: PrivacyData = privacyData;
