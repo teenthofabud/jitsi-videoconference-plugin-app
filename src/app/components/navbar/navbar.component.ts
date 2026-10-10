@@ -24,7 +24,7 @@ export class NavbarComponent {
   private document = inject(DOCUMENT);
 
   readonly siteName = SITE.name;
-  readonly logoUrl = SITE.cdnAsset('toab-jitsi-logo-cropped-296x80.jpg');
+  readonly logoUrl = SITE.cdnAsset('toab-jitsi-logo-296x79.svg');
   readonly items: readonly NavItem[] = [
     { label: 'Home', route: '/', exact: true, icon: 'M3 12l2-3m0 0l7-4 7 4M5 9v10a1 1 0 001 1h2a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h2a1 1 0 001-1V9m-9 13l-4-4m0 0l-4 4m4-4v12' },
     { label: 'How to Install', route: '/install', icon: 'M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4' },

@@ -5,8 +5,8 @@ import { filter } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { SITE } from '../config/site';
 
-const DEFAULT_IMAGE = SITE.cdnAsset('toab-jitsi-logo-cropped.jpg');
-const FAVICON = SITE.cdnAsset('toab-jitsi-logo-favicon-320x120.jpg');
+const DEFAULT_IMAGE = SITE.cdnAsset('toab-jitsi-logo-320x86.svg');
+const FAVICON = SITE.cdnAsset('toab-jitsi-logo-320x86.svg');
 
 export interface SeoData {
   title?: string;
