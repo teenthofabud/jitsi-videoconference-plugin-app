@@ -68,7 +68,7 @@ describe('NavbarComponent', () => {
 
   it('should render the logo from the CDN', () => {
     const img = element.querySelector('img')!;
-    expect(img.getAttribute('src')).toMatch(/\/toab-jitsi-logo-cropped-296x80\.jpg$/);
+    expect(img.getAttribute('src')).toMatch(/\/toab-jitsi-logo-296x79\.svg$/);
     expect(img.getAttribute('alt')).toBe('TOAB Jitsi Plugin');
   });
 

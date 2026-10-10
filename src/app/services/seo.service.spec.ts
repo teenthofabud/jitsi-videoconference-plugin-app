@@ -39,7 +39,7 @@ describe('SeoService', () => {
   it('sets the favicon, API preconnect and structured data on init', () => {
     const icon = document.head.querySelector('link[rel="icon"]')!;
     expect(icon.getAttribute('type')).toBe('image/jpeg');
-    expect(icon.getAttribute('href')).toBe(`${cdnUrl}/toab-jitsi-logo-favicon-320x120.jpg`);
+    expect(icon.getAttribute('href')).toBe(`${cdnUrl}/toab-jitsi-logo-320x86.svg`);
 
     const preconnect = document.head.querySelector('link#api-preconnect')!;
     expect(preconnect.getAttribute('rel')).toBe('preconnect');
@@ -55,7 +55,7 @@ describe('SeoService', () => {
       name: 'TOAB',
       legalName: 'Das Software',
       url: `${siteUrl}/`,
-      logo: `${cdnUrl}/toab-jitsi-logo-cropped.jpg`,
+      logo: `${cdnUrl}/toab-jitsi-logo-320x86.svg`,
       email: 'anirban.das@t-online.de',
     });
     expect(data['@graph'][1]).toMatchObject({ name: 'TOAB Jitsi Plugin', publisher: { '@id': `${siteUrl}/#organization` } });
@@ -80,9 +80,9 @@ describe('SeoService', () => {
     expect(meta('property', 'og:url')).toBe(`${siteUrl}/`);
     expect(meta('property', 'og:type')).toBe('website');
     expect(meta('property', 'og:site_name')).toBe('TOAB Jitsi Plugin');
-    expect(meta('property', 'og:image')).toBe(`${cdnUrl}/toab-jitsi-logo-cropped.jpg`);
+    expect(meta('property', 'og:image')).toBe(`${cdnUrl}/toab-jitsi-logo-320x86.svg`);
     expect(meta('name', 'twitter:card')).toBe('summary_large_image');
-    expect(meta('name', 'twitter:image')).toBe(`${cdnUrl}/toab-jitsi-logo-cropped.jpg`);
+    expect(meta('name', 'twitter:image')).toBe(`${cdnUrl}/toab-jitsi-logo-320x86.svg`);
     expect(linkHref('link[rel="canonical"]')).toBe(`${siteUrl}/`);
   });
 
