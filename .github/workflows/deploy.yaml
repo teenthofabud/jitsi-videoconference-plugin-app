@@ -31,11 +31,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          # Full history so the sitemap's <lastmod> reflects each page's last commit
+          fetch-depth: 0
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: npm
 
       - name: Get Secrets
@@ -52,15 +55,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Dynamically build the environment file
-        run: |
-          cat <<EOF > "src/environments/environment.${{ inputs.environment }}.ts"
-          export const environment = {
-            production: true,
-            apiUrl: "${{ vars.TOAB_JITSI_MODERATOR_API_URL }}"
-          };
-          EOF
+      - name: Run unit tests
+        run: npm test -- --watch=false
 
+      # apiUrl, siteUrl, cdnUrl and indexable all come from the committed
+      # src/environments/environment.<env>.ts, the single source of truth for each environment.
       - name: Build website
         run: npm run build -- --configuration ${{ inputs.environment }}
 
@@ -72,10 +71,22 @@ jobs:
 
       - name: Deploy website to S3
         run: |
+          DIST=dist/toab-jitsi-website/browser
+
+          # Pre-rendered routes (e.g. privacy/index.html -> privacy). Each is also uploaded
+          # as an extension-less object so /privacy returns the static HTML with a 200
+          # instead of a redirect or the SPA fallback. Excluded below so --delete keeps them.
+          ROUTES=$(cd "$DIST" && find . -mindepth 2 -name index.html | sed 's|^\./||; s|/index.html$||')
+          ROUTE_EXCLUDES=()
+          for route in $ROUTES; do ROUTE_EXCLUDES+=(--exclude "$route"); done
+
           # Sync all assets EXCEPT html files Cache these forever (1 year)
-          aws s3 sync dist/toab-jitsi-website/browser/ "s3://${S3_BUCKET_NAME}/" \
+          aws s3 sync "$DIST/" "s3://${S3_BUCKET_NAME}/" \
             --delete \
             --exclude "*.html" \
+            --exclude "robots.txt" \
+            --exclude "sitemap.xml" \
+            "${ROUTE_EXCLUDES[@]}" \
             --cache-control "max-age=31536000, public"
 
           # Sync ONLY html files with strict NO CACHING
@@ -85,6 +96,23 @@ jobs:
             --cache-control "max-age=0, no-cache, no-store, must-revalidate" \
             --content-type text/html
 
+          for route in $ROUTES; do
+            aws s3 cp "$DIST/$route/index.html" "s3://${S3_BUCKET_NAME}/$route" \
+              --cache-control "max-age=0, no-cache, no-store, must-revalidate" \
+              --content-type text/html
+          done
+
+          # Crawler files must not be cached for a year, or sitemap updates go unseen.
+          # sitemap.xml only exists for indexable (live) builds.
+          aws s3 cp "$DIST/robots.txt" "s3://${S3_BUCKET_NAME}/robots.txt" \
+            --cache-control "max-age=3600, public" --content-type text/plain
+          if [ -f "$DIST/sitemap.xml" ]; then
+            aws s3 cp "$DIST/sitemap.xml" "s3://${S3_BUCKET_NAME}/sitemap.xml" \
+              --cache-control "max-age=3600, public" --content-type application/xml
+          else
+            aws s3 rm "s3://${S3_BUCKET_NAME}/sitemap.xml"
+          fi
+
       - name: Purge cloudflare cache
         if: ${{ inputs.purge_cache }}
         run: |
@@ -92,3 +120,25 @@ jobs:
           -H "Authorization: Bearer ${{ env.CLOUDFLARE_API_TOKEN }}" \
           -H "Content-Type: application/json" \
           --data '{"purge_everything":true}'
+
+      # IndexNow tells Bing (and through it DuckDuckGo, Yandex, Seznam, Naver) about
+      # updated URLs immediately. Google ignores IndexNow, so this has no effect there.
+      # Runs only for indexable builds, i.e. when the post-build step wrote a sitemap.
+      - name: Notify search engines via IndexNow
+        continue-on-error: true
+        run: |
+          DIST=dist/toab-jitsi-website/browser
+          if [ ! -f "$DIST/sitemap.xml" ]; then
+            echo "Build is not indexable; skipping IndexNow"
+            exit 0
+          fi
+          KEY=$(basename "$(ls "$DIST"/*.txt | grep -E '/[0-9a-f]{32}\.txt$')" .txt)
+          URLS=$(grep -o '<loc>[^<]*' "$DIST/sitemap.xml" | sed 's/<loc>//' | jq -R . | jq -s .)
+          SITE=$(echo "$URLS" | jq -r '.[0]' | sed 's|/$||')
+          HOST=${SITE#https://}
+          jq -n --arg host "$HOST" --arg key "$KEY" --arg site "$SITE" --argjson urls "$URLS" \
+            '{host: $host, key: $key, keyLocation: "\($site)/\($key).txt", urlList: $urls}' > indexnow.json
+          cat indexnow.json
+          curl --fail-with-body -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json; charset=utf-8" \
+            --data @indexnow.json

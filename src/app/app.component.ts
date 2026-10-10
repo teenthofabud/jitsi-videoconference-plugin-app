@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SeoService } from './services/seo.service';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +9,8 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'TOAB Jitsi Plugin';
+
+  constructor(seo: SeoService) {
+    seo.init();
+  }
 }

@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule, provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withFetch } from '@angular/common/http';
 import { BrnButton } from '@spartan-ng/brain/button';
 import { BrnInput } from '@spartan-ng/brain/input';
 
@@ -21,10 +20,8 @@ import { ContactComponent } from './pages/contact/contact.component';
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule,
     NavbarComponent,
     FooterComponent,
     HomeComponent,
@@ -34,7 +31,10 @@ import { ContactComponent } from './pages/contact/contact.component';
     BrnButton,
     BrnInput
   ],
-  providers: [],
+  providers: [
+    provideClientHydration(withEventReplay()),
+    provideHttpClient(withFetch())
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
