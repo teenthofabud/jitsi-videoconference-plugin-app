@@ -76,6 +76,19 @@
                   "with": "src/environments/environment.dev.ts"
                 }
               ]
+            },
+            "local": {
+              "outputHashing": "all",
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.local.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "live"
@@ -88,6 +101,9 @@
             },
             "dev": {
               "buildTarget": "toab-jitsi-website:build:dev"
+            },
+            "local":{
+              "buildTarget": "toab-jitsi-website:build:local"
             }
           },
           "defaultConfiguration": "dev"

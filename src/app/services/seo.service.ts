@@ -91,6 +91,8 @@ export class SeoService {
   // browser can't reuse the connection. scripts/csp-sources.mjs also reads this
   // link back from the pre-rendered page to allow the API in nginx's CSP.
   private setApiPreconnect() {
+    if(!SITE.apiUrl.startsWith('http'))
+      return;
     this.headElement('link#api-preconnect', 'link', (link) => {
       link.id = 'api-preconnect';
       link.setAttribute('rel', 'preconnect');
