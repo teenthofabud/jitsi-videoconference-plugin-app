@@ -3,12 +3,12 @@
         <div class="flex justify-between items-center h-16">
             <!-- Logo -->
             <a routerLink="/" class="flex items-center hover:opacity-90 transition-opacity">
-                <img src="https://toab-jitsi-cdn-live-414772275073-eu-central-1-an.s3.eu-central-1.amazonaws.com/toab-jitsi-logo-cropped.jpg" alt="TOAB Jitsi Plugin" class="h-10 w-auto" />
+                <img [ngSrc]="logoUrl" width="148" height="40" priority alt="TOAB Jitsi Plugin" class="h-10 w-auto" />
             </a>
 
             <!-- Desktop Menu -->
             <div class="hidden lg:flex items-center gap-8">
-                <a routerLink="/home" routerLinkActive="active"
+                <a routerLink="/" routerLinkActive="active"
                    [routerLinkActiveOptions]="{exact: true}"
                    class="flex items-center gap-2 text-neutral-700 hover:text-primary-600 transition-colors font-medium">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -58,7 +58,7 @@
 
         <!-- Mobile Menu -->
         <div [class.hidden]="!mobileMenuOpen" class="lg:hidden border-t border-neutral-200">
-            <a routerLink="/home" routerLinkActive="active"
+            <a routerLink="/" routerLinkActive="active"
                [routerLinkActiveOptions]="{exact: true}"
                (click)="closeMobileMenu()"
                class="flex items-center gap-3 px-4 py-3 text-neutral-700 hover:bg-neutral-50 hover:text-primary-600 transition-colors font-medium">

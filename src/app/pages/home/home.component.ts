@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NewsletterService } from 'src/app/newsletter.service';
 import { NotificationService } from 'src/app/services/notification.service';
@@ -12,8 +13,6 @@ import { DefaultServer } from 'src/app/types/common';
 })
 export class HomeComponent implements OnInit {
   data: any;
-  servers: DefaultServer[] = [];
-  isLoadingServers = true;
   email: any;
 
   private fallbackServers: DefaultServer[] = [
@@ -23,24 +22,32 @@ export class HomeComponent implements OnInit {
     { name: 'openSUSE Meet', serverUrl: 'https://meet.opensuse.org' }
   ];
 
+  // Start with the fallback list so pre-rendered HTML contains real server
+  // names for crawlers; the live list replaces it once loaded in the browser.
+  servers: DefaultServer[] = this.fallbackServers;
+  isLoadingServers = false;
+
   constructor(
     private notificationService: NotificationService,
-    private newsletterService: NewsletterService
+    private newsletterService: NewsletterService,
+    @Inject(PLATFORM_ID) private platformId: object
   ) { }
 
   ngOnInit(): void {
-    this.loadServers();
+    if (isPlatformBrowser(this.platformId)) {
+      this.loadServers();
+    }
   }
 
   loadServers() {
     this.newsletterService.fetchDefaultServers().subscribe({
       next: (response) => {
-        this.servers = response;
-        this.isLoadingServers = false;
+        if (response?.length) {
+          this.servers = response;
+        }
       },
       error: (error) => {
         this.servers = this.fallbackServers;
-        this.isLoadingServers = false;
       }
     });
   }
