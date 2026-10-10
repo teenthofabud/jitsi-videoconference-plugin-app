@@ -2,6 +2,7 @@ import { NgOptimizedImage, NgTemplateOutlet } from '@angular/common';
 import { Component, DOCUMENT, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmSeparatorImports } from '@spartan-ng/helm/separator';
 import { SITE } from '../../config/site';
 
 interface NavItem {
@@ -15,7 +16,7 @@ interface NavItem {
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterModule, NgOptimizedImage, NgTemplateOutlet, HlmButtonImports],
+  imports: [RouterModule, NgOptimizedImage, NgTemplateOutlet, HlmButtonImports, HlmSeparatorImports],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
