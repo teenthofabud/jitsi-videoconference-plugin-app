@@ -38,3 +38,6 @@ testem.log
 Thumbs.db
 
 proxy.conf.json
+
+# Nx cache created by the Spartan CLI
+.nx/

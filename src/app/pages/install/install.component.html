@@ -1,0 +1,91 @@
+<div class="py-20 px-4 sm:px-6 md:px-8 lg:px-12">
+    <div class="max-w-7xl mx-auto">
+        <!-- Header -->
+        <div class="text-center mb-12">
+            <h1 class="text-5xl md:text-6xl font-bold text-neutral-900 mb-6">How to Install</h1>
+            <p class="text-lg md:text-xl text-neutral-600 max-w-3xl mx-auto">
+                TOAB Jitsi Plugin works inside the calendar you already use. Choose your calendar below to see how to
+                install the plugin and add Jitsi meetings to your events.
+            </p>
+        </div>
+
+        <!-- Installation Options -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
+            <!-- Google Calendar -->
+            <section hlmCard class="relative" aria-labelledby="install-google-title">
+                <span hlmBadge class="absolute top-4 right-4 bg-warning-500 text-white">Coming Soon</span>
+                <div hlmCardHeader class="pt-2">
+                    <img src="assets/gcalendar.png" alt="" class="w-10 h-10 mb-2" />
+                    <h2 hlmCardTitle id="install-google-title" class="text-xl font-semibold">Google Calendar</h2>
+                    <p hlmCardDescription class="text-base">
+                        Install the add-on from the Google Workspace Marketplace.
+                    </p>
+                </div>
+                <div hlmCardContent class="flex-1 text-base text-neutral-600">
+                    <ol class="list-decimal ps-5 space-y-2">
+                        <li>Open TOAB Jitsi Plugin in the Google Workspace Marketplace and click <strong>Install</strong>.</li>
+                        <li>Sign in with your Google account and review the permissions. Our <a routerLink="/privacy">Privacy Policy</a> explains what each one is for.</li>
+                        <li>In Google Calendar, create or edit an event and choose <strong>TOAB Jitsi</strong> from the video conferencing options.</li>
+                        <li>To use a different Jitsi server, open the TOAB Jitsi panel in the event, pick a server and click <strong>Confirm Server</strong>.</li>
+                    </ol>
+                </div>
+                <div hlmCardFooter>
+                    <button hlmBtn size="lg" class="w-full" disabled>Install from Google Workspace Marketplace</button>
+                </div>
+            </section>
+
+            <!-- Microsoft Outlook -->
+            <section hlmCard class="relative" aria-labelledby="install-outlook-title">
+                <span hlmBadge class="absolute top-4 right-4 bg-warning-500 text-white">Coming Soon</span>
+                <div hlmCardHeader class="pt-2">
+                    <img src="assets/outlook.png" alt="" class="w-10 h-10 mb-2" />
+                    <h2 hlmCardTitle id="install-outlook-title" class="text-xl font-semibold">Microsoft Outlook</h2>
+                    <p hlmCardDescription class="text-base">
+                        An add-in for Outlook is in development.
+                    </p>
+                </div>
+                <div hlmCardContent class="flex-1 text-base text-neutral-600">
+                    <p>
+                        We will publish installation steps here as soon as TOAB Jitsi Plugin is available for Outlook.
+                        <a routerLink="/">Join the preview access list</a> to hear about it first.
+                    </p>
+                </div>
+                <div hlmCardFooter>
+                    <button hlmBtn size="lg" class="w-full" disabled>Get the Outlook add-in</button>
+                </div>
+            </section>
+
+            <!-- Cal.com -->
+            <section hlmCard class="relative" aria-labelledby="install-calcom-title">
+                <span hlmBadge class="absolute top-4 right-4 bg-warning-500 text-white">Coming Soon</span>
+                <div hlmCardHeader class="pt-2">
+                    <img src="assets/calcom.svg" alt="" class="w-10 h-10 mb-2" />
+                    <h2 hlmCardTitle id="install-calcom-title" class="text-xl font-semibold">Cal.com</h2>
+                    <p hlmCardDescription class="text-base">
+                        Install the app from the Cal.com App Store.
+                    </p>
+                </div>
+                <div hlmCardContent class="flex-1 text-base text-neutral-600">
+                    <ol class="list-decimal ps-5 space-y-2">
+                        <li>Open the Cal.com App Store, find <strong>TOAB Jitsi</strong> and click <strong>Install</strong>.</li>
+                        <li>Open the event type you want to use and set its location to <strong>TOAB Jitsi App</strong>.</li>
+                        <li>In the event type's app settings, choose the Jitsi server for your meetings.</li>
+                        <li>New bookings for that event type get a Jitsi meeting link automatically.</li>
+                    </ol>
+                </div>
+                <div hlmCardFooter>
+                    <a hlmBtn size="lg" class="w-full" href="https://cal.com/apps" target="_blank" rel="noopener noreferrer">
+                        Open the Cal.com App Store
+                    </a>
+                </div>
+            </section>
+        </div>
+
+        <!-- Help Notice -->
+        <div class="text-center text-neutral-600">
+            <p>
+                Need help installing? <a routerLink="/contact">Contact us</a> and we'll get back to you within 24 hours.
+            </p>
+        </div>
+    </div>
+</div>

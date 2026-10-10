@@ -9,29 +9,29 @@
         </div>
 
         <!-- Contact Card -->
-        <div class="card mb-8">
-            <div class="mb-6">
-                <h2 class="text-2xl font-semibold text-neutral-900 mb-4">Get in Touch</h2>
-                <p class="text-neutral-600 mb-4">
+        <div hlmCard class="mb-8">
+            <div hlmCardHeader>
+                <h2 hlmCardTitle class="text-2xl font-semibold">Get in Touch</h2>
+                <p hlmCardDescription class="text-base">
                     We're here to answer any questions and help you get started with the Jitsi plugin for your calendar.
                 </p>
             </div>
 
-            <!-- Email Contact -->
-            <div class="mb-6 pb-6 border-b border-neutral-200">
+            <div hlmCardContent class="text-base">
+                <!-- Email Contact -->
                 <p class="text-neutral-700 mb-2">
                     <span class="font-semibold">Email:</span>
                 </p>
-                <a href="mailto:anirban.das@t-online.de" class="text-primary-600 hover:text-primary-700 transition-colors font-medium text-lg">
-                    anirban.das@t-online.de
+                <a [href]="mailto" class="text-primary-600 hover:text-primary-700 transition-colors font-medium text-lg">
+                    {{ contactEmail }}
                 </a>
                 <p class="text-neutral-600 text-sm mt-2">
                     We respond within 24 hours.
                 </p>
-            </div>
 
-            <!-- Support Info -->
-            <div class="mb-8">
+                <hlm-separator class="my-6" />
+
+                <!-- Support Info -->
                 <h3 class="text-lg font-semibold text-neutral-900 mb-3">Information to Include</h3>
                 <ul class="space-y-2 text-neutral-600">
                     <li class="flex items-start gap-3">
@@ -50,24 +50,16 @@
             </div>
 
             <!-- CTA Button -->
-            <a href="mailto:anirban.das@t-online.de" brn-button class="inline-block">
-                Send Email Now
-            </a>
+            <div hlmCardFooter>
+                <a [href]="mailto" hlmBtn size="lg" class="px-4">
+                    Send Email Now
+                </a>
+            </div>
         </div>
 
         <!-- Privacy Notice -->
         <div class="text-center text-sm text-neutral-600 px-4">
-            <p class="mb-2">
-                By contacting us, you agree to our
-                <a routerLink="/privacy" class="text-primary-600 hover:text-primary-700 transition-colors font-medium">
-                    Privacy Policy
-                </a>
-                and
-                <a routerLink="/terms" class="text-primary-600 hover:text-primary-700 transition-colors font-medium">
-                    Terms of Service
-                </a>.
-            </p>
-            <p class="text-neutral-500">&copy; {{ currentYear }} TOAB Jitsi Plugin. All rights reserved.</p>
+            <p appContactConsent></p>
         </div>
     </div>
 </div>

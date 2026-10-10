@@ -3,45 +3,21 @@
         <div class="flex justify-between items-center h-16">
             <!-- Logo -->
             <a routerLink="/" class="flex items-center hover:opacity-90 transition-opacity">
-                <img [ngSrc]="logoUrl" width="148" height="40" priority alt="TOAB Jitsi Plugin" class="h-10 w-auto" />
+                <img [ngSrc]="logoUrl" width="148" height="40" priority [alt]="siteName" class="h-10 w-auto" />
             </a>
 
             <!-- Desktop Menu -->
             <div class="hidden lg:flex items-center gap-8">
-                <a routerLink="/" routerLinkActive="active"
-                   [routerLinkActiveOptions]="{exact: true}"
-                   class="flex items-center gap-2 text-neutral-700 hover:text-primary-600 transition-colors font-medium">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-3m0 0l7-4 7 4M5 9v10a1 1 0 001 1h2a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h2a1 1 0 001-1V9m-9 13l-4-4m0 0l-4 4m4-4v12" />
-                    </svg>
-                    <span>Home</span>
-                </a>
-                <a (click)="scrollToContact()" class="flex items-center gap-2 text-neutral-700 hover:text-primary-600 transition-colors font-medium cursor-pointer">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                    </svg>
-                    <span>Contact</span>
-                </a>
-                <a routerLink="/privacy" routerLinkActive="active"
-                   class="flex items-center gap-2 text-neutral-700 hover:text-primary-600 transition-colors font-medium">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                    </svg>
-                    <span>Privacy</span>
-                </a>
-                <a routerLink="/terms" routerLinkActive="active"
-                   class="flex items-center gap-2 text-neutral-700 hover:text-primary-600 transition-colors font-medium">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
-                    <span>Terms</span>
-                </a>
+                <ng-container *ngTemplateOutlet="menuLinks; context: { $implicit: 'flex items-center gap-2 text-neutral-700 hover:text-primary-600 transition-colors font-medium' }" />
             </div>
 
             <!-- Mobile Menu Button -->
             <button
+                hlmBtn
+                variant="ghost"
+                size="icon"
                 (click)="toggleMobileMenu()"
-                class="lg:hidden p-2 rounded-lg hover:bg-neutral-100 transition-colors"
+                class="lg:hidden"
                 [attr.aria-label]="mobileMenuOpen ? 'Close menu' : 'Open menu'"
             >
                 @if (!mobileMenuOpen) {
@@ -58,38 +34,32 @@
 
         <!-- Mobile Menu -->
         <div [class.hidden]="!mobileMenuOpen" class="lg:hidden border-t border-neutral-200">
-            <a routerLink="/" routerLinkActive="active"
-               [routerLinkActiveOptions]="{exact: true}"
-               (click)="closeMobileMenu()"
-               class="flex items-center gap-3 px-4 py-3 text-neutral-700 hover:bg-neutral-50 hover:text-primary-600 transition-colors font-medium">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-3m0 0l7-4 7 4M5 9v10a1 1 0 001 1h2a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h2a1 1 0 001-1V9m-9 13l-4-4m0 0l-4 4m4-4v12" />
-                </svg>
-                <span>Home</span>
-            </a>
-            <a (click)="scrollToContactAndCloseMobile()"
-               class="flex items-center gap-3 px-4 py-3 text-neutral-700 hover:bg-neutral-50 hover:text-primary-600 transition-colors font-medium cursor-pointer">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-                <span>Contact</span>
-            </a>
-            <a routerLink="/privacy" routerLinkActive="active"
-               (click)="closeMobileMenu()"
-               class="flex items-center gap-3 px-4 py-3 text-neutral-700 hover:bg-neutral-50 hover:text-primary-600 transition-colors font-medium">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                </svg>
-                <span>Privacy</span>
-            </a>
-            <a routerLink="/terms" routerLinkActive="active"
-               (click)="closeMobileMenu()"
-               class="flex items-center gap-3 px-4 py-3 text-neutral-700 hover:bg-neutral-50 hover:text-primary-600 transition-colors font-medium">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                </svg>
-                <span>Terms</span>
-            </a>
+            <ng-container *ngTemplateOutlet="menuLinks; context: { $implicit: 'flex items-center gap-3 px-4 py-3 text-neutral-700 hover:bg-neutral-50 hover:text-primary-600 transition-colors font-medium' }" />
         </div>
     </div>
 </nav>
+
+<!-- Menu items, shared by the desktop and mobile menus, which differ only in link styling -->
+<ng-template #menuLinks let-linkClass>
+    @for (item of items; track item.label) {
+        @if (item.route) {
+            <a [routerLink]="item.route" routerLinkActive="active"
+               [routerLinkActiveOptions]="{ exact: !!item.exact }"
+               (click)="closeMobileMenu()"
+               [class]="linkClass">
+                <ng-container *ngTemplateOutlet="linkContent; context: { $implicit: item }" />
+            </a>
+        } @else {
+            <a (click)="scrollToContact()" [class]="linkClass + ' cursor-pointer'">
+                <ng-container *ngTemplateOutlet="linkContent; context: { $implicit: item }" />
+            </a>
+        }
+    }
+</ng-template>
+
+<ng-template #linkContent let-item>
+    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" [attr.d]="item.icon" />
+    </svg>
+    <span>{{ item.label }}</span>
+</ng-template>
