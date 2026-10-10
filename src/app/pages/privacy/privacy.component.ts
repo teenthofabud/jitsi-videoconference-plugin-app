@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import privacyData from '../../../assets/data/privacy.json';
 
 interface PrivacySection {
@@ -15,7 +14,7 @@ interface PrivacyData {
 
 @Component({
   selector: 'app-privacy',
-  imports: [CommonModule],
+  imports: [],
   templateUrl: './privacy.component.html',
   styleUrl: './privacy.component.css'
 })
