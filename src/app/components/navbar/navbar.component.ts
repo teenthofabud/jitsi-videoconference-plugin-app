@@ -1,11 +1,12 @@
 import { NgOptimizedImage } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-navbar',
-  imports: [RouterModule, NgOptimizedImage],
+  imports: [RouterModule, NgOptimizedImage, HlmButtonImports],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })

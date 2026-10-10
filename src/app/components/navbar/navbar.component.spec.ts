@@ -27,14 +27,14 @@ describe('NavbarComponent', () => {
     const labels = Array.from(
       (fixture.nativeElement as HTMLElement).querySelectorAll('.lg\\:flex a span')
     ).map(el => el.textContent?.trim());
-    expect(labels).toEqual(['Home', 'Contact', 'Privacy', 'Terms']);
+    expect(labels).toEqual(['Home', 'How to Install', 'Contact', 'Privacy', 'Terms']);
   });
 
   it('should have proper router links for menu items', () => {
     const hrefs = Array.from(
       (fixture.nativeElement as HTMLElement).querySelectorAll('.lg\\:flex a[href]')
     ).map(el => el.getAttribute('href'));
-    expect(hrefs).toEqual(['/', '/privacy', '/terms']);
+    expect(hrefs).toEqual(['/', '/install', '/privacy', '/terms']);
   });
 
   it('should toggle and close the mobile menu', () => {

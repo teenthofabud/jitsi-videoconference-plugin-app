@@ -4,6 +4,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { TermsComponent } from './pages/terms/terms.component';
 import { ContactComponent } from './pages/contact/contact.component';
+import { InstallComponent } from './pages/install/install.component';
 import { SeoData } from './services/seo.service';
 
 const routes: Routes = [
@@ -12,8 +13,8 @@ const routes: Routes = [
     component: HomeComponent,
     data: {
       seo: {
-        title: 'Jitsi Calendar Plugin for Google Calendar, Outlook & Cal.com | TOAB Jitsi',
-        description: 'Add Jitsi Meet video conferencing to Google Calendar, Outlook and Cal.com. Use your own self-hosted Jitsi server or a curated public Jitsi server. Join the preview access list.',
+        title: 'TOAB Jitsi Plugin | Jitsi Meet for Google Calendar & Cal.com',
+        description: 'TOAB Jitsi Plugin adds Jitsi Meet video conferencing to Google Calendar and Cal.com events, using curated public Jitsi servers. Self-hosted Jitsi support is coming soon.',
       } satisfies SeoData,
     },
   },
@@ -24,8 +25,8 @@ const routes: Routes = [
     component: PrivacyComponent,
     data: {
       seo: {
-        title: 'Privacy Policy | TOAB Jitsi Calendar Plugin',
-        description: 'How the TOAB Jitsi calendar plugin collects, uses and protects your data, including Google account sign-in, Jitsi server URLs and conference room names.',
+        title: 'Privacy Policy | TOAB Jitsi Plugin',
+        description: 'How TOAB Jitsi Plugin collects, uses and protects your data, including the Google Calendar permissions it uses and why.',
       } satisfies SeoData,
     },
   },
@@ -34,8 +35,18 @@ const routes: Routes = [
     component: TermsComponent,
     data: {
       seo: {
-        title: 'Terms and Conditions | TOAB Jitsi Calendar Plugin',
-        description: 'Terms and conditions for using the TOAB Jitsi plugin for Google Calendar and Cal.com with self-hosted and curated public Jitsi servers.',
+        title: 'Terms and Conditions | TOAB Jitsi Plugin',
+        description: 'Terms and conditions for using TOAB Jitsi Plugin with Google Calendar and Cal.com.',
+      } satisfies SeoData,
+    },
+  },
+  {
+    path: 'install',
+    component: InstallComponent,
+    data: {
+      seo: {
+        title: 'How to Install | TOAB Jitsi Plugin',
+        description: 'How to install TOAB Jitsi Plugin for Google Calendar, Microsoft Outlook and Cal.com, and add Jitsi meetings to your calendar events.',
       } satisfies SeoData,
     },
   },
@@ -44,8 +55,8 @@ const routes: Routes = [
     component: ContactComponent,
     data: {
       seo: {
-        title: 'Contact Us | TOAB Jitsi Calendar Plugin',
-        description: 'Get in touch with the TOAB Jitsi team for support, feature requests or to revoke your preview access list participation. We respond within 24 hours.',
+        title: 'Contact Us | TOAB Jitsi Plugin',
+        description: 'Get in touch with the TOAB Jitsi Plugin team for support, feature requests or to revoke your preview access list participation. We respond within 24 hours.',
       } satisfies SeoData,
     },
   },

@@ -16,6 +16,13 @@
                     </svg>
                     <span>Home</span>
                 </a>
+                <a routerLink="/install" routerLinkActive="active"
+                   class="flex items-center gap-2 text-neutral-700 hover:text-primary-600 transition-colors font-medium">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    </svg>
+                    <span>How to Install</span>
+                </a>
                 <a (click)="scrollToContact()" class="flex items-center gap-2 text-neutral-700 hover:text-primary-600 transition-colors font-medium cursor-pointer">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -40,8 +47,11 @@
 
             <!-- Mobile Menu Button -->
             <button
+                hlmBtn
+                variant="ghost"
+                size="icon"
                 (click)="toggleMobileMenu()"
-                class="lg:hidden p-2 rounded-lg hover:bg-neutral-100 transition-colors"
+                class="lg:hidden"
                 [attr.aria-label]="mobileMenuOpen ? 'Close menu' : 'Open menu'"
             >
                 @if (!mobileMenuOpen) {
@@ -66,6 +76,14 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-3m0 0l7-4 7 4M5 9v10a1 1 0 001 1h2a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1h2a1 1 0 001-1V9m-9 13l-4-4m0 0l-4 4m4-4v12" />
                 </svg>
                 <span>Home</span>
+            </a>
+            <a routerLink="/install" routerLinkActive="active"
+               (click)="closeMobileMenu()"
+               class="flex items-center gap-3 px-4 py-3 text-neutral-700 hover:bg-neutral-50 hover:text-primary-600 transition-colors font-medium">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+                <span>How to Install</span>
             </a>
             <a (click)="scrollToContactAndCloseMobile()"
                class="flex items-center gap-3 px-4 py-3 text-neutral-700 hover:bg-neutral-50 hover:text-primary-600 transition-colors font-medium cursor-pointer">

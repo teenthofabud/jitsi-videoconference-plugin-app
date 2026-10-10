@@ -4,28 +4,33 @@
     <div class="w-full mx-auto">
       <div class="text-center mb-12">
         <h1 class="text-5xl md:text-6xl font-bold text-neutral-900 mb-6">
-          Calendar plugin for Jitsi
+          TOAB Jitsi Plugin
         </h1>
-        <p class="text-lg md:text-xl text-neutral-600 mb-8">
-          Join the preview access list of the new Jitsi plugin for your calendar software.
-          <br>
-          Use your own self-hosted Jitsi or select a well-known public Jitsi server.
+        <p class="text-xl md:text-2xl text-neutral-800 font-medium mb-4">
+          Jitsi Meet video conferencing for your calendar
+        </p>
+        <p class="text-lg md:text-xl text-neutral-600 mb-8 max-w-3xl mx-auto">
+          TOAB Jitsi Plugin adds a Jitsi Meet video conference to the calendar events you create.
+          Choose one of our curated public Jitsi servers for each meeting. Support for your own
+          self-hosted Jitsi server and custom room names is coming soon.
         </p>
       </div>
 
       <!-- Email Signup Form -->
       <div class="max-w-2xl mx-auto mb-12">
-        <form #subForm="ngForm" (ngSubmit)="onSubmit(subForm)" class="flex flex-col md:flex-row gap-3 mb-6">
+        <h2 class="text-xl font-semibold text-neutral-900 text-center mb-4">Join the preview access list</h2>
+        <form #subForm="ngForm" (ngSubmit)="onSubmit(subForm)" class="flex flex-col md:flex-row gap-3 mb-3">
           <div class="flex-1">
             <input
               type="email"
               placeholder="Enter your email address"
+              aria-label="Email address"
               name="email"
               [(ngModel)]="email"
               #emailModel="ngModel"
               required
-              brn-input
-              class="w-full"
+              hlmInput
+              class="w-full h-10 text-base"
             />
             @if (emailModel.invalid && subForm.submitted) {
               <p class="text-error-500 text-sm mt-2">Valid email is required.</p>
@@ -33,17 +38,25 @@
           </div>
           <button
             type="submit"
-            brn-button
-            class="shrink-0 whitespace-nowrap"
+            hlmBtn
+            size="lg"
+            class="shrink-0 px-4"
           >
             Request Preview
           </button>
         </form>
+        <p class="text-sm text-neutral-500 text-center mb-6">
+          We use your email address only to send you preview access and product updates.
+          We never share it, and you can ask us to remove it at any time.
+          See our <a routerLink="/privacy" class="text-primary-600 hover:text-primary-700 font-medium">Privacy Policy</a>.
+        </p>
 
         <!-- Features List -->
-        <div class="card">
-          <p class="text-neutral-700 font-medium mb-4">Join the access list to get a sneak peek. No spam, revoke anytime.</p>
-          <ul class="space-y-2">
+        <div hlmCard>
+          <div hlmCardHeader>
+            <p hlmCardTitle class="text-base text-neutral-700">Get early access and help shape the plugin. No spam, revoke anytime.</p>
+          </div>
+          <ul hlmCardContent class="space-y-2 text-base">
             <li class="flex items-center gap-2 text-neutral-600">
               <svg class="w-5 h-5 text-success-500 shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
@@ -54,7 +67,7 @@
               <svg class="w-5 h-5 text-success-500 shrink-0" fill="currentColor" viewBox="0 0 20 20">
                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
               </svg>
-              Provide feedback on how you want to shape it
+              Give feedback on the features you need
             </li>
           </ul>
         </div>
@@ -62,92 +75,96 @@
     </div>
   </section>
 
-  <!-- Curated Jitsi Servers Section -->
+  <!-- How It Works Section -->
   <section class="py-20 px-4 sm:px-6 md:px-8 lg:px-12">
     <div class="w-full mx-auto">
       <div class="text-center mb-12">
-        <h2 class="text-4xl font-bold text-neutral-900 mb-4">Curated Jitsi Servers</h2>
+        <h2 class="text-4xl font-bold text-neutral-900 mb-4">How It Works</h2>
         <p class="text-lg text-neutral-600 max-w-2xl mx-auto">
-          Select from our list of curated public Jitsi servers popular amongst Jitsi users in our calendar plugins.
+          TOAB Jitsi Plugin runs as an add-on inside your calendar. There is nothing extra to install on your computer.
         </p>
       </div>
 
-      <!-- Loading State -->
-      @if (isLoadingServers) {
-        <div class="text-center py-12">
-          <div class="inline-block">
-            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      <ol class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <li hlmCard>
+          <div hlmCardHeader>
+            <div class="flex items-center justify-center w-10 h-10 mb-2 rounded-full bg-primary-100 text-primary-600 font-bold">1</div>
+            <h3 hlmCardTitle class="text-lg font-semibold">Install the add-on</h3>
           </div>
-          <p class="text-neutral-600 mt-4">Loading servers...</p>
-        </div>
-      } @else {
-        <!-- Servers Grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          @for (server of servers; track server.serverUrl) {
-            <div class="card">
-              <div class="flex justify-center mb-4">
-                <img src="assets/jitsi-icon.png" alt="Jitsi" class="w-8 h-8" />
-              </div>
-              <h3 class="font-semibold text-neutral-900 text-center mb-2">{{ server.name }}</h3>
-              <p class="text-sm text-neutral-600 text-center break-all">{{ server.serverUrl }}</p>
-            </div>
-          }
-        </div>
-      }
+          <p hlmCardContent class="text-base text-neutral-600">Add TOAB Jitsi Plugin to your calendar and sign in with your calendar account.</p>
+        </li>
+        <li hlmCard>
+          <div hlmCardHeader>
+            <div class="flex items-center justify-center w-10 h-10 mb-2 rounded-full bg-primary-100 text-primary-600 font-bold">2</div>
+            <h3 hlmCardTitle class="text-lg font-semibold">Choose your Jitsi server</h3>
+          </div>
+          <p hlmCardContent class="text-base text-neutral-600">Pick one of the curated public Jitsi servers. Support for your own self-hosted Jitsi server is coming soon.</p>
+        </li>
+        <li hlmCard>
+          <div hlmCardHeader>
+            <div class="flex items-center justify-center w-10 h-10 mb-2 rounded-full bg-primary-100 text-primary-600 font-bold">3</div>
+            <h3 hlmCardTitle class="text-lg font-semibold">Create an event</h3>
+          </div>
+          <p hlmCardContent class="text-base text-neutral-600">When you create or edit a calendar event, select TOAB Jitsi as the conferencing option. A unique room name is generated for you.</p>
+        </li>
+        <li hlmCard>
+          <div hlmCardHeader>
+            <div class="flex items-center justify-center w-10 h-10 mb-2 rounded-full bg-primary-100 text-primary-600 font-bold">4</div>
+            <h3 hlmCardTitle class="text-lg font-semibold">Join the meeting</h3>
+          </div>
+          <p hlmCardContent class="text-base text-neutral-600">The plugin adds the Jitsi meeting link to the event, so you and your guests can join with one click.</p>
+        </li>
+      </ol>
     </div>
   </section>
 
-  <!-- Key Benefits Section -->
+  <!-- Key Features Section -->
   <section class="py-20 px-4 sm:px-6 md:px-8 lg:px-12 bg-neutral-50">
     <div class="w-full mx-auto">
       <div class="text-center mb-12">
-        <h2 class="text-4xl font-bold text-neutral-900 mb-4">Key Benefits</h2>
+        <h2 class="text-4xl font-bold text-neutral-900 mb-4">Key Features</h2>
         <p class="text-lg text-neutral-600 max-w-2xl mx-auto">
-          Now you can use your self-hosted Jitsi with popular Calendars.
+          Jitsi meetings in the calendars you already use.
         </p>
       </div>
 
-      <!-- Benefits Grid -->
+      <!-- Features Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <!-- Card 1: BYOJ -->
-        <div class="card relative">
-          <div class="absolute top-4 right-4 bg-warning-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
-            Coming Soon
-          </div>
-          <div class="flex justify-center mb-4 pt-2">
+        <div hlmCard class="relative">
+          <span hlmBadge class="absolute top-4 right-4 bg-warning-500 text-white">Coming Soon</span>
+          <div hlmCardHeader class="justify-items-center text-center pt-2">
             <img src="assets/jitsi-icon.png" alt="Jitsi" class="w-8 h-8" />
+            <h3 hlmCardTitle class="text-lg font-semibold mt-2">Bring Your Own Jitsi</h3>
           </div>
-          <h3 class="text-lg font-semibold text-neutral-900 text-center mb-2">BYOJ</h3>
-          <p class="text-neutral-600 text-center">Bring your own Jitsi Server</p>
+          <p hlmCardContent class="text-base text-neutral-600 text-center">Generate meeting links on your own self-hosted Jitsi server, so your meetings stay on infrastructure you control.</p>
         </div>
 
         <!-- Card 2: Room Names -->
-        <div class="card relative">
-          <div class="absolute top-4 right-4 bg-warning-500 text-white px-3 py-1 rounded-full text-xs font-semibold">
-            Coming Soon
-          </div>
-          <div class="flex justify-center mb-4 pt-2">
+        <div hlmCard class="relative">
+          <span hlmBadge class="absolute top-4 right-4 bg-warning-500 text-white">Coming Soon</span>
+          <div hlmCardHeader class="justify-items-center text-center pt-2">
             <div class="flex items-center justify-center w-8 h-8 bg-primary-100 rounded-sm">
               <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
               </svg>
             </div>
+            <h3 hlmCardTitle class="text-lg font-semibold mt-2">Room Names</h3>
           </div>
-          <h3 class="text-lg font-semibold text-neutral-900 text-center mb-2">Room Names</h3>
-          <p class="text-neutral-600 text-center">Default or custom room names</p>
+          <p hlmCardContent class="text-base text-neutral-600 text-center">Each meeting gets a unique, automatically generated room name. Custom room names are coming soon.</p>
         </div>
 
-        <!-- Card 3: Secure & Private -->
-        <div class="card">
-          <div class="flex justify-center mb-4">
+        <!-- Card 3: Minimal data access -->
+        <div hlmCard>
+          <div hlmCardHeader class="justify-items-center text-center pt-2">
             <div class="flex items-center justify-center w-8 h-8 bg-success-100 rounded-sm">
-              <svg class="w-5 h-5 text-success-500" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+              <svg class="w-5 h-5 text-success-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
               </svg>
             </div>
+            <h3 hlmCardTitle class="text-lg font-semibold mt-2">Minimal Data Access</h3>
           </div>
-          <h3 class="text-lg font-semibold text-neutral-900 text-center mb-2">Secure & Private</h3>
-          <p class="text-neutral-600 text-center">Your data is protected with enterprise-grade security</p>
+          <p hlmCardContent class="text-base text-neutral-600 text-center">The plugin only uses your calendar data to add and manage Jitsi meetings, and never stores your event details. We never sell your data or use it for advertising.</p>
         </div>
       </div>
     </div>
@@ -159,36 +176,175 @@
       <div class="text-center mb-12">
         <h2 class="text-4xl font-bold text-neutral-900 mb-4">Supported Calendars</h2>
         <p class="text-lg text-neutral-600 max-w-2xl mx-auto">
-          The plugin lets you use your own Jitsi server to create meetings for the following supported calendar solutions. You can even provide your conference room name.
+          Create Jitsi meetings from these calendars.
         </p>
       </div>
 
       <!-- Calendars Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <!-- Google Calendar -->
-        <div class="card text-center">
-          <div class="flex justify-center mb-4">
-            <img src="assets/gcalendar.png" alt="Google Calendar" class="w-8 h-8" />
+        <div hlmCard class="text-center">
+          <div hlmCardHeader class="justify-items-center">
+            <img src="assets/gcalendar.png" alt="Google Calendar" class="w-8 h-8 mb-2" />
+            <h3 hlmCardTitle class="text-lg font-semibold">Google Calendar</h3>
           </div>
-          <h3 class="text-lg font-semibold text-neutral-900">Google Calendar</h3>
-        </div>
-
-        <!-- Outlook -->
-        <div class="card text-center">
-          <div class="flex justify-center mb-4">
-            <img src="assets/outlook.png" alt="Outlook" class="w-8 h-8" />
-          </div>
-          <h3 class="text-lg font-semibold text-neutral-900">Outlook</h3>
         </div>
 
         <!-- Cal.com -->
-        <div class="card text-center">
-          <div class="flex justify-center mb-4">
-            <img src="assets/calcom.svg" alt="Cal.com" class="w-8 h-8" />
+        <div hlmCard class="text-center">
+          <div hlmCardHeader class="justify-items-center">
+            <img src="assets/calcom.svg" alt="Cal.com" class="w-8 h-8 mb-2" />
+            <h3 hlmCardTitle class="text-lg font-semibold">Cal.com</h3>
           </div>
-          <h3 class="text-lg font-semibold text-neutral-900">Cal.com</h3>
+        </div>
+
+        <!-- Outlook -->
+        <div hlmCard class="text-center relative">
+          <span hlmBadge class="absolute top-4 right-4 bg-warning-500 text-white">Coming Soon</span>
+          <div hlmCardHeader class="justify-items-center">
+            <img src="assets/outlook.png" alt="Outlook" class="w-8 h-8 mb-2" />
+            <h3 hlmCardTitle class="text-lg font-semibold">Outlook</h3>
+          </div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Curated Jitsi Servers Section -->
+  <section class="py-20 px-4 sm:px-6 md:px-8 lg:px-12 bg-neutral-50">
+    <div class="w-full mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold text-neutral-900 mb-4">Curated Jitsi Servers</h2>
+        <p class="text-lg text-neutral-600 max-w-2xl mx-auto">
+          No Jitsi server of your own? Pick one of these public Jitsi servers that are popular with our users.
+        </p>
+      </div>
+
+      <!-- Loading State -->
+      @if (isLoadingServers) {
+        <div class="text-center py-12">
+          <hlm-spinner class="text-5xl text-primary-600" aria-label="Loading servers" />
+          <p class="text-neutral-600 mt-4">Loading servers...</p>
+        </div>
+      } @else {
+        <!-- Servers Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          @for (server of servers; track server.serverUrl) {
+            <div hlmCard>
+              <div hlmCardHeader class="justify-items-center text-center">
+                <img src="assets/jitsi-icon.png" alt="Jitsi" class="w-8 h-8 mb-2" />
+                <h3 hlmCardTitle class="font-semibold">{{ server.name }}</h3>
+                <p hlmCardDescription class="break-all">{{ server.serverUrl }}</p>
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+  </section>
+
+  <!-- Data and Permissions Section -->
+  <section id="data-access" class="py-20 px-4 sm:px-6 md:px-8 lg:px-12">
+    <div class="w-full max-w-4xl mx-auto">
+      <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold text-neutral-900 mb-4">Your Data and Permissions</h2>
+        <p class="text-lg text-neutral-600 max-w-2xl mx-auto">
+          When you install TOAB Jitsi Plugin for Google Calendar, Google asks you to grant the permissions below.
+          This is what each one is for.
+        </p>
+      </div>
+
+      <div hlmCard class="mb-6 py-2">
+        <div hlmTableContainer>
+          <table hlmTable class="text-sm md:text-base">
+            <thead hlmTHead>
+              <tr hlmTr>
+                <th hlmTh scope="col" class="px-4 w-2/5">Permission</th>
+                <th hlmTh scope="col" class="px-4">Why we need it</th>
+              </tr>
+            </thead>
+            <tbody hlmTBody>
+              <tr hlmTr>
+                <td hlmTd class="px-4 py-3 align-top whitespace-normal">
+                  <span class="block font-medium text-neutral-800">Run as a Google Calendar add-on</span>
+                  <code class="text-xs text-neutral-500 break-all">calendar.addons.execute</code>
+                </td>
+                <td hlmTd class="px-4 py-3 align-top whitespace-normal text-neutral-600">To show TOAB Jitsi as a conferencing option and display its panel in your events.</td>
+              </tr>
+              <tr hlmTr>
+                <td hlmTd class="px-4 py-3 align-top whitespace-normal">
+                  <span class="block font-medium text-neutral-800">Read the event you have open</span>
+                  <code class="text-xs text-neutral-500 break-all">calendar.addons.current.event.read</code>
+                </td>
+                <td hlmTd class="px-4 py-3 align-top whitespace-normal text-neutral-600">To check that TOAB Jitsi is the selected conferencing option and get the event's ID.</td>
+              </tr>
+              <tr hlmTr>
+                <td hlmTd class="px-4 py-3 align-top whitespace-normal">
+                  <span class="block font-medium text-neutral-800">Update the event you have open</span>
+                  <code class="text-xs text-neutral-500 break-all">calendar.addons.current.event.write</code>
+                </td>
+                <td hlmTd class="px-4 py-3 align-top whitespace-normal text-neutral-600">To add the Jitsi meeting link to the event, and replace it when you choose a different server.</td>
+              </tr>
+              <tr hlmTr>
+                <td hlmTd class="px-4 py-3 align-top whitespace-normal">
+                  <span class="block font-medium text-neutral-800">View your calendar events</span>
+                  <code class="text-xs text-neutral-500 break-all">calendar.events.readonly</code>
+                </td>
+                <td hlmTd class="px-4 py-3 align-top whitespace-normal text-neutral-600">To notice when you save or cancel an event with a TOAB Jitsi meeting, so we can mark the meeting active or cancelled. Only event IDs and their status are sent to our servers.</td>
+              </tr>
+              <tr hlmTr>
+                <td hlmTd class="px-4 py-3 align-top whitespace-normal">
+                  <span class="block font-medium text-neutral-800">See your email address</span>
+                  <code class="text-xs text-neutral-500 break-all">userinfo.email</code>
+                </td>
+                <td hlmTd class="px-4 py-3 align-top whitespace-normal text-neutral-600">To find your TOAB Jitsi Plugin account and keep your settings linked to you.</td>
+              </tr>
+              <tr hlmTr>
+                <td hlmTd class="px-4 py-3 align-top whitespace-normal">
+                  <span class="block font-medium text-neutral-800">Connect to external services</span>
+                  <code class="text-xs text-neutral-500 break-all">script.external_request</code>
+                </td>
+                <td hlmTd class="px-4 py-3 align-top whitespace-normal text-neutral-600">To reach our backend service, which creates meetings and lists the Jitsi servers you can choose from.</td>
+              </tr>
+              <tr hlmTr>
+                <td hlmTd class="px-4 py-3 align-top whitespace-normal">
+                  <span class="block font-medium text-neutral-800">Manage triggers</span>
+                  <code class="text-xs text-neutral-500 break-all">script.scriptapp</code>
+                </td>
+                <td hlmTd class="px-4 py-3 align-top whitespace-normal text-neutral-600">To run the event check above in the background whenever your calendar events change.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <ul class="space-y-3 text-neutral-600 mb-6">
+        <li class="flex gap-2">
+          <svg class="w-5 h-5 text-success-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+          </svg>
+          We only use your calendar data to add and manage Jitsi meetings. We never store the titles, descriptions, times or guests of your events, and we never access your contacts or email.
+        </li>
+        <li class="flex gap-2">
+          <svg class="w-5 h-5 text-success-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+          </svg>
+          We never sell your data, share it for advertising, or use it to train AI models.
+        </li>
+        <li class="flex gap-2">
+          <svg class="w-5 h-5 text-success-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+          </svg>
+          You can uninstall the plugin and remove its access at any time, and ask us to delete your data.
+        </li>
+      </ul>
+
+      <p class="text-sm text-neutral-500">
+        TOAB Jitsi Plugin's use and transfer of information received from Google APIs to any other app will adhere to the
+        <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:text-primary-700 font-medium">Google API Services User Data Policy</a>,
+        including the Limited Use requirements. For full details, read our
+        <a routerLink="/privacy" class="text-primary-600 hover:text-primary-700 font-medium">Privacy Policy</a>.
+      </p>
     </div>
   </section>
 </div>

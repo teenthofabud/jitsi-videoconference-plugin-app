@@ -1,13 +1,20 @@
 import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NewsletterService } from 'src/app/newsletter.service';
-import { NotificationService } from 'src/app/services/notification.service';
-import { DefaultServer } from 'src/app/types/common';
+import { RouterLink } from '@angular/router';
+import { HlmBadgeImports } from '@spartan-ng/helm/badge';
+import { HlmButtonImports } from '@spartan-ng/helm/button';
+import { HlmCardImports } from '@spartan-ng/helm/card';
+import { HlmInputImports } from '@spartan-ng/helm/input';
+import { HlmSpinnerImports } from '@spartan-ng/helm/spinner';
+import { HlmTableImports } from '@spartan-ng/helm/table';
+import { NewsletterService } from '../../newsletter.service';
+import { NotificationService } from '../../services/notification.service';
+import { DefaultServer } from '../../types/common';
 
 @Component({
   selector: 'app-home',
-  imports: [FormsModule],
+  imports: [FormsModule, RouterLink, HlmBadgeImports, HlmButtonImports, HlmCardImports, HlmInputImports, HlmSpinnerImports, HlmTableImports],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

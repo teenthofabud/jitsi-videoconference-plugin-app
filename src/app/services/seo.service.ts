@@ -2,10 +2,10 @@ import { DOCUMENT, Inject, Injectable } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../environments/environment';
 
 const SITE_URL = environment.siteUrl.replace(/\/$/, '');
-const SITE_NAME = 'TOAB Jitsi';
+const SITE_NAME = 'TOAB Jitsi Plugin';
 const CDN_URL = environment.cdnUrl.replace(/\/$/, '');
 const API_ORIGIN = new URL(environment.apiUrl).origin;
 const DEFAULT_IMAGE = `${CDN_URL}/toab-jitsi-logo-cropped.jpg`;
@@ -148,12 +148,12 @@ export class SeoService {
         },
         {
           '@type': 'SoftwareApplication',
-          name: 'TOAB Jitsi Calendar Plugin',
+          name: SITE_NAME,
           applicationCategory: 'BusinessApplication',
           applicationSubCategory: 'Video conferencing',
           operatingSystem: 'Web',
           url: `${SITE_URL}/`,
-          description: 'Calendar plugin that adds Jitsi Meet video conferencing to Google Calendar, Outlook and Cal.com, using your own self-hosted Jitsi server or a curated public Jitsi server.',
+          description: 'Calendar plugin that adds Jitsi Meet video conferencing to Google Calendar and Cal.com, using curated public Jitsi servers.',
           publisher: { '@id': organizationId },
         },
       ],
