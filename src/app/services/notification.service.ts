@@ -1,40 +1,24 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-
-export interface Notification {
-  type: 'success' | 'error' | 'warning' | 'info';
-  title: string;
-  message: string;
-  duration?: number;
-}
+import { toast } from '@spartan-ng/brain/sonner';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
-  private notificationSubject = new Subject<Notification>();
-  public notification$ = this.notificationSubject.asObservable();
-
-  show(notification: Notification) {
-    this.notificationSubject.next({
-      duration: 3000,
-      ...notification
-    });
-  }
 
   success(title: string, message: string) {
-    this.show({ type: 'success', title, message });
+    toast.success(title, { description: message, duration: 3000 });
   }
 
   error(title: string, message: string) {
-    this.show({ type: 'error', title, message });
+    toast.error(title, { description: message, duration: 3000 });
   }
 
   warning(title: string, message: string) {
-    this.show({ type: 'warning', title, message });
+    toast.warning(title, { description: message, duration: 3000 });
   }
 
   info(title: string, message: string) {
-    this.show({ type: 'info', title, message });
+    toast.info(title, { description: message, duration: 3000 });
   }
 }

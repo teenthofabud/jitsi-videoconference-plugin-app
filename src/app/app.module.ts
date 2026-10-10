@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { HlmToaster } from '../../libs/ui/sonner/src';
 
 @NgModule({
   declarations: [
@@ -15,8 +16,9 @@ import { FooterComponent } from './components/footer/footer.component';
     BrowserModule,
     AppRoutingModule,
     NavbarComponent,
-    FooterComponent
-  ],
+    FooterComponent,
+    HlmToaster
+],
   providers: [
     provideClientHydration(withEventReplay()),
     provideHttpClient(withFetch())
