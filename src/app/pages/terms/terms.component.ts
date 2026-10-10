@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-terms',
-  imports: [CommonModule, RouterModule],
+  imports: [RouterModule],
   templateUrl: './terms.component.html',
   styleUrl: './terms.component.css',
 })
