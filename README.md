@@ -76,9 +76,9 @@ Every environment-specific value lives in `src/environments/environment.<env>.ts
 | (default) | `environment.ts`         | `http://localhost:4200`     | `http://localhost:8080`        | no        |
 | `local`   | `environment.local.ts`   | `http://localhost:4200`     | same origin                    | no        |
 | `dev`     | `environment.dev.ts`     | `https://jitsi.dpdns.org`   | `https://api.jitsi.dpdns.org`  | no        |
-| `live`    | `environment.live.ts`    | `https://www.toab-jitsi.com`| `https://api.toab-jitsi.com`   | yes       |
+| `live`    | `environment.live.ts`    | `https://toab-jitsi.com`    | `https://api.toab-jitsi.com`   | yes       |
 
-Each environment also sets a `cdnUrl` (the S3 bucket that serves the favicon and images). Only `live` is indexable, so the QA site never competes with production in search results.
+Each environment also sets a `cdnUrl` (the S3 bucket that serves the logo). Only `live` is indexable, so the QA site never competes with production in search results.
 
 ## 🏗️ Build
 

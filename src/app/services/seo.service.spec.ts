@@ -9,7 +9,6 @@ import { SeoService } from './seo.service';
 class BlankComponent { }
 
 const siteUrl = environment.siteUrl.replace(/\/$/, '');
-const cdnUrl = environment.cdnUrl.replace(/\/$/, '');
 
 describe('SeoService', () => {
   let document: Document;
@@ -36,15 +35,15 @@ describe('SeoService', () => {
     TestBed.inject(SeoService).init();
   });
 
-  it('sets the favicon, API preconnect and structured data on init', () => {
-    const icon = document.head.querySelector('link[rel="icon"]')!;
-    expect(icon.getAttribute('type')).toBe('image/jpeg');
-    expect(icon.getAttribute('href')).toBe(`${cdnUrl}/toab-jitsi-icon-123x120.svg `);
-
+  it('sets the API and CDN preconnects and structured data on init', () => {
     const preconnect = document.head.querySelector('link#api-preconnect')!;
     expect(preconnect.getAttribute('rel')).toBe('preconnect');
     expect(preconnect.hasAttribute('crossorigin')).toBe(true);
     expect(preconnect.getAttribute('href')).toBe(new URL(environment.apiUrl).origin);
+
+    const cdnPreconnect = document.head.querySelector('link#cdn-preconnect')!;
+    expect(cdnPreconnect.getAttribute('rel')).toBe('preconnect');
+    expect(cdnPreconnect.getAttribute('href')).toBe(new URL(environment.cdnUrl).origin);
 
     const script = document.head.querySelector<HTMLScriptElement>('script#structured-data')!;
     expect(script.type).toBe('application/ld+json');
@@ -55,16 +54,18 @@ describe('SeoService', () => {
       name: 'TOAB',
       legalName: 'Das Software',
       url: `${siteUrl}/`,
-      logo: `${cdnUrl}/toab-jitsi-icon-123x120.svg `,
+      logo: `${siteUrl}/assets/icon-512.png`,
       email: 'anirban.das@t-online.de',
     });
     expect(data['@graph'][1]).toMatchObject({ name: 'TOAB Jitsi Plugin', publisher: { '@id': `${siteUrl}/#organization` } });
+    expect(data['@graph'][2]).toMatchObject({ image: `${siteUrl}/assets/og-image.png` });
+    expect(data['@graph'][2].alternateName).toContain('TOAB Jitsi');
   });
 
   it('reuses existing head elements instead of duplicating them', () => {
     TestBed.inject(SeoService).init();
-    expect(document.head.querySelectorAll('link[rel="icon"]').length).toBe(1);
     expect(document.head.querySelectorAll('link#api-preconnect').length).toBe(1);
+    expect(document.head.querySelectorAll('link#cdn-preconnect').length).toBe(1);
     expect(document.head.querySelectorAll('script#structured-data').length).toBe(1);
   });
 
@@ -80,9 +81,11 @@ describe('SeoService', () => {
     expect(meta('property', 'og:url')).toBe(`${siteUrl}/`);
     expect(meta('property', 'og:type')).toBe('website');
     expect(meta('property', 'og:site_name')).toBe('TOAB Jitsi Plugin');
-    expect(meta('property', 'og:image')).toBe(`${cdnUrl}/toab-jitsi-icon-123x120.svg `);
+    expect(meta('property', 'og:image')).toBe(`${siteUrl}/assets/og-image.png`);
+    expect(meta('property', 'og:image:width')).toBe('1200');
+    expect(meta('property', 'og:image:height')).toBe('630');
     expect(meta('name', 'twitter:card')).toBe('summary_large_image');
-    expect(meta('name', 'twitter:image')).toBe(`${cdnUrl}/toab-jitsi-icon-123x120.svg `);
+    expect(meta('name', 'twitter:image')).toBe(`${siteUrl}/assets/og-image.png`);
     expect(linkHref('link[rel="canonical"]')).toBe(`${siteUrl}/`);
   });
 

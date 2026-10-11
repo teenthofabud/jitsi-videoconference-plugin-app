@@ -5,8 +5,15 @@ import { filter } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { SITE } from '../config/site';
 
-const DEFAULT_IMAGE = SITE.cdnAsset('toab-jitsi-icon-123x120.svg ');
-const FAVICON = SITE.cdnAsset('toab-jitsi-icon-123x120.svg ');
+// Raster images served from the site itself: Bing, social networks and chat apps
+// don't render SVG previews, and same-host images are crawled with the page.
+const SOCIAL_IMAGE = {
+  url: `${SITE.url}/assets/og-image.png`,
+  width: 1200,
+  height: 630,
+  alt: `${SITE.name} logo: Jitsi Meet video conferencing for your calendar`,
+};
+const LOGO = `${SITE.url}/assets/icon-512.png`;
 
 export interface SeoData {
   title?: string;
@@ -21,8 +28,8 @@ export interface SeoData {
  *
  * URLs, the CDN and indexability come from the build's environment file, so QA
  * builds point at the QA domain and CDN and are marked noindex while live builds
- * are indexable. The favicon and the API preconnect are set here too, since
- * index.html can't vary by environment.
+ * are indexable. The API and CDN preconnects are set here too, since index.html
+ * can't vary by environment.
  */
 @Injectable({ providedIn: 'root' })
 export class SeoService {
@@ -33,8 +40,8 @@ export class SeoService {
   private document = inject(DOCUMENT);
 
   init() {
-    this.setFavicon();
     this.setApiPreconnect();
+    this.setCdnPreconnect();
     this.setStructuredData();
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
@@ -72,18 +79,16 @@ export class SeoService {
     this.meta.updateTag({ property: 'og:url', content: canonical });
     this.meta.updateTag({ property: 'og:type', content: 'website' });
     this.meta.updateTag({ property: 'og:site_name', content: SITE.name });
-    this.meta.updateTag({ property: 'og:image', content: DEFAULT_IMAGE });
+    this.meta.updateTag({ property: 'og:image', content: SOCIAL_IMAGE.url });
+    this.meta.updateTag({ property: 'og:image:width', content: String(SOCIAL_IMAGE.width) });
+    this.meta.updateTag({ property: 'og:image:height', content: String(SOCIAL_IMAGE.height) });
+    this.meta.updateTag({ property: 'og:image:alt', content: SOCIAL_IMAGE.alt });
     this.meta.updateTag({ name: 'twitter:card', content: 'summary_large_image' });
-    this.meta.updateTag({ name: 'twitter:image', content: DEFAULT_IMAGE });
+    this.meta.updateTag({ name: 'twitter:image', content: SOCIAL_IMAGE.url });
+    this.meta.updateTag({ name: 'twitter:image:alt', content: SOCIAL_IMAGE.alt });
 
     this.headElement('link[rel="canonical"]', 'link', (link) => link.setAttribute('rel', 'canonical'))
       .setAttribute('href', canonical);
-  }
-
-  private setFavicon() {
-    const link = this.headElement('link[rel="icon"]', 'link', (link) => link.setAttribute('rel', 'icon'));
-    link.setAttribute('type', 'image/jpeg');
-    link.setAttribute('href', FAVICON);
   }
 
   // Opens the connection to the API while the page loads, ahead of the first
@@ -98,6 +103,17 @@ export class SeoService {
       link.setAttribute('rel', 'preconnect');
       link.setAttribute('crossorigin', '');
     }).setAttribute('href', new URL(SITE.apiUrl).origin);
+  }
+
+  // The navbar logo loads from the CDN on every page. scripts/csp-sources.mjs
+  // also reads this link back to allow the CDN in nginx's CSP.
+  private setCdnPreconnect() {
+    if (!SITE.cdnUrl.startsWith('http'))
+      return;
+    this.headElement('link#cdn-preconnect', 'link', (link) => {
+      link.id = 'cdn-preconnect';
+      link.setAttribute('rel', 'preconnect');
+    }).setAttribute('href', new URL(SITE.cdnUrl).origin);
   }
 
   private setStructuredData() {
@@ -151,13 +167,14 @@ function structuredData() {
         name: 'TOAB',
         legalName: 'Das Software',
         url: `${SITE.url}/`,
-        logo: DEFAULT_IMAGE,
+        logo: LOGO,
         email: SITE.contactEmail,
       },
       {
         '@type': 'WebSite',
         '@id': `${SITE.url}/#website`,
         name: SITE.name,
+        alternateName: SITE.alternateNames,
         url: `${SITE.url}/`,
         inLanguage: 'en',
         publisher: { '@id': organizationId },
@@ -165,11 +182,21 @@ function structuredData() {
       {
         '@type': 'SoftwareApplication',
         name: SITE.name,
+        alternateName: SITE.alternateNames,
         applicationCategory: 'BusinessApplication',
         applicationSubCategory: 'Video conferencing',
         operatingSystem: 'Web',
         url: `${SITE.url}/`,
-        description: 'Calendar plugin that adds Jitsi Meet video conferencing to Google Calendar and Cal.com, using curated public Jitsi servers.',
+        image: SOCIAL_IMAGE.url,
+        description: SITE.description,
+        featureList: [
+          'Adds a Jitsi Meet link to Google Calendar events',
+          'Adds a Jitsi Meet link to Cal.com bookings',
+          'Curated public Jitsi servers, including meet.jit.si',
+          'Automatically generated unique room names',
+          'Bring your own self-hosted Jitsi server (coming soon)',
+          'Microsoft Outlook add-in (coming soon)',
+        ],
         publisher: { '@id': organizationId },
       },
     ],
