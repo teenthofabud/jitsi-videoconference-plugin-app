@@ -41,19 +41,19 @@ describe('NavbarComponent', () => {
     const labels = Array.from(
       (fixture.nativeElement as HTMLElement).querySelectorAll('.lg\\:flex a span')
     ).map(el => el.textContent?.trim());
-    expect(labels).toEqual(['Home', 'How to Install', 'Contact', 'Privacy', 'Terms']);
+    expect(labels).toEqual(['Home', 'How to Install', 'Notices', 'Privacy', 'Terms', 'Contact']);
   });
 
   it('should have proper router links for menu items', () => {
     const hrefs = Array.from(
       (fixture.nativeElement as HTMLElement).querySelectorAll('.lg\\:flex a[href]')
     ).map(el => el.getAttribute('href'));
-    expect(hrefs).toEqual(['/', '/install', '/contact', '/privacy', '/terms']);
+    expect(hrefs).toEqual(['/', '/install', '/notices', '/privacy', '/terms', '/contact']);
   });
 
   it('should render the same items with an icon each in the mobile menu', () => {
-    expect(labels(mobileLinks())).toEqual(['Home', 'How to Install', 'Contact', 'Privacy', 'Terms']);
-    expect(mobileLinks().map(el => el.getAttribute('href'))).toEqual(['/', '/install', '/contact', '/privacy', '/terms']);
+    expect(labels(mobileLinks())).toEqual(['Home', 'How to Install', 'Notices', 'Privacy', 'Terms', 'Contact']);
+    expect(mobileLinks().map(el => el.getAttribute('href'))).toEqual(['/', '/install', '/notices', '/privacy', '/terms', '/contact']);
     for (const link of [...desktopLinks(), ...mobileLinks()]) {
       expect(link.querySelector('svg path')?.getAttribute('d')).toBeTruthy();
     }
@@ -113,7 +113,7 @@ describe('NavbarComponent', () => {
   it('should mark Contact active on the contact page', async () => {
     await TestBed.inject(Router).navigateByUrl('/contact');
     fixture.detectChanges();
-    expect(desktopLinks()[2].classList.contains('active')).toBe(true);
-    expect(mobileLinks()[2].classList.contains('active')).toBe(true);
+    expect(desktopLinks()[5].classList.contains('active')).toBe(true);
+    expect(mobileLinks()[5].classList.contains('active')).toBe(true);
   });
 });

@@ -9,16 +9,15 @@ import { HlmBadgeImports } from '@spartan-ng/helm/badge';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCardImports } from '@spartan-ng/helm/card';
 import { HlmInputImports } from '@spartan-ng/helm/input';
-import { HlmTableImports } from '@spartan-ng/helm/table';
 import { JitsiServerService } from '../../services/jitsi-server.service';
 import { NotificationService } from '../../services/notification.service';
 import { PreviewAccessService } from '../../services/preview-access.service';
 import { DefaultServer } from '../../types/common';
-import { FALLBACK_SERVERS, GOOGLE_PERMISSIONS, HOW_IT_WORKS_STEPS } from './home.content';
+import { FALLBACK_SERVERS, HOW_IT_WORKS_STEPS } from './home.content';
 
 @Component({
   selector: 'app-home',
-  imports: [FormsModule, RouterLink, HlmBadgeImports, HlmButtonImports, HlmCardImports, HlmInputImports, HlmTableImports],
+  imports: [FormsModule, RouterLink, HlmBadgeImports, HlmButtonImports, HlmCardImports, HlmInputImports],
   // Only flag the email input once the user has typed or submitted, not on blur of an empty field
   providers: [provideErrorStateMatcher(ShowOnDirtyErrorStateMatcher)],
   templateUrl: './home.component.html',
@@ -31,7 +30,6 @@ export class HomeComponent implements OnInit {
   private platformId = inject(PLATFORM_ID);
 
   readonly steps = HOW_IT_WORKS_STEPS;
-  readonly permissions = GOOGLE_PERMISSIONS;
 
   email = '';
 

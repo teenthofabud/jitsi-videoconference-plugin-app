@@ -8,9 +8,10 @@ The site is an Angular 21 app that is **pre-rendered to static HTML** at build t
 
 | Route      | Description                                                                 |
 |------------|-----------------------------------------------------------------------------|
-| `/`        | Home: features, how it works, Google OAuth scopes, list of public Jitsi servers |
+| `/`        | Home: features, how it works, list of public Jitsi servers                  |
 | `/install` | How to install for Google Calendar, Microsoft Outlook and Cal.com           |
 | `/contact` | Contact details and the sign-up form for the preview access list            |
+| `/notices` | Your data and permissions: Google OAuth scopes and Cal.com app access       |
 | `/privacy` | Privacy policy (content in `src/assets/data/privacy.json`)                  |
 | `/terms`   | Terms and conditions (content in `src/assets/data/terms.json`)              |
 

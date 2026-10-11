@@ -1,0 +1,121 @@
+<div class="py-20 px-4 sm:px-6 md:px-8 lg:px-12">
+  <div class="w-full max-w-4xl mx-auto">
+    <h1 class="sr-only">Notices</h1>
+
+    <!-- Your Data and Permissions -->
+    <section id="data-access">
+      <h2 class="text-4xl md:text-5xl font-bold text-neutral-900 text-center mb-12">Your Data and Permissions</h2>
+
+      <!-- Google Calendar add-on -->
+      <section id="google-calendar" class="mb-16">
+        <h3 class="flex items-center gap-3 text-2xl font-semibold text-neutral-900 mb-4">
+          <img src="assets/gcalendar.png" alt="" class="w-7 h-7" />
+          Google Calendar add-on: TOAB Jitsi Addon
+        </h3>
+        <p class="text-lg text-neutral-600 mb-6">
+          When you install TOAB Jitsi Plugin for Google Calendar, Google asks you to grant the permissions below.
+          This is what each one is for.
+        </p>
+
+        <ng-container *ngTemplateOutlet="accessTable; context: { heading: 'Permission', rows: googlePermissions, mono: true }" />
+
+        <ul class="space-y-3 text-neutral-600 mb-6">
+          <li class="flex gap-2">
+            <ng-container *ngTemplateOutlet="check" />
+            We only use your calendar data to add and manage Jitsi meetings. We never store the titles, descriptions,
+            times or guests of your events, and we never access your contacts or email.
+          </li>
+          <li class="flex gap-2">
+            <ng-container *ngTemplateOutlet="check" />
+            We never sell your data, share it for advertising, or use it to train AI models.
+          </li>
+          <li class="flex gap-2">
+            <ng-container *ngTemplateOutlet="check" />
+            You can uninstall the plugin and remove its access at any time, and ask us to delete your data.
+          </li>
+        </ul>
+
+        <p class="text-sm text-neutral-500">
+          TOAB Jitsi Plugin's use and transfer of information received from Google APIs to any other app will adhere to
+          the
+          <a href="https://developers.google.com/terms/api-services-user-data-policy" target="_blank"
+            rel="noopener noreferrer" class="text-primary-600 hover:text-primary-700 font-medium">Google API Services User
+            Data Policy</a>,
+          including the Limited Use requirements. For full details, read our
+          <a routerLink="/privacy" class="text-primary-600 hover:text-primary-700 font-medium">Privacy Policy</a>.
+        </p>
+      </section>
+
+      <!-- Cal.com app -->
+      <section id="calcom">
+        <h3 class="flex items-center gap-3 text-2xl font-semibold text-neutral-900 mb-4">
+          <img src="assets/calcom.svg" alt="" class="w-7 h-7" />
+          Cal.com app: toab_jitsi
+        </h3>
+        <p class="text-lg text-neutral-600 mb-6">
+          When you install TOAB Jitsi for Cal.com and add it to an event type, the app gets access to the data below.
+          This is what each item is for.
+        </p>
+
+        <ng-container *ngTemplateOutlet="accessTable; context: { heading: 'Access', rows: calcomAccess }" />
+
+        <ul class="space-y-3 text-neutral-600 mb-6">
+          <li class="flex gap-2">
+            <ng-container *ngTemplateOutlet="check" />
+            We only use your Cal.com data to add and manage Jitsi meetings. We never send our servers your bookings'
+            titles, descriptions, times, attendee names or emails, or booking answers, and we never access your calendars
+            or contacts.
+          </li>
+          <li class="flex gap-2">
+            <ng-container *ngTemplateOutlet="check" />
+            We never sell your data, share it for advertising, or use it to train AI models.
+          </li>
+          <li class="flex gap-2">
+            <ng-container *ngTemplateOutlet="check" />
+            You can uninstall the app and remove its access at any time, and ask us to delete your data.
+          </li>
+        </ul>
+
+        <p class="text-sm text-neutral-500">
+          For full details, read our
+          <a routerLink="/privacy" class="text-primary-600 hover:text-primary-700 font-medium">Privacy Policy</a>.
+        </p>
+      </section>
+    </section>
+  </div>
+</div>
+
+<!-- Table of what an app can access and why, shared by each app's subsection -->
+<ng-template #accessTable let-heading="heading" let-rows="rows" let-mono="mono">
+  <div hlmCard class="mb-6 py-2">
+    <div hlmTableContainer>
+      <table hlmTable class="text-sm md:text-base">
+        <thead hlmTHead>
+          <tr hlmTr>
+            <th hlmTh scope="col" class="px-4 w-2/5">{{ heading }}</th>
+            <th hlmTh scope="col" class="px-4">Why we need it</th>
+          </tr>
+        </thead>
+        <tbody hlmTBody>
+          @for (row of rows; track row.label) {
+          <tr hlmTr>
+            <td hlmTd class="px-4 py-3 align-top whitespace-normal">
+              <span class="block font-medium text-neutral-800">{{ row.label }}</span>
+              <span class="block text-xs text-neutral-500 break-words" [class.font-mono]="mono">{{ row.detail }}</span>
+            </td>
+            <td hlmTd class="px-4 py-3 align-top whitespace-normal text-neutral-600">{{ row.reason }}</td>
+          </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #check>
+  <svg class="w-5 h-5 text-success-500 shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+    <path fill-rule="evenodd"
+      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+      clip-rule="evenodd" />
+  </svg>
+</ng-template>

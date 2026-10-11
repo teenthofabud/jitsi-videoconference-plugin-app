@@ -5,6 +5,7 @@ import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { TermsComponent } from './pages/terms/terms.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { InstallComponent } from './pages/install/install.component';
+import { NoticesComponent } from './pages/notices/notices.component';
 import { SeoData } from './services/seo.service';
 
 export const routes: Routes = [
@@ -57,6 +58,16 @@ export const routes: Routes = [
       seo: {
         title: 'Contact Us | TOAB Jitsi Plugin',
         description: 'Get in touch with the TOAB Jitsi Plugin team for support, feature requests or to revoke your preview access list participation. We respond within 24 hours.',
+      } satisfies SeoData,
+    },
+  },
+  {
+    path: 'notices',
+    component: NoticesComponent,
+    data: {
+      seo: {
+        title: 'Notices | TOAB Jitsi Plugin',
+        description: 'The permissions and data TOAB Jitsi Plugin uses in Google Calendar and Cal.com, and why it needs each one.',
       } satisfies SeoData,
     },
   },
