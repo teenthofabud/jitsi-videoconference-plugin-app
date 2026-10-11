@@ -4,6 +4,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { FormsModule, NgForm } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { catchError, EMPTY } from 'rxjs';
+import { provideErrorStateMatcher, ShowOnDirtyErrorStateMatcher } from '@spartan-ng/brain/forms';
 import { HlmBadgeImports } from '@spartan-ng/helm/badge';
 import { HlmButtonImports } from '@spartan-ng/helm/button';
 import { HlmCardImports } from '@spartan-ng/helm/card';
@@ -18,6 +19,8 @@ import { FALLBACK_SERVERS, GOOGLE_PERMISSIONS, HOW_IT_WORKS_STEPS } from './home
 @Component({
   selector: 'app-home',
   imports: [FormsModule, RouterLink, HlmBadgeImports, HlmButtonImports, HlmCardImports, HlmInputImports, HlmTableImports],
+  // Only flag the email input once the user has typed or submitted, not on blur of an empty field
+  providers: [provideErrorStateMatcher(ShowOnDirtyErrorStateMatcher)],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

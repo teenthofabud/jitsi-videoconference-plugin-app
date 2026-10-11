@@ -120,20 +120,6 @@
             "tsConfig": "tsconfig.spec.json",
             "buildTarget": "toab-jitsi-website:build:dev"
           }
-        },
-        "deploy": {
-          "builder": "@jefiozie/ngx-aws-deploy:deploy",
-          "options": {
-            "bucket": "my-launchpad-app-bucket",
-            "region": "us-east-1",
-            "profile": "default",
-            "deleteRemoved": true,
-            "cache": "max-age=31536000",
-            "noCacheExtensions": [
-              "html",
-              "json"
-            ]
-          }
         }
       }
     }

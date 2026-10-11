@@ -111,6 +111,32 @@ describe('HomeComponent', () => {
   describe('preview signup', () => {
     beforeEach(() => setup('server', of([])));
 
+    it('does not flag the empty email input when it loses focus', async () => {
+      const input = element.querySelector<HTMLInputElement>('input[name="email"]')!;
+      input.dispatchEvent(new Event('blur'));
+      fixture.detectChanges();
+      await fixture.whenStable();
+      expect(input.getAttribute('data-touched')).toBe('true');
+      expect(input.hasAttribute('data-matches-spartan-invalid')).toBe(false);
+    });
+
+    it('flags a malformed email once typed and clears it for a valid one', async () => {
+      const input = element.querySelector<HTMLInputElement>('input[name="email"]')!;
+      const type = async (value: string) => {
+        input.value = value;
+        input.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        await fixture.whenStable();
+        fixture.detectChanges();
+      };
+      for (const bad of ['not-an-email', 'a@b', 'a@b.c', 'a b@c.com']) {
+        await type(bad);
+        expect(input.getAttribute('data-matches-spartan-invalid'), bad).toBe('true');
+      }
+      await type('a@b.co');
+      expect(input.hasAttribute('data-matches-spartan-invalid')).toBe(false);
+    });
+
     it('ignores invalid forms', () => {
       component.onSubmit(form(false));
       expect(api.join).not.toHaveBeenCalled();
