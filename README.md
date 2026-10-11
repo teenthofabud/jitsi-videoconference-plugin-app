@@ -122,7 +122,12 @@ npm test -- --watch=false    # single run, as in CI
 
 ### AWS S3 + Cloudflare (GitHub Actions)
 
-`.github/workflows/deploy.yaml` is triggered manually (`workflow_dispatch`) with two inputs: the environment (`dev` or `live`) and whether to purge the Cloudflare cache. It:
+`.github/workflows/deploy.yaml` runs on every push to `master`, or manually (`workflow_dispatch`) with an option to purge the Cloudflare cache. It has two jobs that run the same steps:
+
+- **Deploy to dev** runs automatically.
+- **Deploy to live** starts after dev succeeds and waits until someone clicks **Review deployments → Approve** on the run page. This needs required reviewers set on the `live` environment (Settings → Environments → live).
+
+Each job:
 
 1. Installs dependencies, runs the unit tests and builds with `--configuration <env>`.
 2. Assumes an AWS IAM role through GitHub OIDC and syncs `dist/toab-jitsi-website/browser` to the environment's bucket:
