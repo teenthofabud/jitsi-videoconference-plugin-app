@@ -7,11 +7,10 @@
 //   and optimized builds load the stylesheet with an inline
 //   onload="this.media='all'" handler after inlining critical CSS. script-src
 //   only allows 'self', so it needs the hash of each or the browser blocks them.
-// - $csp_cdn_origin and $csp_api_origin: the CDN serving the favicon and
-//   images, and the API the app calls, both of which differ per environment.
-//   They're read back from the pre-rendered home page (the favicon link and
-//   SeoService's API preconnect) so src/environments/environment.<env>.ts stays
-//   the single source of truth.
+// - $csp_cdn_origin and $csp_api_origin: the CDN serving the logo, and the API
+//   the app calls, both of which differ per environment. They're read back from
+//   the pre-rendered home page (SeoService's CDN and API preconnects) so
+//   src/environments/environment.<env>.ts stays the single source of truth.
 
 import { createHash } from 'node:crypto';
 import { mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
@@ -67,7 +66,7 @@ function originOf(linkPattern, what) {
   }
   return new URL(href).origin;
 }
-const cdnOrigin = originOf(/<link[^>]*rel="icon"[^>]*href="([^"]+)"/, 'favicon');
+const cdnOrigin = originOf(/<link[^>]*id="cdn-preconnect"[^>]*href="([^"]+)"/, 'CDN preconnect');
 const apiOrigin = originOf(/<link[^>]*id="api-preconnect"[^>]*href="([^"]+)"/, 'API preconnect');
 
 const nginxDir = path.join(distDir, 'nginx');

@@ -25,8 +25,8 @@ describe('NoticesComponent', () => {
   });
 
   it('starts with Your Data and Permissions, with a subsection per app', () => {
-    expect(element.querySelector('h2')?.textContent?.trim()).toBe('Your Data and Permissions');
-    expect(Array.from(element.querySelectorAll('#data-access h3')).map(h => h.textContent?.trim())).toEqual([
+    expect(element.querySelector('h1')?.textContent?.trim()).toBe('Your Data and Permissions');
+    expect(Array.from(element.querySelectorAll('#data-access h2')).map(h => h.textContent?.trim())).toEqual([
       'Google Calendar add-on: TOAB Jitsi Addon',
       'Cal.com app: toab_jitsi',
     ]);

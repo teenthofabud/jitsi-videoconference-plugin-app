@@ -9,6 +9,7 @@ import { TermsComponent } from './pages/terms/terms.component';
 import { InstallComponent } from './pages/install/install.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { NoticesComponent } from './pages/notices/notices.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 describe('App routes', () => {
   let router: Router;
@@ -27,6 +28,8 @@ describe('App routes', () => {
       ['install', InstallComponent],
       ['contact', ContactComponent],
       ['notices', NoticesComponent],
+      ['404', NotFoundComponent],
+      ['**', NotFoundComponent],
     ]);
     for (const route of pages) {
       expect(route.data?.['seo'].title).toMatch(/TOAB Jitsi Plugin/);
@@ -34,9 +37,15 @@ describe('App routes', () => {
     }
   });
 
-  it('redirects /home and unknown paths to the home page', () => {
+  it('redirects /home to the home page', () => {
     expect(router.config.find((route) => route.path === 'home')).toMatchObject({ redirectTo: '', pathMatch: 'full' });
-    expect(router.config.at(-1)).toMatchObject({ path: '**', redirectTo: '' });
+  });
+
+  it('shows the noindex not found page for unknown paths', () => {
+    for (const path of ['404', '**']) {
+      expect(router.config.find((route) => route.path === path)?.data?.['seo'].noindex).toBe(true);
+    }
+    expect(router.config.at(-1)?.path).toBe('**');
   });
 
   it('pre-renders every page and renders unknown paths on the client', () => {
@@ -47,6 +56,7 @@ describe('App routes', () => {
       { path: 'install', renderMode: RenderMode.Prerender },
       { path: 'contact', renderMode: RenderMode.Prerender },
       { path: 'notices', renderMode: RenderMode.Prerender },
+      { path: '404', renderMode: RenderMode.Prerender },
       { path: '**', renderMode: RenderMode.Client },
     ]);
   });

@@ -1,16 +1,15 @@
 name: Deploy Jitsi website to AWS S3
 
+# Every run deploys to dev automatically, then waits for a manual approval
+# before deploying the same commit to live. The "live" GitHub environment must
+# have required reviewers configured (Settings > Environments > live) so the
+# deploy-live job pauses with a "Review deployments" button.
 on:
+  push:
+    branches:
+      - master
   workflow_dispatch:
     inputs:
-      environment:
-        description: "Environment to deploy the website to"
-        required: true
-        type: choice
-        options:
-          - dev
-          - live
-        default: dev
       purge_cache:
         description: "Purge Cloudflare cache"
         required: false
@@ -18,17 +17,21 @@ on:
         default: false
 
 jobs:
-  deploy-website-to-s3:
+  deploy-dev:
+    name: Deploy to dev
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment }}
+    environment: dev
     permissions:
       id-token: write
       contents: read
 
     env:
-      S3_BUCKET_NAME: ${{ vars.AWS_JITSI_S3_BUCKET_NAME_PREFIX }}-${{ inputs.environment }}-${{ secrets.AWS_ACCOUNT_ID}}-${{ vars.AWS_REGION }}-an
+      DEPLOY_ENV: dev
+      S3_BUCKET_NAME: ${{ vars.AWS_JITSI_S3_BUCKET_NAME_PREFIX }}-dev-${{ secrets.AWS_ACCOUNT_ID}}-${{ vars.AWS_REGION }}-an
 
-    steps:
+    # Shared with deploy-live through the YAML alias below; steps read the
+    # target environment from env.DEPLOY_ENV.
+    steps: &deploy-steps
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
@@ -61,13 +64,13 @@ jobs:
       # apiUrl, siteUrl, cdnUrl and indexable all come from the committed
       # src/environments/environment.<env>.ts, the single source of truth for each environment.
       - name: Build website
-        run: npm run build -- --configuration ${{ inputs.environment }}
+        run: npm run build -- --configuration ${{ env.DEPLOY_ENV }}
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v6.1.0
         with:
           aws-region: ${{ vars.AWS_REGION }}
-          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ secrets.AWS_JITSI_S3_DEPLOY_ROLE_NAME }}-${{ inputs.environment }}
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ secrets.AWS_JITSI_S3_DEPLOY_ROLE_NAME }}-${{ env.DEPLOY_ENV }}
 
       - name: Deploy website to S3
         run: |
@@ -142,3 +145,18 @@ jobs:
           curl --fail-with-body -X POST "https://api.indexnow.org/indexnow" \
             -H "Content-Type: application/json; charset=utf-8" \
             --data @indexnow.json
+
+  deploy-live:
+    name: Deploy to live
+    needs: deploy-dev
+    runs-on: ubuntu-latest
+    environment: live
+    permissions:
+      id-token: write
+      contents: read
+
+    env:
+      DEPLOY_ENV: live
+      S3_BUCKET_NAME: ${{ vars.AWS_JITSI_S3_BUCKET_NAME_PREFIX }}-live-${{ secrets.AWS_ACCOUNT_ID}}-${{ vars.AWS_REGION }}-an
+
+    steps: *deploy-steps

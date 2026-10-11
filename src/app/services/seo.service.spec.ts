@@ -36,15 +36,15 @@ describe('SeoService', () => {
     TestBed.inject(SeoService).init();
   });
 
-  it('sets the favicon, API preconnect and structured data on init', () => {
-    const icon = document.head.querySelector('link[rel="icon"]')!;
-    expect(icon.getAttribute('type')).toBe('image/jpeg');
-    expect(icon.getAttribute('href')).toBe(`${cdnUrl}/toab-jitsi-icon-123x120.svg `);
-
+  it('sets the API and CDN preconnects and structured data on init', () => {
     const preconnect = document.head.querySelector('link#api-preconnect')!;
     expect(preconnect.getAttribute('rel')).toBe('preconnect');
     expect(preconnect.hasAttribute('crossorigin')).toBe(true);
     expect(preconnect.getAttribute('href')).toBe(new URL(environment.apiUrl).origin);
+
+    const cdnPreconnect = document.head.querySelector('link#cdn-preconnect')!;
+    expect(cdnPreconnect.getAttribute('rel')).toBe('preconnect');
+    expect(cdnPreconnect.getAttribute('href')).toBe(new URL(environment.cdnUrl).origin);
 
     const script = document.head.querySelector<HTMLScriptElement>('script#structured-data')!;
     expect(script.type).toBe('application/ld+json');
@@ -53,19 +53,29 @@ describe('SeoService', () => {
     expect(data['@graph'][0]).toMatchObject({
       '@id': `${siteUrl}/#organization`,
       name: 'TOAB',
-      legalName: 'Das Software',
+      legalName: 'TOAB SOFTWARE TECHNOLOGIES (OPC) PRIVATE LIMITED',
       url: `${siteUrl}/`,
-      logo: `${cdnUrl}/toab-jitsi-icon-123x120.svg `,
+      logo: `${cdnUrl}/toab-jitsi-icon-512x512.png`,
       email: 'anirban.das@t-online.de',
     });
     expect(data['@graph'][1]).toMatchObject({ name: 'TOAB Jitsi Plugin', publisher: { '@id': `${siteUrl}/#organization` } });
+    expect(data['@graph'][2]).toMatchObject({ image: `${cdnUrl}/toab-jitsi-logo-1200x630.png` });
+    expect(data['@graph'][2].alternateName).toContain('TOAB Jitsi');
+  });
+
+  it('loads the PNG favicon and apple touch icon from the CDN', () => {
+    expect(linkHref('link#icon-png')).toBe(`${cdnUrl}/toab-jitsi-icon-48x48.png`);
+    expect(document.head.querySelector('link#icon-png')!.getAttribute('type')).toBe('image/png');
+    expect(linkHref('link#apple-touch-icon')).toBe(`${cdnUrl}/toab-jitsi-icon-180x180.png`);
+    expect(document.head.querySelector('link#apple-touch-icon')!.getAttribute('rel')).toBe('apple-touch-icon');
   });
 
   it('reuses existing head elements instead of duplicating them', () => {
     TestBed.inject(SeoService).init();
-    expect(document.head.querySelectorAll('link[rel="icon"]').length).toBe(1);
     expect(document.head.querySelectorAll('link#api-preconnect').length).toBe(1);
+    expect(document.head.querySelectorAll('link#cdn-preconnect').length).toBe(1);
     expect(document.head.querySelectorAll('script#structured-data').length).toBe(1);
+    expect(document.head.querySelectorAll('link#icon-png').length).toBe(1);
   });
 
   it('applies the route SEO data on navigation', async () => {
@@ -80,9 +90,11 @@ describe('SeoService', () => {
     expect(meta('property', 'og:url')).toBe(`${siteUrl}/`);
     expect(meta('property', 'og:type')).toBe('website');
     expect(meta('property', 'og:site_name')).toBe('TOAB Jitsi Plugin');
-    expect(meta('property', 'og:image')).toBe(`${cdnUrl}/toab-jitsi-icon-123x120.svg `);
+    expect(meta('property', 'og:image')).toBe(`${cdnUrl}/toab-jitsi-logo-1200x630.png`);
+    expect(meta('property', 'og:image:width')).toBe('1200');
+    expect(meta('property', 'og:image:height')).toBe('630');
     expect(meta('name', 'twitter:card')).toBe('summary_large_image');
-    expect(meta('name', 'twitter:image')).toBe(`${cdnUrl}/toab-jitsi-icon-123x120.svg `);
+    expect(meta('name', 'twitter:image')).toBe(`${cdnUrl}/toab-jitsi-logo-1200x630.png`);
     expect(linkHref('link[rel="canonical"]')).toBe(`${siteUrl}/`);
   });
 
@@ -111,5 +123,13 @@ describe('SeoService', () => {
     await router.navigateByUrl('/hidden');
     expect(meta('name', 'robots')).toBe(expected(true));
     expect(meta('name', 'bingbot')).toBe(expected(true));
+  });
+
+  it('leaves the canonical link out of noindex pages', async () => {
+    await router.navigateByUrl('/');
+    expect(linkHref('link[rel="canonical"]')).toBe(`${siteUrl}/`);
+
+    await router.navigateByUrl('/hidden');
+    expect(document.head.querySelector('link[rel="canonical"]')).toBeNull();
   });
 });

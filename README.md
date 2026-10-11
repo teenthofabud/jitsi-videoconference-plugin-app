@@ -15,7 +15,7 @@ The site is an Angular 21 app that is **pre-rendered to static HTML** at build t
 | `/privacy` | Privacy policy (content in `src/assets/data/privacy.json`)                  |
 | `/terms`   | Terms and conditions (content in `src/assets/data/terms.json`)              |
 
-`/home` redirects to `/`. Any unknown path also redirects to `/`.
+`/home` redirects to `/`. Any unknown path shows a "Page not found" page with a 404 status (`noindex`, left out of the sitemap).
 
 The app calls two backend endpoints on the environment's `apiUrl`:
 
@@ -76,9 +76,9 @@ Every environment-specific value lives in `src/environments/environment.<env>.ts
 | (default) | `environment.ts`         | `http://localhost:4200`     | `http://localhost:8080`        | no        |
 | `local`   | `environment.local.ts`   | `http://localhost:4200`     | same origin                    | no        |
 | `dev`     | `environment.dev.ts`     | `https://jitsi.dpdns.org`   | `https://api.jitsi.dpdns.org`  | no        |
-| `live`    | `environment.live.ts`    | `https://www.toab-jitsi.com`| `https://api.toab-jitsi.com`   | yes       |
+| `live`    | `environment.live.ts`    | `https://toab-jitsi.com`    | `https://api.toab-jitsi.com`   | yes       |
 
-Each environment also sets a `cdnUrl` (the S3 bucket that serves the favicon and images). Only `live` is indexable, so the QA site never competes with production in search results.
+Each environment also sets a `cdnUrl` (the S3 bucket that serves the logo). Only `live` is indexable, so the QA site never competes with production in search results.
 
 ## 🏗️ Build
 
@@ -90,7 +90,7 @@ npm run build:live   # live
 
 Output goes to `dist/toab-jitsi-website/`:
 
-- `browser/`: the static site. It contains `index.html` (home), `<route>/index.html` for each pre-rendered page, and `index.csr.html` (the app shell used for any other path).
+- `browser/`: the static site. It contains `index.html` (home), `<route>/index.html` for each pre-rendered page, `index.csr.html` (the app shell), and `error.html`, a copy of the pre-rendered 404 page served for any unknown path.
 - `nginx/csp-sources.conf`: the build-specific parts of the Content-Security-Policy.
 
 After each build, two post-build scripts run automatically:
@@ -122,13 +122,19 @@ npm test -- --watch=false    # single run, as in CI
 
 ### AWS S3 + Cloudflare (GitHub Actions)
 
-`.github/workflows/deploy.yaml` is triggered manually (`workflow_dispatch`) with two inputs: the environment (`dev` or `live`) and whether to purge the Cloudflare cache. It:
+`.github/workflows/deploy.yaml` runs on every push to `master`, or manually (`workflow_dispatch`) with an option to purge the Cloudflare cache. It has two jobs that run the same steps:
+
+- **Deploy to dev** runs automatically.
+- **Deploy to live** starts after dev succeeds and waits until someone clicks **Review deployments → Approve** on the run page. This needs required reviewers set on the `live` environment (Settings → Environments → live).
+
+Each job:
 
 1. Installs dependencies, runs the unit tests and builds with `--configuration <env>`.
 2. Assumes an AWS IAM role through GitHub OIDC and syncs `dist/toab-jitsi-website/browser` to the environment's bucket:
    - Hashed assets are cached for a year.
    - HTML files are uploaded with `no-cache`.
    - Each pre-rendered route is also uploaded as an extension-less object (`privacy/index.html` → `privacy`), so `/privacy` returns a 200 without a redirect.
+   - `error.html` is the 404 page. Set it as the bucket's error document, and don't rewrite unknown paths to `index.html` in Cloudflare or S3, or they return the home page with a 200.
    - `robots.txt` and `sitemap.xml` are cached for an hour. `sitemap.xml` is removed for non-indexable builds.
 3. Optionally purges the Cloudflare cache. The token and zone ID come from Bitwarden Secrets Manager.
 4. For indexable builds, sends the sitemap URLs to IndexNow (Bing, DuckDuckGo, Yandex and others).
@@ -147,7 +153,7 @@ The image is based on `nginxinc/nginx-unprivileged` and runs as a non-root user.
 - `8080`: plain HTTP that only redirects to HTTPS
 - `8443`: HTTPS
 
-It serves the pre-rendered pages with `try_files $uri $uri/index.html /index.csr.html`, exposes `GET /health`, and sends HSTS, CSP, `X-Frame-Options` and other security headers.
+It serves the pre-rendered pages with `try_files $uri $uri/index.html =404` and `error.html` as the 404 page, exposes `GET /health`, and sends HSTS, CSP, `X-Frame-Options` and other security headers.
 
 The TLS certificate and key are **not** baked into the image. Mount them read-only at `/etc/nginx/tls` as `example.com+5.pem` and `example.com+5-key.pem`:
 
@@ -187,7 +193,7 @@ The site is then at `http://localhost:9000/test/index.html`.
 ### Adding a page
 
 1. Create the component under `src/app/pages/`.
-2. Add a route with a `data.seo` title and description in `src/app/app-routing.module.ts`. Every route with a component is pre-rendered automatically and added to the sitemap.
+2. Add a route with a `data.seo` title and description in `src/app/app-routing.module.ts`. Every route with a component is pre-rendered automatically and added to the sitemap, unless its `seo` data sets `noindex`.
 
 ### Adding UI components
 
