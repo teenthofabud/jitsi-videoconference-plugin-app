@@ -1,9 +1,11 @@
 name: Deploy Jitsi website to AWS S3
 
-# Every run deploys to dev automatically, then waits for a manual approval
-# before deploying the same commit to live. The "live" GitHub environment must
-# have required reviewers configured (Settings > Environments > live) so the
-# deploy-live job pauses with a "Review deployments" button.
+# Every run deploys to dev automatically. Live is never deployed on the first
+# attempt: its job is skipped, and someone promotes the run by clicking
+# "Re-run job" on that skipped "Deploy to live" job. A re-run reuses this run's
+# dev result, so live only runs for the same commit and only if this run's dev
+# deploy succeeded. Retrying dev never deploys live. Only runs on master can be
+# promoted.
 on:
   push:
     branches:
@@ -24,6 +26,9 @@ jobs:
     permissions:
       id-token: write
       contents: read
+    # Lets deploy-live tell whether dev ran in the current attempt.
+    outputs:
+      attempt: ${{ github.run_attempt }}
 
     env:
       DEPLOY_ENV: dev
@@ -146,9 +151,22 @@ jobs:
             -H "Content-Type: application/json; charset=utf-8" \
             --data @indexnow.json
 
+      - name: Show how to promote to live
+        if: ${{ env.DEPLOY_ENV == 'dev' && github.ref == 'refs/heads/master' }}
+        run: |
+          {
+            echo "### Promote to live"
+            echo "Click **Re-run job** on the skipped **Deploy to live** job of this run to deploy commit \`${{ github.sha }}\` to live."
+          } >> "$GITHUB_STEP_SUMMARY"
+
   deploy-live:
     name: Deploy to live
     needs: deploy-dev
+    # Runs only on a re-run of this job alone: deploy-dev must have succeeded in
+    # an earlier attempt of this run (and is implicitly required to succeed).
+    # "Re-run all jobs" or "Re-run failed jobs" re-runs dev in the same attempt,
+    # so live stays skipped and still needs its own click.
+    if: ${{ github.ref == 'refs/heads/master' && fromJSON(needs.deploy-dev.outputs.attempt) < github.run_attempt }}
     runs-on: ubuntu-latest
     environment: live
     permissions:
