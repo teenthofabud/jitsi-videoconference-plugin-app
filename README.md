@@ -125,7 +125,7 @@ npm test -- --watch=false    # single run, as in CI
 `.github/workflows/deploy.yaml` runs on every push to `master`, or manually (`workflow_dispatch`) with an option to purge the Cloudflare cache. It has two jobs that run the same steps:
 
 - **Deploy to dev** runs automatically.
-- **Deploy to live** starts after dev succeeds and waits until someone clicks **Review deployments → Approve** on the run page. This needs required reviewers set on the `live` environment (Settings → Environments → live).
+- **Deploy to live** is skipped on the first attempt. To promote a run, open it and click **Re-run job** on the skipped **Deploy to live** job. The re-run reuses that run's dev result, so live only deploys if dev succeeded in the same run, and only for runs on `master`. Re-running dev (Re-run all / failed jobs) never deploys live; promote afterwards with its own click. Re-running an older run's live job deploys that older commit, which works as a rollback.
 
 Each job:
 
