@@ -8,6 +8,7 @@ import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { TermsComponent } from './pages/terms/terms.component';
 import { InstallComponent } from './pages/install/install.component';
 import { ContactComponent } from './pages/contact/contact.component';
+import { NoticesComponent } from './pages/notices/notices.component';
 
 describe('App routes', () => {
   let router: Router;
@@ -25,6 +26,7 @@ describe('App routes', () => {
       ['terms', TermsComponent],
       ['install', InstallComponent],
       ['contact', ContactComponent],
+      ['notices', NoticesComponent],
     ]);
     for (const route of pages) {
       expect(route.data?.['seo'].title).toMatch(/TOAB Jitsi Plugin/);
@@ -44,6 +46,7 @@ describe('App routes', () => {
       { path: 'terms', renderMode: RenderMode.Prerender },
       { path: 'install', renderMode: RenderMode.Prerender },
       { path: 'contact', renderMode: RenderMode.Prerender },
+      { path: 'notices', renderMode: RenderMode.Prerender },
       { path: '**', renderMode: RenderMode.Client },
     ]);
   });

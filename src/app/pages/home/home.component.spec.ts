@@ -89,23 +89,6 @@ describe('HomeComponent', () => {
       expect(steps).toEqual(['Install the add-on', 'Choose your Jitsi server', 'Create an event', 'Join the meeting']);
       expect(Array.from(element.querySelectorAll('ol > li .rounded-full')).map(n => n.textContent?.trim())).toEqual(['1', '2', '3', '4']);
     });
-
-    it('lists every Google permission with its scope and reason', () => {
-      const rows = Array.from(element.querySelectorAll('tbody tr')).map(tr => [
-        tr.querySelector('span')?.textContent?.trim(),
-        tr.querySelector('code')?.textContent?.trim(),
-        !!tr.querySelectorAll('td')[1]?.textContent?.trim(),
-      ]);
-      expect(rows).toEqual([
-        ['Run as a Google Calendar add-on', 'calendar.addons.execute', true],
-        ['Read the event you have open', 'calendar.addons.current.event.read', true],
-        ['Update the event you have open', 'calendar.addons.current.event.write', true],
-        ['View your calendar events', 'calendar.events.readonly', true],
-        ['See your email address', 'userinfo.email', true],
-        ['Connect to external services', 'script.external_request', true],
-        ['Manage triggers', 'script.scriptapp', true],
-      ]);
-    });
   });
 
   describe('preview signup', () => {
