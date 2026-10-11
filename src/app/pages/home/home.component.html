@@ -22,7 +22,7 @@
         <form #subForm="ngForm" (ngSubmit)="onSubmit(subForm)" class="flex flex-col md:flex-row gap-3 mb-3">
           <div class="flex-1">
             <input type="email" placeholder="Enter your email address" aria-label="Email address" name="email"
-              [(ngModel)]="email" #emailModel="ngModel" required hlmInput class="w-full h-10 text-base" />
+              [(ngModel)]="email" #emailModel="ngModel" required pattern="[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}" hlmInput class="w-full h-10 text-base" />
             @if (emailModel.invalid && subForm.submitted) {
             <p class="text-error-500 text-sm mt-2">Valid email is required.</p>
             }

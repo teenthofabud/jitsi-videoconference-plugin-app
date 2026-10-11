@@ -22,6 +22,7 @@ describe('NavbarComponent', () => {
       providers: [provideRouter([
         { path: '', component: BlankComponent },
         { path: 'install', component: BlankComponent },
+        { path: 'contact', component: BlankComponent },
       ])]
     })
       .compileComponents();
@@ -47,12 +48,12 @@ describe('NavbarComponent', () => {
     const hrefs = Array.from(
       (fixture.nativeElement as HTMLElement).querySelectorAll('.lg\\:flex a[href]')
     ).map(el => el.getAttribute('href'));
-    expect(hrefs).toEqual(['/', '/install', '/privacy', '/terms']);
+    expect(hrefs).toEqual(['/', '/install', '/contact', '/privacy', '/terms']);
   });
 
   it('should render the same items with an icon each in the mobile menu', () => {
     expect(labels(mobileLinks())).toEqual(['Home', 'How to Install', 'Contact', 'Privacy', 'Terms']);
-    expect(mobileLinks().map(el => el.getAttribute('href'))).toEqual(['/', '/install', null, '/privacy', '/terms']);
+    expect(mobileLinks().map(el => el.getAttribute('href'))).toEqual(['/', '/install', '/contact', '/privacy', '/terms']);
     for (const link of [...desktopLinks(), ...mobileLinks()]) {
       expect(link.querySelector('svg path')?.getAttribute('d')).toBeTruthy();
     }
@@ -62,8 +63,6 @@ describe('NavbarComponent', () => {
     expect(desktopLinks()[0].className).toContain('gap-2');
     expect(mobileLinks()[0].className).toContain('gap-3');
     expect(mobileLinks()[0].className).toContain('px-4 py-3');
-    expect(desktopLinks()[2].className).toContain('cursor-pointer');
-    expect(mobileLinks()[2].className).toContain('cursor-pointer');
   });
 
   it('should render the logo from the CDN', () => {
@@ -111,20 +110,10 @@ describe('NavbarComponent', () => {
     expect(component.mobileMenuOpen).toBe(false);
   });
 
-  it('should scroll to the contact section from both menus', () => {
-    const section = document.createElement('div');
-    section.id = 'contact-section';
-    section.scrollIntoView = vi.fn();
-    document.body.appendChild(section);
-
-    desktopLinks()[2].click();
-    expect(section.scrollIntoView).toHaveBeenCalledWith({ behavior: 'smooth', block: 'start' });
-
-    component.toggleMobileMenu();
-    mobileLinks()[2].click();
-    expect(section.scrollIntoView).toHaveBeenCalledTimes(2);
-    expect(component.mobileMenuOpen).toBe(false);
-
-    section.remove();
+  it('should mark Contact active on the contact page', async () => {
+    await TestBed.inject(Router).navigateByUrl('/contact');
+    fixture.detectChanges();
+    expect(desktopLinks()[2].classList.contains('active')).toBe(true);
+    expect(mobileLinks()[2].classList.contains('active')).toBe(true);
   });
 });

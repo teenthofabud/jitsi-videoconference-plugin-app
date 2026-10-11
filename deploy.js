@@ -9,7 +9,7 @@ const mime = require('mime-types');
 const args = process.argv.slice(2);
 const config = {
   bucket: 'test',
-  localPath: 'dist/launch-pad/browser',
+  localPath: 'dist/toab-jitsi-website/browser',
   endpoint: null,
   delete: true
 };

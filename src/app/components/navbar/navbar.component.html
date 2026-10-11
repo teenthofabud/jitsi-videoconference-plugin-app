@@ -43,18 +43,12 @@
 <!-- Menu items, shared by the desktop and mobile menus, which differ only in link styling -->
 <ng-template #menuLinks let-linkClass>
     @for (item of items; track item.label) {
-        @if (item.route) {
-            <a [routerLink]="item.route" routerLinkActive="active"
-               [routerLinkActiveOptions]="{ exact: !!item.exact }"
-               (click)="closeMobileMenu()"
-               [class]="linkClass">
-                <ng-container *ngTemplateOutlet="linkContent; context: { $implicit: item }" />
-            </a>
-        } @else {
-            <a (click)="scrollToContact()" [class]="linkClass + ' cursor-pointer'">
-                <ng-container *ngTemplateOutlet="linkContent; context: { $implicit: item }" />
-            </a>
-        }
+        <a [routerLink]="item.route" routerLinkActive="active"
+           [routerLinkActiveOptions]="{ exact: !!item.exact }"
+           (click)="closeMobileMenu()"
+           [class]="linkClass">
+            <ng-container *ngTemplateOutlet="linkContent; context: { $implicit: item }" />
+        </a>
     }
 </ng-template>
 
