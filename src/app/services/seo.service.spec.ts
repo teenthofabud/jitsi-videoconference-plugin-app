@@ -53,7 +53,7 @@ describe('SeoService', () => {
     expect(data['@graph'][0]).toMatchObject({
       '@id': `${siteUrl}/#organization`,
       name: 'TOAB',
-      legalName: 'Das Software',
+      legalName: 'TOAB SOFTWARE TECHNOLOGIES (OPC) PRIVATE LIMITED',
       url: `${siteUrl}/`,
       logo: `${cdnUrl}/toab-jitsi-icon-512x512.png`,
       email: 'anirban.das@t-online.de',

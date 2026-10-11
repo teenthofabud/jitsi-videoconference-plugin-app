@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 
+import { environment } from '../../../environments/environment';
 import { TermsComponent } from './terms.component';
 
 describe('TermsComponent', () => {
@@ -28,6 +29,12 @@ describe('TermsComponent', () => {
   it('renders the title and last updated date', () => {
     expect(element.querySelector('h1')?.textContent?.trim()).toBe('Terms and Conditions');
     expect(element.textContent).toContain('Last updated: October 10, 2026');
+  });
+
+  it('names the registered company and the site host from the environment', () => {
+    expect(element.textContent).toContain('We are TOAB SOFTWARE TECHNOLOGIES (OPC) PRIVATE LIMITED, doing business as TOAB');
+    expect(element.textContent).toContain(`We operate the website ${new URL(environment.siteUrl).host}`);
+    expect(element.textContent).not.toContain('Das Software');
   });
 
   it('renders all sections inside a card, separated by separators', () => {

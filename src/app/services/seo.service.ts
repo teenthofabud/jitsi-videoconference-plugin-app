@@ -187,7 +187,7 @@ function structuredData() {
         '@type': 'Organization',
         '@id': organizationId,
         name: 'TOAB',
-        legalName: 'Das Software',
+        legalName: SITE.legalName,
         url: `${SITE.url}/`,
         logo: LOGO,
         email: SITE.contactEmail,
