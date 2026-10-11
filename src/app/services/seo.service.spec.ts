@@ -9,6 +9,7 @@ import { SeoService } from './seo.service';
 class BlankComponent { }
 
 const siteUrl = environment.siteUrl.replace(/\/$/, '');
+const cdnUrl = environment.cdnUrl.replace(/\/$/, '');
 
 describe('SeoService', () => {
   let document: Document;
@@ -54,12 +55,19 @@ describe('SeoService', () => {
       name: 'TOAB',
       legalName: 'Das Software',
       url: `${siteUrl}/`,
-      logo: `${siteUrl}/assets/icon-512.png`,
+      logo: `${cdnUrl}/toab-jitsi-icon-512x512.png`,
       email: 'anirban.das@t-online.de',
     });
     expect(data['@graph'][1]).toMatchObject({ name: 'TOAB Jitsi Plugin', publisher: { '@id': `${siteUrl}/#organization` } });
-    expect(data['@graph'][2]).toMatchObject({ image: `${siteUrl}/assets/og-image.png` });
+    expect(data['@graph'][2]).toMatchObject({ image: `${cdnUrl}/toab-jitsi-logo-1200x630.png` });
     expect(data['@graph'][2].alternateName).toContain('TOAB Jitsi');
+  });
+
+  it('loads the PNG favicon and apple touch icon from the CDN', () => {
+    expect(linkHref('link#icon-png')).toBe(`${cdnUrl}/toab-jitsi-icon-48x48.png`);
+    expect(document.head.querySelector('link#icon-png')!.getAttribute('type')).toBe('image/png');
+    expect(linkHref('link#apple-touch-icon')).toBe(`${cdnUrl}/toab-jitsi-icon-180x180.png`);
+    expect(document.head.querySelector('link#apple-touch-icon')!.getAttribute('rel')).toBe('apple-touch-icon');
   });
 
   it('reuses existing head elements instead of duplicating them', () => {
@@ -67,6 +75,7 @@ describe('SeoService', () => {
     expect(document.head.querySelectorAll('link#api-preconnect').length).toBe(1);
     expect(document.head.querySelectorAll('link#cdn-preconnect').length).toBe(1);
     expect(document.head.querySelectorAll('script#structured-data').length).toBe(1);
+    expect(document.head.querySelectorAll('link#icon-png').length).toBe(1);
   });
 
   it('applies the route SEO data on navigation', async () => {
@@ -81,11 +90,11 @@ describe('SeoService', () => {
     expect(meta('property', 'og:url')).toBe(`${siteUrl}/`);
     expect(meta('property', 'og:type')).toBe('website');
     expect(meta('property', 'og:site_name')).toBe('TOAB Jitsi Plugin');
-    expect(meta('property', 'og:image')).toBe(`${siteUrl}/assets/og-image.png`);
+    expect(meta('property', 'og:image')).toBe(`${cdnUrl}/toab-jitsi-logo-1200x630.png`);
     expect(meta('property', 'og:image:width')).toBe('1200');
     expect(meta('property', 'og:image:height')).toBe('630');
     expect(meta('name', 'twitter:card')).toBe('summary_large_image');
-    expect(meta('name', 'twitter:image')).toBe(`${siteUrl}/assets/og-image.png`);
+    expect(meta('name', 'twitter:image')).toBe(`${cdnUrl}/toab-jitsi-logo-1200x630.png`);
     expect(linkHref('link[rel="canonical"]')).toBe(`${siteUrl}/`);
   });
 

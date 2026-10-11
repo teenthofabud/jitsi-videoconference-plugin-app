@@ -5,15 +5,14 @@ import { filter } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { SITE } from '../config/site';
 
-// Raster images served from the site itself: Bing, social networks and chat apps
-// don't render SVG previews, and same-host images are crawled with the page.
+// Raster images, since Bing, social networks and chat apps don't render SVG previews
 const SOCIAL_IMAGE = {
-  url: `${SITE.url}/assets/og-image.png`,
+  url: SITE.cdnAsset('toab-jitsi-logo-1200x630.png'),
   width: 1200,
   height: 630,
   alt: `${SITE.name} logo: Jitsi Meet video conferencing for your calendar`,
 };
-const LOGO = `${SITE.url}/assets/icon-512.png`;
+const LOGO = SITE.cdnAsset('toab-jitsi-icon-512x512.png');
 
 export interface SeoData {
   title?: string;
@@ -28,8 +27,8 @@ export interface SeoData {
  *
  * URLs, the CDN and indexability come from the build's environment file, so QA
  * builds point at the QA domain and CDN and are marked noindex while live builds
- * are indexable. The API and CDN preconnects are set here too, since index.html
- * can't vary by environment.
+ * are indexable. The API and CDN preconnects, the PNG favicon and the touch icon
+ * are set here too, since index.html can't vary by environment.
  */
 @Injectable({ providedIn: 'root' })
 export class SeoService {
@@ -42,6 +41,7 @@ export class SeoService {
   init() {
     this.setApiPreconnect();
     this.setCdnPreconnect();
+    this.setIcons();
     this.setStructuredData();
     this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
@@ -120,6 +120,22 @@ export class SeoService {
       link.id = 'cdn-preconnect';
       link.setAttribute('rel', 'preconnect');
     }).setAttribute('href', new URL(SITE.cdnUrl).origin);
+  }
+
+  private setIcons() {
+    const icons = [
+      { id: 'icon-png', rel: 'icon', href: SITE.cdnAsset('toab-jitsi-icon-48x48.png'), sizes: '48x48', type: 'image/png' },
+      { id: 'apple-touch-icon', rel: 'apple-touch-icon', href: SITE.cdnAsset('toab-jitsi-icon-180x180.png') },
+    ];
+    for (const { id, rel, href, sizes, type } of icons) {
+      const link = this.headElement(`link#${id}`, 'link', (link) => {
+        link.id = id;
+        link.setAttribute('rel', rel);
+        if (sizes) link.setAttribute('sizes', sizes);
+        if (type) link.setAttribute('type', type);
+      });
+      link.setAttribute('href', href);
+    }
   }
 
   private setStructuredData() {
