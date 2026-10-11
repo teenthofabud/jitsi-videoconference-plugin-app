@@ -115,4 +115,12 @@ describe('SeoService', () => {
     expect(meta('name', 'robots')).toBe(expected(true));
     expect(meta('name', 'bingbot')).toBe(expected(true));
   });
+
+  it('leaves the canonical link out of noindex pages', async () => {
+    await router.navigateByUrl('/');
+    expect(linkHref('link[rel="canonical"]')).toBe(`${siteUrl}/`);
+
+    await router.navigateByUrl('/hidden');
+    expect(document.head.querySelector('link[rel="canonical"]')).toBeNull();
+  });
 });

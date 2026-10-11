@@ -87,8 +87,14 @@ export class SeoService {
     this.meta.updateTag({ name: 'twitter:image', content: SOCIAL_IMAGE.url });
     this.meta.updateTag({ name: 'twitter:image:alt', content: SOCIAL_IMAGE.alt });
 
-    this.headElement('link[rel="canonical"]', 'link', (link) => link.setAttribute('rel', 'canonical'))
-      .setAttribute('href', canonical);
+    // A canonical URL on a noindex page (like the 404 page) sends search
+    // engines conflicting signals, so it's left out there
+    if (seo.noindex) {
+      this.document.head.querySelector('link[rel="canonical"]')?.remove();
+    } else {
+      this.headElement('link[rel="canonical"]', 'link', (link) => link.setAttribute('rel', 'canonical'))
+        .setAttribute('href', canonical);
+    }
   }
 
   // Opens the connection to the API while the page loads, ahead of the first

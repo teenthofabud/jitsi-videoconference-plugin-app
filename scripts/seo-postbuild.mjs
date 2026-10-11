@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 // Generates robots.txt, sitemap.xml and the IndexNow key file for the build
-// that was just produced. The site URL and indexability are read back from the
+// that was just produced, and publishes the pre-rendered 404 page as error.html,
+// the page the hosting serves with a 404 status for unknown paths. The site URL and indexability are read back from the
 // pre-rendered home page, so src/environments/environment.<env>.ts stays the
 // single source of truth and QA builds never advertise themselves to crawlers.
 
 import { execFileSync } from 'node:child_process';
-import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { copyFileSync, existsSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 
 // IndexNow keys are public by design: search engines verify ownership by
@@ -24,6 +25,12 @@ if (!canonical) {
 const siteUrl = new URL(canonical).origin;
 const indexable = !robotsMeta.includes('noindex');
 
+copyFileSync(path.join(browserDir, '404', 'index.html'), path.join(browserDir, 'error.html'));
+
+// Pre-rendered page file for a route, e.g. /privacy -> privacy/index.html
+const pageFile = (route) => path.join(browserDir, route.slice(1), 'index.html');
+const isNoindex = (route) => /<meta name="robots" content="[^"]*noindex/.test(readFileSync(pageFile(route), 'utf8'));
+
 // Last commit date of a page's sources, so lastmod only moves when content does
 function lastModified(route) {
   const page = route === '/' ? 'home' : route.slice(1);
@@ -37,7 +44,8 @@ function lastModified(route) {
 }
 
 if (indexable) {
-  const routes = Object.keys(JSON.parse(readFileSync(path.join(distDir, 'prerendered-routes.json'), 'utf8')).routes);
+  const routes = Object.keys(JSON.parse(readFileSync(path.join(distDir, 'prerendered-routes.json'), 'utf8')).routes)
+    .filter((route) => !isNoindex(route));
   const urls = routes.map((route) => {
     const lastmod = lastModified(route);
     return [

@@ -6,8 +6,15 @@ import { TermsComponent } from './pages/terms/terms.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { InstallComponent } from './pages/install/install.component';
 import { NoticesComponent } from './pages/notices/notices.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { SeoData } from './services/seo.service';
 import { SITE } from './config/site';
+
+const notFoundSeo: SeoData = {
+  title: 'Page Not Found | TOAB Jitsi Plugin',
+  description: "The page you're looking for doesn't exist or has moved.",
+  noindex: true,
+};
 
 export const routes: Routes = [
   {
@@ -72,7 +79,11 @@ export const routes: Routes = [
       } satisfies SeoData,
     },
   },
-  { path: '**', redirectTo: '' }, // Wildcard route for 404 page
+  // Pre-rendered and published as the hosting's error page (error.html), which is
+  // served with a 404 status for any unknown path
+  { path: '404', component: NotFoundComponent, data: { seo: notFoundSeo } },
+  // Unknown paths reached by in-app navigation, or after error.html boots the app
+  { path: '**', component: NotFoundComponent, data: { seo: notFoundSeo } },
 ];
 
 @NgModule({

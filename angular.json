@@ -27,11 +27,6 @@
                 "glob": "favicon.ico",
                 "input": "src",
                 "output": "."
-              },
-              {
-                "glob": "error.html",
-                "input": "src",
-                "output": "."
               }
             ],
             "styles": [
