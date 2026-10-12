@@ -1,6 +1,6 @@
 {
   "title": "Privacy Policy",
-  "lastUpdated": "October 12, 2026",
+  "lastUpdated": "October 13, 2026",
   "sections": [
     {
       "title": "1. Information We Collect",
@@ -36,7 +36,9 @@
       "title": "3. How We Use, Share, Protect, and Retain Google User Data",
       "items": [
         "How we use it: we use Google user data only to provide and improve the user-facing features of TOAB Jitsi Plugin that you asked for: adding a Jitsi meeting link to your calendar events, updating it when you change the Jitsi server, and marking the meeting as active or cancelled when you save or cancel the event. We do not use it for any other purpose.",
-        "How we share it: we do not transfer, disclose, or share Google user data with third parties, except (a) to the service providers described in section 8 that we need in order to operate the Services, and only to the extent they need it to do so, (b) with your consent, (c) where needed for security or to investigate misuse, or (d) where required by law. We do not transfer or disclose it for any other purpose.",
+        "Who we share Google user data with: we share it with one third party, Amazon Web Services (AWS), our hosting and database provider. AWS receives and stores your Google account email address and the IDs and status of your calendar events on our behalf, so that our backend service can run. AWS acts only as our service provider and may not use this data for its own purposes.",
+        "Who we do not share it with: we do not share Google user data with Auth0 (it authenticates our add-on and receives no information about you), with the Jitsi servers you select (they receive only a meeting link), with advertisers, data brokers, or any other third party.",
+        "Other disclosures: beyond the providers above, we disclose Google user data only (a) with your consent, (b) where needed for security or to investigate misuse, or (c) where required by law, a court order, or a government request. We do not transfer or disclose it for any other purpose.",
         "We do not use or transfer Google user data for targeted, personalized, retargeted, or interest-based advertising, or for any other advertisements shown to users.",
         "We do not sell Google user data, and we do not provide it to data brokers or information resellers.",
         "We do not use or transfer Google user data to determine credit-worthiness or for lending purposes.",
