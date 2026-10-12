@@ -1,6 +1,6 @@
 {
   "title": "Privacy Policy",
-  "lastUpdated": "October 10, 2026",
+  "lastUpdated": "October 12, 2026",
   "sections": [
     {
       "title": "1. Information We Collect",
@@ -18,6 +18,7 @@
       "title": "2. Google Calendar and Google Account Data",
       "items": [
         "TOAB Jitsi Plugin for Google Calendar is a Google Calendar add-on. When you install it, Google asks you to grant the permissions below. We use each one only for the purpose described.",
+        "Google user data we access: your Google account email address; the IDs, status, and conference details of the calendar events you open or save with TOAB Jitsi; and the IDs and status of your recently changed calendar events. We do not access your contacts, files, email messages, or any other Google data, and we do not store event titles, descriptions, times, locations, or guest lists.",
         "Run as a Google Calendar add-on (calendar.addons.execute): to show TOAB Jitsi as a conferencing option and to display the TOAB Jitsi panel in your calendar events.",
         "Read the event you have open (calendar.addons.current.event.read): to check whether TOAB Jitsi is the selected conferencing option and to get the event's ID.",
         "Update the event you have open (calendar.addons.current.event.write): to add the Jitsi meeting link to the event's conference details, and to replace it when you choose a different Jitsi server.",
@@ -26,13 +27,27 @@
         "Connect to external services (script.external_request): to communicate with our backend service, which creates meetings, provides the list of Jitsi servers you can choose from, and records meeting status.",
         "Manage triggers (script.scriptapp): to create a trigger in your Google account that runs the event check described above whenever your calendar events change.",
         "The add-on stores a small amount of data in your Google account's Apps Script storage: your TOAB Jitsi Plugin user ID, a calendar sync token, and the Jitsi server you selected for each event.",
-        "We do not sell Google user data, use it for advertising, or use it to train artificial intelligence or machine learning models. We do not allow humans to read Google user data, except with your permission, to investigate a security issue or misuse, or to comply with the law.",
+        "We do not sell Google user data, use it for advertising, or use it to train artificial intelligence or machine learning models. We do not allow humans to read Google user data, except with your permission, to investigate a security issue or misuse, or to comply with the law. More detail on how we use, share, protect, and retain Google user data is in section 3.",
         "TOAB Jitsi Plugin's use and transfer of information received from Google APIs to any other app will adhere to the Google API Services User Data Policy (https://developers.google.com/terms/api-services-user-data-policy), including the Limited Use requirements.",
         "You can remove TOAB Jitsi Plugin's access at any time from your Google Account permissions page (https://myaccount.google.com/permissions)."
       ]
     },
     {
-      "title": "3. Cal.com and Cal.com Account Data",
+      "title": "3. How We Use, Share, Protect, and Retain Google User Data",
+      "items": [
+        "How we use it: we use Google user data only to provide and improve the user-facing features of TOAB Jitsi Plugin that you asked for: adding a Jitsi meeting link to your calendar events, updating it when you change the Jitsi server, and marking the meeting as active or cancelled when you save or cancel the event. We do not use it for any other purpose.",
+        "How we share it: we do not transfer, disclose, or share Google user data with third parties, except (a) to the service providers described in section 8 that we need in order to operate the Services, and only to the extent they need it to do so, (b) with your consent, (c) where needed for security or to investigate misuse, or (d) where required by law. We do not transfer or disclose it for any other purpose.",
+        "We do not use or transfer Google user data for targeted, personalized, retargeted, or interest-based advertising, or for any other advertisements shown to users.",
+        "We do not sell Google user data, and we do not provide it to data brokers or information resellers.",
+        "We do not use or transfer Google user data to determine credit-worthiness or for lending purposes.",
+        "We do not use Google user data to create databases unrelated to the user-facing features of the Services, and we do not use it to train generalized, non-personalized, or any other artificial intelligence or machine learning models.",
+        "How we protect it: we transmit Google user data between the add-on and our backend service over encrypted HTTPS/TLS connections, and our backend connects to its database over an SSL-encrypted connection. We authenticate the add-on to our backend service with Auth0, minimize the data we receive and store (event IDs and status only, never event content), give the backend's database account only the permissions it needs, and restrict access to authorized personnel and systems that need it to operate or support the Services.",
+        "How long we keep it: we keep the Google user data we store (your account email address, user ID, calendar ID, event IDs, selected Jitsi server, room ID, and meeting status) only while you use the Services, or longer only where required by law. The data the add-on stores in your own Google account (user ID, sync token, and per-event Jitsi server) stays in your Google account until you remove the add-on or its data.",
+        "How you delete it: you can revoke TOAB Jitsi Plugin's access at any time at https://myaccount.google.com/permissions, which stops us from accessing your Google data. To have the data we hold deleted, email us at the address in the Contact Us section from the email address of your account. We will delete it, and the data we receive from Google will be deleted or destroyed, once it is no longer needed for the purposes above or when you ask us to, except where we must keep it to comply with legal obligations."
+      ]
+    },
+    {
+      "title": "4. Cal.com and Cal.com Account Data",
       "items": [
         "TOAB Jitsi Plugin for Cal.com is installed as a Cal.com app and does not use Cal.com OAuth permissions.",
         "When you set up an event type with TOAB Jitsi, the app sends the organizer's Cal.com email address to our backend service to find the matching TOAB Jitsi Plugin account and load the list of Jitsi servers you can choose from.",
@@ -42,7 +57,7 @@
       ]
     },
     {
-      "title": "4. How We Use Your Information",
+      "title": "5. How We Use Your Information",
       "items": [
         "To create Jitsi meetings for your calendar events and Cal.com bookings, and to update or cancel them when the event changes.",
         "To link your settings, such as your chosen Jitsi server, to the correct account.",
@@ -54,16 +69,17 @@
       ]
     },
     {
-      "title": "5. Data Security",
+      "title": "6. Data Security",
       "items": [
         "We implement appropriate technical and organizational security measures to protect personal information and configuration data.",
+        "We encrypt data in transit between our add-ons, website, and backend service using HTTPS/TLS.",
         "Access to user data is restricted to authorized personnel and systems that require access to operate or support the Services.",
         "We use reasonable safeguards to protect data against unauthorized access, alteration, disclosure, or destruction.",
         "However, no method of transmission over the Internet or electronic storage is 100% secure."
       ]
     },
     {
-      "title": "6. Cookies and Tracking",
+      "title": "7. Cookies and Tracking",
       "items": [
         "We may use cookies or similar technologies to maintain sessions, improve user experience, and understand usage of the Services.",
         "You can instruct your browser to refuse cookies or notify you when cookies are being sent.",
@@ -71,26 +87,28 @@
       ]
     },
     {
-      "title": "7. Third-Party Services",
+      "title": "8. Third-Party Services",
       "items": [
-        "Google: the Google Calendar add-on runs on Google Apps Script. Its diagnostic logs are stored in Google Cloud Logging and may include details of the calendar events it processes. We use these logs only to diagnose problems.",
+        "Google: the Google Calendar add-on runs on Google Apps Script. Its diagnostic logs are stored in Google Cloud Logging and contain technical information such as event IDs and error messages, not event titles, descriptions, or guest lists. We use these logs only to diagnose problems.",
         "Cal.com: the Cal.com app runs inside Cal.com. Your use of Cal.com is subject to Cal.com's own terms and privacy policy.",
         "Auth0: we use Auth0 to authenticate our add-ons to our backend service. No personal data about you is sent to Auth0.",
+        "Amazon Web Services (AWS): our backend service runs on AWS, where it processes the data described in this policy on our behalf and stores it in a managed PostgreSQL database. AWS acts only as our service provider and may not use the data for its own purposes. Our backend's technical logs, which may contain your user ID and event IDs, are kept in AWS logging.",
         "Jitsi servers: meetings take place on the Jitsi server you select. Public Jitsi servers are operated by third parties, who are responsible for how they handle meeting data under their own privacy policies. We do not send your personal data to Jitsi servers; we only generate the meeting link.",
         "This website may contain links to third-party websites. We are not responsible for their content or privacy practices."
       ]
     },
     {
-      "title": "8. Data Retention",
+      "title": "9. Data Retention",
       "items": [
         "We keep your account information and meeting information for as long as you use the Services.",
         "When you ask us to delete your data, we delete your account information and meeting information, except where we must keep it to meet legal obligations.",
         "To delete your data, contact us using the details below. Removing the add-on's access in your Google Account stops it from accessing your calendar.",
-        "We keep preview access list email addresses until you ask us to remove them or the preview ends."
+        "We keep preview access list email addresses until you ask us to remove them or the preview ends.",
+        "Diagnostic logs are kept according to the retention settings of the logging service that holds them (Google Cloud Logging for the add-on, AWS logging for our backend) and are then deleted automatically."
       ]
     },
     {
-      "title": "9. Your Rights",
+      "title": "10. Your Rights",
       "items": [
         "You may request access to the personal data we hold about you.",
         "You may request correction of inaccurate or incomplete information.",
@@ -100,7 +118,7 @@
       ]
     },
     {
-      "title": "10. Changes to This Policy",
+      "title": "11. Changes to This Policy",
       "items": [
         "We may update this Privacy Policy from time to time.",
         "We will notify users of material changes by updating this page or through the Services where appropriate.",
@@ -108,7 +126,7 @@
       ]
     },
     {
-      "title": "11. Contact Us",
+      "title": "12. Contact Us",
       "items": [
         "If you have any questions about this Privacy Policy, please contact us.",
         "Email: anirban.das@t-online.de",
